@@ -2,28 +2,40 @@ package org.sturtevantauto.main;
 
 import java.awt.AWTException;
 import java.awt.EventQueue;
+import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
 import org.sturtevantauto.gui.MainGUI;
 import org.sturtevantauto.io.CarDefinitions;
 import org.sturtevantauto.io.ImageInterface;
+import org.sturtevantauto.io.Logger;
+import org.sturtevantauto.io.MakeModelInterface;
 
+@SuppressWarnings("unused")
 public class Main {
 	
-    public static void main(String[] args) throws IOException, AWTException 
+    public static void main(String[] args) throws IOException, AWTException, ClassNotFoundException, SQLException 
     {
-    	CarDefinitions.setMake(null);
-        ImageInterface.findFile(CarDefinitions.getPictureLocation());
-        //Scanner scan = new Scanner(System.in);
+        @SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
         EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainGUI window = new MainGUI();
-					window.frmImageSorter.setVisible(true);
+					//MainGUI window = new MainGUI();
+					//window.frmImageSorter.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+        while(true)
+        {
+        	CarDefinitions.setMake(null);
+            ImageInterface.findFile(CarDefinitions.getPictureLocation());
         if(CarDefinitions.getStock() == null)
         {
         	/*
@@ -68,8 +80,8 @@ public class Main {
         	System.err.println("All cars sorted! Terminating.");
         	System.exit(0);
         }
-        /*
-        //CarDefinitions.TrimStock();
+        
+        CarDefinitions.TrimStock();
         if(Logger.CheckIfCarIndexed(CarDefinitions.getStock()))
         {
         	String[] options = new String[2];
@@ -119,8 +131,6 @@ public class Main {
         //System.out.println("Logging car in index of done cars...");
         Logger.LogCar(CarDefinitions.getStock());
     	}
+    }
     	}
-    	*/
-    }
-    }
 

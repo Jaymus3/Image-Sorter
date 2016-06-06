@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class MainGUI {
 
@@ -44,7 +45,7 @@ public class MainGUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		CarDefinitions.TrimStock();
+		//CarDefinitions.TrimStock();
 		frmImageSorter = new JFrame();
 		frmImageSorter.setResizable(false);
 		frmImageSorter.setTitle("Image Sorter");
@@ -70,6 +71,12 @@ public class MainGUI {
 						txtpnTestTestTest.setText("Make/Model association set!  Click the sort button to sort this car.");
 					} catch (IOException e) {
 						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 				else
@@ -90,6 +97,12 @@ public class MainGUI {
 		        try {
 					MakeModelInterface.CheckMakeModelIndex(CarDefinitions.getModel());
 				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 		        if(!MakeModelInterface.foundmake)
@@ -216,6 +229,12 @@ public class MainGUI {
 				} catch (HeadlessException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
