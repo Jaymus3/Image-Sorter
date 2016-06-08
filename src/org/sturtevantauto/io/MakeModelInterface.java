@@ -19,9 +19,10 @@ public class MakeModelInterface {
 	    {
 	    	String make = rs.getString("Make");
 	    	String modelsql = rs.getString("Model");
-	    	if(modelsql == model)
+	    	if(modelsql.equals(model))
 	    	{
 	    		CarDefinitions.setMake(make);
+	    		System.out.println("It's a " + CarDefinitions.getMake());
 	    		foundmake = true;
 	    	}
 	    }
