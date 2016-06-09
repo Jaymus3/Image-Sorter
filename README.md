@@ -21,6 +21,5 @@ See something that could use improvement?  Great!  Just fork the repo, make your
 
 
 
-[//] References
    [Mysq]: <https://www.mysql.com/products/connector/>
    [Ecl]: <https://eclipse.org/>
