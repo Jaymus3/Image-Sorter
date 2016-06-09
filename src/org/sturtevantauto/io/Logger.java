@@ -22,7 +22,7 @@ public class Logger {
 	    while(rs.next())
 	    {
 	         String stocksql = rs.getString("StockNumber");
-	         if(stocksql == stock)
+	         if(stocksql.equals(stock))
 	         {
 	        	 System.err.println("Car already indexed!");
 	        	 thebool = true;

@@ -38,45 +38,6 @@ public class Main {
             ImageInterface.findFile(CarDefinitions.getPictureLocation());
         if(CarDefinitions.getStock() == null)
         {
-        	/*
-        	Robot r = new Robot();
-        	r.delay(2000);
-        	r.keyPress(KeyEvent.VK_ENTER);
-        	r.keyRelease(KeyEvent.VK_ENTER);
-        	r.delay(3500);
-        	System.out.println(MouseInfo.getPointerInfo().getLocation());
-        	r.mouseMove(461, 677);
-        	r.delay(100);
-        	r.mousePress(InputEvent.BUTTON1_MASK);
-        	r.mouseRelease(InputEvent.BUTTON1_MASK);
-        	r.delay(300);
-        	r.keyPress(KeyEvent.VK_DOWN);
-        	r.keyRelease(KeyEvent.VK_DOWN);
-        	r.delay(100);
-        	r.keyPress(KeyEvent.VK_DOWN);
-        	r.keyRelease(KeyEvent.VK_DOWN);
-        	r.delay(100);
-        	r.mouseMove(645, 493);
-        	r.delay(100);
-        	r.mousePress(InputEvent.BUTTON1_MASK);
-        	r.mouseRelease(InputEvent.BUTTON1_MASK);
-        	r.delay(500);
-        	r.keyPress(KeyEvent.VK_T);
-        	r.keyRelease(KeyEvent.VK_T);
-        	r.delay(100);
-        	r.keyPress(KeyEvent.VK_E);
-        	r.keyRelease(KeyEvent.VK_E);
-        	r.delay(100);
-        	r.keyPress(KeyEvent.VK_S);
-        	r.keyRelease(KeyEvent.VK_S);
-        	r.delay(100);
-        	r.keyPress(KeyEvent.VK_T);
-        	r.keyRelease(KeyEvent.VK_T);
-        	r.delay(100);
-        	r.keyPress(KeyEvent.VK_ENTER);
-        	r.keyRelease(KeyEvent.VK_ENTER);
-        	System.out.println(MouseInfo.getPointerInfo().getLocation());
-        	*/
         	System.err.println("All cars sorted! Terminating.");
         	System.exit(0);
         }
