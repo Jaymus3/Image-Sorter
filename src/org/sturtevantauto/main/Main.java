@@ -48,8 +48,8 @@ public class Main {
         	String[] options = new String[2];
         	options[0] = "Delete";
         	options[1] = "Continue";
-        	JOptionPane.showOptionDialog(null, "Would you like to delete the existing files \n for this car, or just continue anyways?",
-        			"Car already sorted!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+        	//JOptionPane.showOptionDialog(null, "Would you like to delete the existing files \n for this car, or just continue anyways?",
+        	//		"Car already sorted!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
         	String delorcont;
         	System.out.println("Would you like to delete the existing files for this car, " +
         			"or just continue anyways?");

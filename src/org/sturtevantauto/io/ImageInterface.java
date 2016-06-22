@@ -22,23 +22,23 @@ public class ImageInterface {
         {
         if(imagetime == true)
         	{
-        		if (filer.getName().contains("F") || filer.getName().contains("G0"))
+        		if (filer.getName().contains("F") || filer.getName().contains("G0") || filer.getName().contains("E") || filer.getName().contains("G1"))
                 {
-        			//System.out.println("Stock2");
         			imagetime = false;
                 }
         		else
         		{
-        		//System.out.println("Setting image " + (count + 1) + " " + filer.getPath());
         		CarDefinitions.setImageNames(filer.getPath(), count);
         		count++;
         		}
         	}
         	if(foundstock == false)
         	{
-            if (filer.getName().contains("F") || filer.getName().contains("G0"))
+            if (filer.getName().contains("F")
+            		|| filer.getName().contains("G0")
+            		|| filer.getName().contains("E")
+            		|| filer.getName().contains("G1"))
             {
-            	//System.out.println("Stock");
                 CarDefinitions.setStock(filer.getName());
                 count = 0;
                 foundstock = true;
@@ -56,7 +56,10 @@ public class ImageInterface {
         if(list!=null)
         for (File filer : list)
         {
-            if (filer.getName().contains("F") || filer.getName().contains("G0"))
+            if (filer.getName().contains("F")
+            		|| filer.getName().contains("G0")
+            		|| filer.getName().contains("E")
+            		|| filer.getName().contains("G1"))
             {
             	pictures++;
             }
@@ -66,8 +69,7 @@ public class ImageInterface {
 	
 	public static void CopyFiles(String stock, String model, String make)
 	{
-		File mainpath = new File("/Users/sturtevantauto/Pictures/Car_Pictures/" 
-				+ make + "/" + model + "/" + stock);
+		File mainpath = CarDefinitions.getStorageLocation(false, make, model, stock);
 		String carpath = make + "_" + model + "_" + stock + "_";
 		mainpath.mkdirs();
 		File[] images = new File[count];
@@ -75,17 +77,26 @@ public class ImageInterface {
 		int i = 0;
 		while(i < count)
 		{
-			if(CarDefinitions.getImageNames()[i] == null || CarDefinitions.getImageNames()[i].contains("F") || CarDefinitions.getImageNames()[i].contains("G0"))
+			if(CarDefinitions.getImageNames()[i] == null ||
+					CarDefinitions.getImageNames()[i].contains("F")  ||
+					CarDefinitions.getImageNames()[i].contains("G0") || 
+					CarDefinitions.getImageNames()[i].contains("E1") ||
+					CarDefinitions.getImageNames()[i].contains("G1"))
 			{
-				System.err.println("Image " + (i + 1) + " failed to move. Missing?");
+				System.err.println("Image " + (i + 1) + " failed to move because it was a stock number picture somehow.");
 			}
 			else
 			{
 			images[i] = new File(CarDefinitions.getImageNames()[i]);
+			if(CarDefinitions.getImageNames()[i].endsWith("_W.JPG"))
+			{
+			mainpath = CarDefinitions.getStorageLocation(true, make, model, stock);
+			mainpath.mkdirs();
+			}
 			imagesend[i] = new File(mainpath + "/" + carpath + (i + 1) + ".jpg");
 			if(!images[i].renameTo(imagesend[i]))
 			{
-				System.out.println("Image " + i + "failed to move. Missing?");
+				System.out.println("Image " + (i + 1) + "failed to move. Missing?");
 			}
 			}
 			i++;

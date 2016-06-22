@@ -66,6 +66,29 @@ public class CarDefinitions {
 	{
 		return picloc;
 	}
+	
+	/**
+	 * 
+	 * @param wheels Whether the storage location is wheels (boolean)
+	 * @param make Make of the car
+	 * @param model Model of the car
+	 * @param stock Stock of the car
+	 * @return storage path for an image
+	 */
+	public static File getStorageLocation(boolean wheels, String make, String model, String stock)
+	{
+		if(wheels)
+		{
+			File ret = new File("/Users/sturtevantauto/Pictures/Car_Pictures/Wheels/" + make + "/" + model + "/" + stock);
+			return ret;
+		}
+		else
+		{
+			File ret = new File("/Users/sturtevantauto/Pictures/Car_Pictures/" + make + "/" + model + "/" + stock);
+			return ret;
+		}
+		
+	}
 	public static File[] getList()
 	{
 		return list;
