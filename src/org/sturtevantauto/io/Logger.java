@@ -11,6 +11,15 @@ public class Logger {
 	private static String dbUrl = "jdbc:mysql://127.0.0.1:3306?autoReconnect=true&useSSL=false";
 	private static String dbUsername = "imagesorter";
 	private static String dbPassword = "4vSmbst4Q#uhL#3%";
+	
+	/**
+	 * Checks if the car is indexed in the SQL database
+	 * @param stock
+	 * @return boolean isIndexed
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static boolean CheckIfCarIndexed(String stock) throws IOException, ClassNotFoundException, SQLException
 	{
 		boolean thebool = false;
@@ -28,26 +37,20 @@ public class Logger {
 	        	 thebool = true;
 	         }
 	      }
-		/*
-		String line;
-		File carindex = new File("/Users/sturtevantauto/Documents/workspace/IndexedCars.txt");
-			BufferedReader reader = new BufferedReader(new FileReader(carindex));
-			while ((line = reader.readLine()) != null)
-		    {
-				if(line.contains(CarDefinitions.getStock()))
-				{
-					System.err.println("Car already indexed!");
-					thebool = true;
-				}
-		    }
-			reader.close();
-			*/
 	    	rs.close();
 	    	use.close();
 	    	statement.close();
 	    	connection.close();
 			return thebool;
 	}
+	
+	/**
+	 * Logs the car from the given stock number in the database as sorted
+	 * @param stock
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static void LogCar(String stock) throws IOException, ClassNotFoundException, SQLException
 	{
 		Class.forName("com.mysql.jdbc.Driver");

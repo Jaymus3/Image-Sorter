@@ -8,6 +8,15 @@ public class MakeModelInterface {
 	private static String dbUrl = "jdbc:mysql://127.0.0.1:3306?autoReconnect=true&useSSL=false";
 	private static String dbUsername = "imagesorter";
 	private static String dbPassword = "4vSmbst4Q#uhL#3%";
+	
+	
+	/**
+	 * Checks make model index to see if we have a match stored for the given model
+	 * @param model
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static void CheckMakeModelIndex(String model) throws IOException, ClassNotFoundException, SQLException
 	{
 		Class.forName("com.mysql.jdbc.Driver");
@@ -30,26 +39,15 @@ public class MakeModelInterface {
 	    rs.close();
 	    statement.close();
 	    connection.close();
-		
-		/*
-		String line;
-		File makemodelindex = new File("/Users/sturtevantauto/Documents/workspace/MakeModelIndex.txt");
-			BufferedReader reader = new BufferedReader(new FileReader(makemodelindex));
-			while ((line = reader.readLine()) != null)
-		    {
-				if(line.contains(model))
-				{
-					//System.out.println("We had the make indexed!");
-					line = line.replace(model, "");
-					line = line.replace(" ", "");
-					CarDefinitions.setMake(line);
-					System.out.println("It's a " + CarDefinitions.getMake());
-					foundmake = true;
-				}
-		    }
-			reader.close();
-			*/
 	}
+	/**
+	 * Writes make model matchup to the index when given a model and make
+	 * @param model
+	 * @param make
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static void WriteMakeModelIndex(String model, String make) throws IOException, ClassNotFoundException, SQLException
 	{
 		Class.forName("com.mysql.jdbc.Driver");

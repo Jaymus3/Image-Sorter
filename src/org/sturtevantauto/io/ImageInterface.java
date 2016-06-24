@@ -9,7 +9,10 @@ public class ImageInterface {
 	static boolean foundstock;
 	static boolean imagetime;
 	static int count;
-	
+	/**
+	 * Lists all of the files in the given folder and stores them with CarDefinitions.setImageNames();
+	 * @param file  Filepath to search
+	 */
 	public static void findFile(File file)
     {
 		count = 0;
@@ -48,7 +51,11 @@ public class ImageInterface {
         	}
         }
     }
-	
+	/**
+	 * Counts the amount of pictures in the folder
+	 * @param file
+	 * @return int picturecount
+	 */
 	public static int countPictures(File file)
     {
         File[] list = file.listFiles();
@@ -66,7 +73,12 @@ public class ImageInterface {
         }
         return pictures;
     }
-	
+	/**
+	 * Copies images from the sorting location to the sorted location when given the stock, model, and make
+	 * @param stock
+	 * @param model
+	 * @param make
+	 */
 	public static void CopyFiles(String stock, String model, String make)
 	{
 		File mainpath = CarDefinitions.getStorageLocation(false, make, model, stock);
@@ -102,7 +114,16 @@ public class ImageInterface {
 			i++;
 		}
 	}
-	
+	/**
+	 * Buffered image scaling for the GUI
+	 * @param sbi
+	 * @param imageType
+	 * @param dWidth
+	 * @param dHeight
+	 * @param fWidth
+	 * @param fHeight
+	 * @return scaled image
+	 */
 	public static BufferedImage scale(BufferedImage sbi, int imageType, int dWidth, int dHeight, double fWidth, double fHeight) {
 	    BufferedImage dbi = null;
 	    if(sbi != null) {

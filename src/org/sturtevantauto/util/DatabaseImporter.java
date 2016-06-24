@@ -12,6 +12,13 @@ public class DatabaseImporter {
 	private static String dbUsername = "imagesorter";
 	private static String dbPassword = "4vSmbst4Q#uhL#3%";
 	
+	/**
+	 * A database importing tool designed to import data from the old text-based make model storage to the new SQL storage.
+	 * @param args
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException
 	{
 		Class.forName("com.mysql.jdbc.Driver");

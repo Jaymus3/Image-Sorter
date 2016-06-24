@@ -17,7 +17,14 @@ import org.sturtevantauto.io.MakeModelInterface;
 
 @SuppressWarnings("unused")
 public class Main {
-	
+	/**
+	 * Runs at the start of the program and handles all of the scanner functions and eventually initializes the GUI instead.
+	 * @param args
+	 * @throws IOException
+	 * @throws AWTException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
     public static void main(String[] args) throws IOException, AWTException, ClassNotFoundException, SQLException 
     {
         @SuppressWarnings("resource")
@@ -25,32 +32,31 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//MainGUI window = new MainGUI();
+					//MainGUI window = new MainGUI();  //GUI Initializer here.  GUI is still incomplete so I've got it turned off for now.
 					//window.frmImageSorter.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-        while(true)
+        while(true)  //Starts infinite loop that's terminated when all cars are sorted
         {
         	CarDefinitions.setMake(null);
             ImageInterface.findFile(CarDefinitions.getPictureLocation());
-        if(CarDefinitions.getStock() == null)
+        if(CarDefinitions.getStock() == null)  //Kills the program loop.
         {
         	System.err.println("All cars sorted! Terminating.");
         	System.exit(0);
         }
         
-        CarDefinitions.TrimStock();
-        if(Logger.CheckIfCarIndexed(CarDefinitions.getStock()))
+        CarDefinitions.TrimStock(); //Trims the image name down so only the stock number is left.
+        if(Logger.CheckIfCarIndexed(CarDefinitions.getStock()))  //Checks to ensure the car isn't already indexed
         {
         	String[] options = new String[2];
         	options[0] = "Delete";
         	options[1] = "Continue";
-        	//JOptionPane.showOptionDialog(null, "Would you like to delete the existing files \n for this car, or just continue anyways?",
-        	//		"Car already sorted!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
         	String delorcont;
+        	System.out.println("Stock number for this car is:" + CarDefinitions.getStock());
         	System.out.println("Would you like to delete the existing files for this car, " +
         			"or just continue anyways?");
         	System.out.println("(del/cont)");
@@ -59,7 +65,7 @@ public class Main {
         	{
         		System.out.println("Deleting images...");
         		CarDefinitions.getStockFile().delete();
-        		File[] images = new File[5];
+        		File[] images = new File[CarDefinitions.getImageNames().length];
         		int i = 0;
         		while(i < CarDefinitions.getImageNames().length)
         		{
@@ -75,22 +81,18 @@ public class Main {
         }
         System.err.println("Car found! Stock #: " + CarDefinitions.getStock());
         System.out.println("Enter the model of the car:");
-        CarDefinitions.setModel(scan.next());
-        //System.out.println("Checking make/model index...");
+        CarDefinitions.setModel(scan.next());  //Waits for model of car to be entered
         MakeModelInterface.foundmake = false;
-        MakeModelInterface.CheckMakeModelIndex(CarDefinitions.getModel());
+        MakeModelInterface.CheckMakeModelIndex(CarDefinitions.getModel());  //Checks if the make is currently indexed
         if(!MakeModelInterface.foundmake)
         {
         	System.out.println("I'm gonna need the make as well, just this once!");
         	CarDefinitions.setMake(scan.next());
-        	MakeModelInterface.WriteMakeModelIndex(CarDefinitions.getModel(), CarDefinitions.getMake());
+        	MakeModelInterface.WriteMakeModelIndex(CarDefinitions.getModel(), CarDefinitions.getMake());  //Writes the newly typed make to the index
         }
-        //System.out.println("Copying files/making directories...");
-        ImageInterface.CopyFiles(CarDefinitions.getStock(), CarDefinitions.getModel(), CarDefinitions.getMake());
-        //System.out.println("Files moved.");
-        CarDefinitions.getStockFile().delete();
-        //System.out.println("Logging car in index of done cars...");
-        Logger.LogCar(CarDefinitions.getStock());
+        ImageInterface.CopyFiles(CarDefinitions.getStock(), CarDefinitions.getModel(), CarDefinitions.getMake());  //Copies files to the correct folder
+        CarDefinitions.getStockFile().delete();  //Deletes stock picture, since it was just to index the stock number
+        Logger.LogCar(CarDefinitions.getStock());  //Logs car so we won't index it again
     	}
     }
     	}

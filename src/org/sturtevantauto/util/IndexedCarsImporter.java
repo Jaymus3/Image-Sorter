@@ -11,7 +11,13 @@ public class IndexedCarsImporter {
 	private static String dbUrl = "jdbc:mysql://127.0.0.1:3306?autoReconnect=true&useSSL=false";
 	private static String dbUsername = "imagesorter";
 	private static String dbPassword = "4vSmbst4Q#uhL#3%";
-	
+	/**
+	 * Imports the indexed cars with their associated stock numbers to the SQL database
+	 * @param args
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException
 	{
 		Class.forName("com.mysql.jdbc.Driver");

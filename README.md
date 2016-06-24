@@ -1,5 +1,5 @@
 # Image Sorter
-This program is designed to take images from a given directory with a certain file appendage, and sort them with a given stock number, make, and model.  It has several hardcoded values such as the file path, so usage of this in any other environment would take some setup.
+This program is designed to take images from a given directory with a stock number appendage and a wheel marker, and sort them with a given make and model to the specified directories.  Currently, the sorter uses hardcoded storage locations, but that will be remedied in a future build along with the inclusion of a GUI.  The current GUI exists but has numerous issues and is generally not rigged up.
 
 ## Features
 
