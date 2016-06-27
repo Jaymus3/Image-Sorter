@@ -32,13 +32,14 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//MainGUI window = new MainGUI();  //GUI Initializer here.  GUI is still incomplete so I've got it turned off for now.
-					//window.frmImageSorter.setVisible(true);
+					MainGUI window = new MainGUI();  //GUI Initializer here.  GUI is still in a usable state so I've rigged it up
+					window.frmImageSorter.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+        /*
         while(true)  //Starts infinite loop that's terminated when all cars are sorted
         {
         	CarDefinitions.setMake(null);
@@ -94,6 +95,7 @@ public class Main {
         CarDefinitions.getStockFile().delete();  //Deletes stock picture, since it was just to index the stock number
         Logger.LogCar(CarDefinitions.getStock());  //Logs car so we won't index it again
     	}
+    	*/
     }
-    	}
+}
 
