@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 import org.sturtevantauto.gui.MainGUI;
 import org.sturtevantauto.io.CarDefinitions;
@@ -32,6 +33,9 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					System.setProperty("apple.laf.useScreenMenuBar", "true");
+	                System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Image Sorter");
+	                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					MainGUI window = new MainGUI();  //GUI Initializer here.  GUI is still in a usable state so I've rigged it up
 					window.frmImageSorter.setVisible(true);
 				} catch (Exception e) {
