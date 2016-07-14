@@ -32,8 +32,17 @@ import javax.swing.JMenuBar;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
-import java.awt.TextArea;
 import javax.swing.JMenuItem;
+import javax.swing.JSlider;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import javax.swing.JMenu;
+import javax.swing.JDesktopPane;
+import javax.swing.JScrollBar;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JRadioButtonMenuItem;
+import java.awt.Canvas;
+import javax.swing.JPasswordField;
 
 public class MainGUI {
 
@@ -42,10 +51,6 @@ public class MainGUI {
 	private JTextField makeField;
 	private JTextField stockField;
 	int increment = 100;
-
-	/**
-	 * Launch the application.
-	 */
 
 	/**
 	 * Create the application.
@@ -79,6 +84,9 @@ public class MainGUI {
 		frmImageSorter.setBounds(100, 100, 1000, 600);
 		frmImageSorter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmImageSorter.getContentPane().setLayout(null);
+		final JButton btnSort = new JButton("Sort");
+		btnSort.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+		btnSort.setEnabled(false);
 		final JTextPane outputWindow = new JTextPane();
 		outputWindow.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
 		outputWindow.setToolTipText("Displays output such as error or success messages");
@@ -99,6 +107,7 @@ public class MainGUI {
 						MakeModelInterface.WriteMakeModelIndex(CarDefinitions.getModel(), CarDefinitions.getMake());
 						outputWindow.requestFocus();
 						outputWindow.setText("Make/Model association set!  Click the sort button to sort this car.");
+						btnSort.setEnabled(true);
 					} catch (IOException e) {
 						e.printStackTrace();
 					} catch (ClassNotFoundException e) {
@@ -111,6 +120,10 @@ public class MainGUI {
 				outputWindow.setText("Please enter the model first, and I'll look up the make for you.");
 			}
 		});
+		final JProgressBar progressBar = new JProgressBar();
+		progressBar.setBounds(6, 536, 859, 27);
+		progressBar.setVisible(false);
+		frmImageSorter.getContentPane().add(progressBar);
 		
 		
 		
@@ -154,6 +167,7 @@ public class MainGUI {
 		        {
 		        outputWindow.requestFocus();
 		        outputWindow.setText("Make found!  Click sort to sort this car!");
+		        btnSort.setEnabled(true);
 		        makeField.setText(CarDefinitions.getMake());
 		        makeField.setEditable(false);
 		        }
@@ -345,6 +359,7 @@ public class MainGUI {
 		Image dimg2 = img2.getScaledInstance(carPicture3.getWidth(), carPicture3.getHeight(),
 		        Image.SCALE_SMOOTH);
 		ImageIcon imageIcon2 = new ImageIcon(dimg2);
+		//TODO: 2007 Vue
 		carPicture3.setIcon(imageIcon2);
 		}
 		else
@@ -406,22 +421,19 @@ public class MainGUI {
 			carPicture4.setText("                      No image found!");
 		}
 		frmImageSorter.getContentPane().add(carPicture4);
-		final JProgressBar progressBar = new JProgressBar();
-		progressBar.setBounds(6, 536, 859, 27);
-		progressBar.setVisible(false);
-		frmImageSorter.getContentPane().add(progressBar);
 		
-		JButton btnSort = new JButton("Sort");
-		btnSort.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+		/**
+		 * Handles when the "Sort" button is clicked
+		 */
+		
 		btnSort.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
 				progressBar.setVisible(true);
+				btnSort.setEnabled(false);
 				progressBar.setValue(progressBar.getValue() + increment);
 				outputWindow.setText("");
-	        	String[] options = new String[2];
-	        	options[0] = "Delete";
-	        	options[1] = "Continue";
+	        	String[] options = new String[]{"Delete", "Continue"};
 	        	try {
 					if(Logger.CheckIfCarIndexed(CarDefinitions.getStock()))
 					{
@@ -567,6 +579,66 @@ public class MainGUI {
 		btnSort.setToolTipText("Clicking this button will sort the current car and proceed");
 		btnSort.setBounds(877, 536, 117, 36);
 		frmImageSorter.getContentPane().add(btnSort);
+		
+		JButton skipCarButton = new JButton("Skip this car (copies it to skipped car folder)");
+		skipCarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				progressBar.setValue(progressBar.getValue() + increment);
+				CarDefinitions.getStockFile().renameTo(new File("/Users/sturtevantauto/Pictures/Car_Pictures/SKIPPED/" + CarDefinitions.getStock() + "__.jpg"));
+				for(int i = 0; CarDefinitions.getImageNames().length > i; i++)
+				{
+					if(CarDefinitions.getImageNames()[i] != null)
+					{
+					File carfile = new File(CarDefinitions.getImageNames()[i]);
+					carfile.renameTo(new File("/Users/sturtevantauto/Pictures/Car_Pictures/SKIPPED/" + CarDefinitions.getStock() + "_" + i + ".jpg"));
+					}
+				}
+				outputWindow.setText(CarDefinitions.getMake() + " " + CarDefinitions.getModel() + " successfully moved out for later sorting!");
+				CarDefinitions.setMake(null);
+		        ImageInterface.findFile(CarDefinitions.getPictureLocation());
+		        if(CarDefinitions.getStock() != null)
+				{
+					CarDefinitions.TrimStock();
+					stockField.setText(CarDefinitions.getStock());
+				}
+					else
+					stockField.setText("NO CARS");
+				makeField.setText("");
+				makeField.setEditable(false);
+				modelField.setText("");
+			}
+		});
+		skipCarButton.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+		skipCarButton.setBounds(15, 323, 295, 36);
+		frmImageSorter.getContentPane().add(skipCarButton);
+		
+		JLabel label = new JLabel("");
+		label.setBounds(436, 547, 61, 16);
+		frmImageSorter.getContentPane().add(label);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+		frmImageSorter.setJMenuBar(menuBar);
+		
+		JMenu mnFile = new JMenu("File");
+		mnFile.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+		menuBar.add(mnFile);
+		
+		JMenuItem mntmAbout = new JMenuItem("About");
+		mntmAbout.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+		mnFile.add(mntmAbout);
+		
+		JMenuItem mntmAaaaaaa = new JMenuItem("AAAAAAA");
+		mntmAaaaaaa.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+		mnFile.add(mntmAaaaaaa);
+		
+		JMenuItem mntmTset = new JMenuItem("TSET");
+		mntmTset.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+		mnFile.add(mntmTset);
+		
+		JCheckBoxMenuItem chckbxmntmCheck = new JCheckBoxMenuItem("Check!");
+		mnFile.add(chckbxmntmCheck);
 		if(CarDefinitions.getStock() != null)
 		stockField.setText(CarDefinitions.getStock());
 		else
@@ -581,13 +653,22 @@ public class MainGUI {
 		carPicture4.setIcon(null);
 		stockField.setText("NO CARS");
 		}
-		
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
-		frmImageSorter.setJMenuBar(menuBar);
-		
-		JMenuItem mntmFile = new JMenuItem("File");
-		mntmFile.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
-		menuBar.add(mntmFile);
+	}
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
 	}
 }
