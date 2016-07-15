@@ -33,16 +33,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
 import javax.swing.JMenuItem;
-import javax.swing.JSlider;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
 import javax.swing.JMenu;
-import javax.swing.JDesktopPane;
-import javax.swing.JScrollBar;
 import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JRadioButtonMenuItem;
-import java.awt.Canvas;
-import javax.swing.JPasswordField;
+import javax.swing.JFileChooser;
 
 public class MainGUI {
 
@@ -594,7 +589,7 @@ public class MainGUI {
 					carfile.renameTo(new File("/Users/sturtevantauto/Pictures/Car_Pictures/SKIPPED/" + CarDefinitions.getStock() + "_" + i + ".jpg"));
 					}
 				}
-				outputWindow.setText(CarDefinitions.getMake() + " " + CarDefinitions.getModel() + " successfully moved out for later sorting!");
+				outputWindow.setText(CarDefinitions.getStock() + " successfully moved out for later sorting!");
 				CarDefinitions.setMake(null);
 		        ImageInterface.findFile(CarDefinitions.getPictureLocation());
 		        if(CarDefinitions.getStock() != null)
@@ -607,6 +602,7 @@ public class MainGUI {
 				makeField.setText("");
 				makeField.setEditable(false);
 				modelField.setText("");
+				
 			}
 		});
 		skipCarButton.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
@@ -621,24 +617,37 @@ public class MainGUI {
 		menuBar.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
 		frmImageSorter.setJMenuBar(menuBar);
 		
-		JMenu mnFile = new JMenu("File");
-		mnFile.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
-		menuBar.add(mnFile);
+		JMenu menuFile = new JMenu("File");
+		menuFile.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+		menuBar.add(menuFile);
 		
-		JMenuItem mntmAbout = new JMenuItem("About");
-		mntmAbout.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
-		mnFile.add(mntmAbout);
+		JMenuItem menuItem1 = new JMenuItem("About");
+		menuItem1.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+		menuFile.add(menuItem1);
 		
-		JMenuItem mntmAaaaaaa = new JMenuItem("AAAAAAA");
-		mntmAaaaaaa.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
-		mnFile.add(mntmAaaaaaa);
+		JMenuItem menuItem2 = new JMenuItem("Change storage location");
+		menuItem2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				fileChooser.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY);
+				int result = fileChooser.showOpenDialog(frmImageSorter);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();
+					CarDefinitions.setPictureLocation(selectedFile.toString() + "/");
+				}
+			}
+		});
+		menuItem2.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+		menuFile.add(menuItem2);
 		
-		JMenuItem mntmTset = new JMenuItem("TSET");
-		mntmTset.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
-		mnFile.add(mntmTset);
+		JMenuItem menuItem3 = new JMenuItem("TSET");
+		menuItem3.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+		menuFile.add(menuItem3);
 		
-		JCheckBoxMenuItem chckbxmntmCheck = new JCheckBoxMenuItem("Check!");
-		mnFile.add(chckbxmntmCheck);
+		JCheckBoxMenuItem menuItem4 = new JCheckBoxMenuItem("Check!");
+		menuFile.add(menuItem4);
 		if(CarDefinitions.getStock() != null)
 		stockField.setText(CarDefinitions.getStock());
 		else
@@ -654,6 +663,7 @@ public class MainGUI {
 		stockField.setText("NO CARS");
 		}
 	}
+	@SuppressWarnings("unused")
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
