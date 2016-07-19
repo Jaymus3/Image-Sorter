@@ -33,8 +33,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
 import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
 import javax.swing.JMenu;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
@@ -234,23 +232,7 @@ public class MainGUI {
 		}
 		});
 		carPicture2.setBounds(664, 6, 330, 253);
-		if(CarDefinitions.getImageNames()[0] != null)
-		{
-		BufferedImage img = null;
-		try {
-		    img = ImageIO.read(new File(CarDefinitions.getImageNames()[0]));
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}
-		Image dimg = img.getScaledInstance(carPicture2.getWidth(), carPicture2.getHeight(),
-		        Image.SCALE_SMOOTH);
-		ImageIcon imageIcon = new ImageIcon(dimg);
-		carPicture2.setIcon(imageIcon);
-		}
-		else
-		{
-			carPicture2.setText("                      No image found!");
-		}
+		loadImage(carPicture2, 1);
 		final JLabel carPicture1 = new JLabel();
 		carPicture1.setToolTipText("Double click on this to open the displayed image");
 		carPicture1.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
@@ -289,24 +271,7 @@ public class MainGUI {
 		carPicture1.setBounds(322, 6, 330, 253);
 		frmImageSorter.getContentPane().add(carPicture1);
 		frmImageSorter.getContentPane().add(carPicture2);
-		
-		if(CarDefinitions.getImageNames()[1] != null)
-		{
-		BufferedImage img1 = null;
-		try {
-		    img1 = ImageIO.read(new File(CarDefinitions.getImageNames()[1]));
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}
-		Image dimg1 = img1.getScaledInstance(carPicture1.getWidth(), carPicture1.getHeight(),
-		        Image.SCALE_SMOOTH);
-		ImageIcon imageIcon1 = new ImageIcon(dimg1);
-		carPicture1.setIcon(imageIcon1);
-		}
-		else
-		{
-			carPicture1.setText("                      No image found!");
-		}
+		loadImage(carPicture1, 0);
 		final JLabel carPicture3 = new JLabel();
 		carPicture3.setToolTipText("Double click on this to open the displayed image");
 		carPicture3.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
@@ -343,24 +308,7 @@ public class MainGUI {
 		}
 		});
 		carPicture3.setBounds(322, 271, 330, 253);
-		if(CarDefinitions.getImageNames()[2] != null)
-		{
-		BufferedImage img2 = null;
-		try {
-		    img2 = ImageIO.read(new File(CarDefinitions.getImageNames()[2]));
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}
-		Image dimg2 = img2.getScaledInstance(carPicture3.getWidth(), carPicture3.getHeight(),
-		        Image.SCALE_SMOOTH);
-		ImageIcon imageIcon2 = new ImageIcon(dimg2);
-		//TODO: 2007 Vue
-		carPicture3.setIcon(imageIcon2);
-		}
-		else
-		{
-			carPicture3.setText("                      No image found!");
-		}
+		loadImage(carPicture3, 2);
 		frmImageSorter.getContentPane().add(carPicture3);
 		final JLabel carPicture4 = new JLabel();
 		carPicture4.setToolTipText("Double click on this to open the displayed image");
@@ -398,23 +346,7 @@ public class MainGUI {
 		}
 		});
 		carPicture4.setBounds(664, 271, 330, 253);
-		if(CarDefinitions.getImageNames()[3] != null)
-		{
-		BufferedImage img3 = null;
-		try {
-		    img3 = ImageIO.read(new File(CarDefinitions.getImageNames()[3]));
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}
-		Image dimg3 = img3.getScaledInstance(carPicture4.getWidth(), carPicture4.getHeight(),
-		        Image.SCALE_SMOOTH);
-		ImageIcon imageIcon3 = new ImageIcon(dimg3);
-		carPicture4.setIcon(imageIcon3);
-		}
-		else
-		{
-			carPicture4.setText("                      No image found!");
-		}
+		loadImage(carPicture4, 3);
 		frmImageSorter.getContentPane().add(carPicture4);
 		
 		/**
@@ -467,99 +399,20 @@ public class MainGUI {
 			        
 			        if(CarDefinitions.getStock() != null)
 			        {
-			        if(CarDefinitions.getImageNames()[0] != null)
-			        {
-			        BufferedImage img = null;
-					try {
-					    img = ImageIO.read(new File(CarDefinitions.getImageNames()[0]));
-					} catch (IOException e) {
-					    e.printStackTrace();
-					}
-					Image dimg = img.getScaledInstance(carPicture2.getWidth(), carPicture2.getHeight(),
-					        Image.SCALE_SMOOTH);
-					ImageIcon imageIcon = new ImageIcon(dimg);
-					carPicture2.setIcon(imageIcon);
-			        }
-			        else
-					{
-						carPicture2.setText("                      No image found!");
-					}
-					
-			        if(CarDefinitions.getImageNames()[1] != null)
-			        {
-					BufferedImage img1 = null;
-					try {
-					    img1 = ImageIO.read(new File(CarDefinitions.getImageNames()[1]));
-					} catch (IOException e) {
-					    e.printStackTrace();
-					}
-					Image dimg1 = img1.getScaledInstance(carPicture1.getWidth(), carPicture1.getHeight(),
-					        Image.SCALE_SMOOTH);
-					ImageIcon imageIcon1 = new ImageIcon(dimg1);
-					carPicture1.setIcon(imageIcon1);
-			        }
-			        else
-					{
-						carPicture1.setText("                      No image found!");
-					}
-					
-					if(CarDefinitions.getImageNames()[2] != null)
-			        {
-					BufferedImage img2 = null;
-					try {
-					    img2 = ImageIO.read(new File(CarDefinitions.getImageNames()[2]));
-					} catch (IOException e) {
-					    e.printStackTrace();
-					}
-					Image dimg2 = img2.getScaledInstance(carPicture3.getWidth(), carPicture3.getHeight(),
-					        Image.SCALE_SMOOTH);
-					ImageIcon imageIcon2 = new ImageIcon(dimg2);
-					carPicture3.setIcon(imageIcon2);
-					frmImageSorter.getContentPane().add(carPicture3);
-			        }
-					else
-					{
-						carPicture3.setText("                      No image found!");
-					}
-					
-					if(CarDefinitions.getImageNames()[3] != null)
-			        {
-					BufferedImage img3 = null;
-					try {
-					    img3 = ImageIO.read(new File(CarDefinitions.getImageNames()[3]));
-					} catch (IOException e) {
-					    e.printStackTrace();
-					}
-					Image dimg3 = img3.getScaledInstance(carPicture4.getWidth(), carPicture4.getHeight(),
-					        Image.SCALE_SMOOTH);
-					ImageIcon imageIcon3 = new ImageIcon(dimg3);
-					carPicture4.setIcon(imageIcon3);
-			        }
-					else
-					{
-						carPicture4.setText("                      No image found!");
-					}
-			        }
-			        else
-			        {
-			        	carPicture2.setText("                      No image found!");
-			        	carPicture1.setText("                      No image found!");
-			        	carPicture3.setText("                      No image found!");
-			        	carPicture4.setText("                      No image found!");
-			        }
-					if(CarDefinitions.getStock() != null)
-					{
+			        	loadImage(carPicture1, 0);
+			        	loadImage(carPicture2, 1);
+			        	loadImage(carPicture3, 2);
+			        	loadImage(carPicture4, 3);
 						CarDefinitions.TrimStock();
 						stockField.setText(CarDefinitions.getStock());
 					}
 						else
 						stockField.setText("NO CARS");
+			        
 					makeField.setText("");
 					makeField.setEditable(false);
 					modelField.setText("");
 					
-					
-			        
 				} catch (HeadlessException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
@@ -663,22 +516,24 @@ public class MainGUI {
 		stockField.setText("NO CARS");
 		}
 	}
-	@SuppressWarnings("unused")
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
+	private void loadImage(JLabel carPicture, int j)
+	{
+		if(CarDefinitions.getImageNames()[j] != null)
+		{
+		BufferedImage img = null;
+		try {
+		    img = ImageIO.read(new File(CarDefinitions.getImageNames()[j]));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		Image dimg = img.getScaledInstance(carPicture.getWidth(), carPicture.getHeight(),
+		        Image.SCALE_SMOOTH);
+		ImageIcon imageIcon = new ImageIcon(dimg);
+		carPicture.setIcon(imageIcon);
+		}
+		else
+		{
+			carPicture.setText("                      No image found!");
+		}
 	}
 }
