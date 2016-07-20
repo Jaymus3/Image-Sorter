@@ -61,8 +61,6 @@ public class MainGUI {
     
     if(ImageInterface.countPictures(CarDefinitions.getPictureLocation()) != 0)
     	increment = 100 / ImageInterface.countPictures(CarDefinitions.getPictureLocation());
-    
-    
 		initialize();
 	}
 
@@ -87,8 +85,8 @@ public class MainGUI {
 		outputWindow.setBounds(15, 141, 295, 172);
 		frmImageSorter.getContentPane().add(outputWindow);
 		if(CarDefinitions.getStock() == null)
-			outputWindow.setText("No cars were found in the sorting directory.  Perhaps you didn't add the stock number to the end of any of the files, or forgot to import the pictures?");
-		
+		outputWindow.setText("No cars were found in the sorting directory.  Perhaps you didn't add the stock number to the end of any of the files, or forgot to import the pictures?");
+
 		makeField = new JTextField();
 		makeField.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
 		makeField.addActionListener(new ActionListener() {
@@ -118,8 +116,6 @@ public class MainGUI {
 		progressBar.setVisible(false);
 		frmImageSorter.getContentPane().add(progressBar);
 		
-		
-		
 		JLabel lblStock = new JLabel("Stock #:");
 		lblStock.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
 		lblStock.setBounds(1, 11, 51, 16);
@@ -130,25 +126,34 @@ public class MainGUI {
 		stockField.setToolTipText("Stock # of the current scanned vehicle");
 		stockField.setEditable(false);
 		stockField.setBounds(55, 5, 255, 28);
-		frmImageSorter.getContentPane().add(stockField);
 		stockField.setColumns(10);
+		frmImageSorter.getContentPane().add(stockField);
 		
 		modelField = new JTextField();
 		modelField.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
 		modelField.setToolTipText("Enter the model of the vehicle here");
-		modelField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		modelField.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
 				CarDefinitions.setModel(modelField.getText());
 				MakeModelInterface.foundmake = false;
-		        try {
-					MakeModelInterface.CheckMakeModelIndex(CarDefinitions.getModel());
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+		        try 
+		        {
+		        	MakeModelInterface.CheckMakeModelIndex(CarDefinitions.getModel());
+				} 
+		        catch (IOException e) 
+		        	{
+						e.printStackTrace();
+		        	} 
+		        catch (ClassNotFoundException e) 
+		        	{
+						e.printStackTrace();
+		        	} 
+		        catch (SQLException e) 
+		        	{
+						e.printStackTrace();
+		        	}
 		        if(!MakeModelInterface.foundmake)
 		        {
 		        	outputWindow.requestFocus();
@@ -173,178 +178,56 @@ public class MainGUI {
 		frmImageSorter.getContentPane().add(lblmodel);
 		
 		modelField.setBounds(55, 39, 255, 28);
-		frmImageSorter.getContentPane().add(modelField);
 		modelField.setColumns(10);
+		frmImageSorter.getContentPane().add(modelField);
 		
 		JLabel lblNewLabel = new JLabel("Make:");
 		lblNewLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
 		lblNewLabel.setBounds(15, 79, 37, 16);
 		frmImageSorter.getContentPane().add(lblNewLabel);
+		
 		makeField.setToolTipText("Sometimes the make won't be found, and you'll have to enter it here");
 		makeField.setBounds(55, 73, 255, 28);
 		makeField.setEditable(false);
-		frmImageSorter.getContentPane().add(makeField);
 		makeField.setColumns(10);
+		frmImageSorter.getContentPane().add(makeField);
+		
 		if(CarDefinitions.getStock() == null)
 		modelField.setEditable(false);
-		
-		
 		
 		JLabel lblOutputWindow = new JLabel("Output window:");
 		lblOutputWindow.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
 		lblOutputWindow.setBounds(15, 113, 117, 16);
 		frmImageSorter.getContentPane().add(lblOutputWindow);
 		
+		final JLabel carPicture1 = new JLabel();
+		carPicture1.setToolTipText("Double click on this to open the displayed image");
+		carPicture1.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+		loadMouseAdapter(carPicture1, 0);
+		carPicture1.setBounds(322, 6, 330, 253);
+		loadImage(carPicture1, 0);
+		frmImageSorter.getContentPane().add(carPicture1);
 		
 		final JLabel carPicture2 = new JLabel();
 		carPicture2.setToolTipText("Double click on this to open the displayed image");
 		carPicture2.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
-		carPicture2.addMouseListener(new MouseAdapter() 
-		{
-			boolean OneClick;
-
-			@Override
-			public void mouseClicked(MouseEvent mouseEvent) 
-		{
-			if (OneClick) 
-			{
-				if(CarDefinitions.getImageNames()[0] != null)
-					try {
-						Desktop.getDesktop().open(new File(CarDefinitions.getImageNames()[0]));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				  OneClick = false;
-			}
-			else 
-			{
-				  OneClick = true;
-				  Timer t = new Timer("clickTimer", false);
-				  t.schedule(new TimerTask() 
-				  	{
-					  @Override
-					  public void run()
-					  {
-						  OneClick = false;
-					  }
-				  	},500);
-			}
-		}
-		});
+		loadMouseAdapter(carPicture2, 1);
 		carPicture2.setBounds(664, 6, 330, 253);
 		loadImage(carPicture2, 1);
-		final JLabel carPicture1 = new JLabel();
-		carPicture1.setToolTipText("Double click on this to open the displayed image");
-		carPicture1.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
-		carPicture1.addMouseListener(new MouseAdapter() 
-	{
-		boolean OneClick;
-
-		@Override
-		public void mouseClicked(MouseEvent mouseEvent) 
-	{
-		if (OneClick) 
-		{
-			  if(CarDefinitions.getImageNames()[1] != null)
-				try {
-					Desktop.getDesktop().open(new File(CarDefinitions.getImageNames()[1]));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			  OneClick = false;
-		}
-		else 
-		{
-			  OneClick = true;
-			  Timer t = new Timer("clickTimer", false);
-			  t.schedule(new TimerTask() 
-			  	{
-				  @Override
-				  public void run()
-				  {
-					  OneClick = false;
-				  }
-			  	},500);
-		}
-	}
-	});
-		carPicture1.setBounds(322, 6, 330, 253);
-		frmImageSorter.getContentPane().add(carPicture1);
 		frmImageSorter.getContentPane().add(carPicture2);
-		loadImage(carPicture1, 0);
+		
 		final JLabel carPicture3 = new JLabel();
 		carPicture3.setToolTipText("Double click on this to open the displayed image");
 		carPicture3.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
-		carPicture3.addMouseListener(new MouseAdapter() 
-		{
-			boolean OneClick;
-
-			@Override
-			public void mouseClicked(MouseEvent mouseEvent) 
-		{
-			if (OneClick) 
-			{
-				if(CarDefinitions.getImageNames()[2] != null)
-					try {
-						Desktop.getDesktop().open(new File(CarDefinitions.getImageNames()[2]));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				  OneClick = false;
-			}
-			else 
-			{
-				  OneClick = true;
-				  Timer t = new Timer("clickTimer", false);
-				  t.schedule(new TimerTask() 
-				  	{
-					  @Override
-					  public void run()
-					  {
-						  OneClick = false;
-					  }
-				  	},500);
-			}
-		}
-		});
+		loadMouseAdapter(carPicture3, 2);
 		carPicture3.setBounds(322, 271, 330, 253);
 		loadImage(carPicture3, 2);
 		frmImageSorter.getContentPane().add(carPicture3);
+		
 		final JLabel carPicture4 = new JLabel();
 		carPicture4.setToolTipText("Double click on this to open the displayed image");
 		carPicture4.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
-		carPicture4.addMouseListener(new MouseAdapter() 
-		{
-			boolean OneClick;
-
-			@Override
-			public void mouseClicked(MouseEvent mouseEvent) 
-		{
-			if (OneClick) 
-			{
-				if(CarDefinitions.getImageNames()[3] != null)
-					try {
-						Desktop.getDesktop().open(new File(CarDefinitions.getImageNames()[3]));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				  OneClick = false;
-			}
-			else 
-			{
-				  OneClick = true;
-				  Timer t = new Timer("clickTimer", false);
-				  t.schedule(new TimerTask() 
-				  	{
-					  @Override
-					  public void run()
-					  {
-						  OneClick = false;
-					  }
-				  	},500);
-			}
-		}
-		});
+		loadMouseAdapter(carPicture4, 3);
 		carPicture4.setBounds(664, 271, 330, 253);
 		loadImage(carPicture4, 3);
 		frmImageSorter.getContentPane().add(carPicture4);
@@ -353,7 +236,8 @@ public class MainGUI {
 		 * Handles when the "Sort" button is clicked
 		 */
 		
-		btnSort.addActionListener(new ActionListener() {
+		btnSort.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent arg0)
 			{
 				progressBar.setVisible(true);
@@ -375,8 +259,8 @@ public class MainGUI {
 		        		{
 		        			if(CarDefinitions.getImageNames()[i] != null)
 		        			{
-		        			images[i] = new File(CarDefinitions.getImageNames()[i]);
-		        			images[i].delete();
+		        				images[i] = new File(CarDefinitions.getImageNames()[i]);
+		        				images[i].delete();
 		        			}
 		        			i++;
 		        		}
@@ -389,12 +273,12 @@ public class MainGUI {
 					}
 					if(CarDefinitions.getStock() != null)
 					{
-					ImageInterface.CopyFiles(CarDefinitions.getStock(), CarDefinitions.getModel(), CarDefinitions.getMake());
-					CarDefinitions.getStockFile().delete();
-					Logger.LogCar(CarDefinitions.getStock());
-					outputWindow.setText(CarDefinitions.getMake() + " " + CarDefinitions.getModel() + " successfully sorted!");
-					CarDefinitions.setMake(null);
-			        ImageInterface.findFile(CarDefinitions.getPictureLocation());
+						ImageInterface.CopyFiles(CarDefinitions.getStock(), CarDefinitions.getModel(), CarDefinitions.getMake());
+						CarDefinitions.getStockFile().delete();
+						Logger.LogCar(CarDefinitions.getStock());
+						outputWindow.setText(CarDefinitions.getMake() + " " + CarDefinitions.getModel() + " successfully sorted!");
+						CarDefinitions.setMake(null);
+						ImageInterface.findFile(CarDefinitions.getPictureLocation());
 					}
 			        
 			        if(CarDefinitions.getStock() != null)
@@ -406,7 +290,7 @@ public class MainGUI {
 						CarDefinitions.TrimStock();
 						stockField.setText(CarDefinitions.getStock());
 					}
-						else
+					else
 						stockField.setText("NO CARS");
 			        
 					makeField.setText("");
@@ -429,7 +313,8 @@ public class MainGUI {
 		frmImageSorter.getContentPane().add(btnSort);
 		
 		JButton skipCarButton = new JButton("Skip this car (copies it to skipped car folder)");
-		skipCarButton.addActionListener(new ActionListener() {
+		skipCarButton.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				progressBar.setValue(progressBar.getValue() + increment);
@@ -479,7 +364,8 @@ public class MainGUI {
 		menuFile.add(menuItem1);
 		
 		JMenuItem menuItem2 = new JMenuItem("Change storage location");
-		menuItem2.addActionListener(new ActionListener() {
+		menuItem2.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				JFileChooser fileChooser = new JFileChooser();
@@ -520,8 +406,9 @@ public class MainGUI {
 	{
 		if(CarDefinitions.getImageNames()[j] != null)
 		{
-		BufferedImage img = null;
-		try {
+			BufferedImage img = null;
+		try 
+		{
 		    img = ImageIO.read(new File(CarDefinitions.getImageNames()[j]));
 		} catch (IOException e) {
 		    e.printStackTrace();
@@ -535,5 +422,40 @@ public class MainGUI {
 		{
 			carPicture.setText("                      No image found!");
 		}
+	}
+	private void loadMouseAdapter(JLabel carPicture, final int j)
+	{
+		carPicture.addMouseListener(new MouseAdapter() 
+		{
+			boolean OneClick;
+
+			@Override
+			public void mouseClicked(MouseEvent mouseEvent) 
+		{
+			if (OneClick) 
+			{
+				if(CarDefinitions.getImageNames()[j] != null)
+					try {
+						Desktop.getDesktop().open(new File(CarDefinitions.getImageNames()[j]));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				  OneClick = false;
+			}
+			else 
+			{
+				  OneClick = true;
+				  Timer t = new Timer("clickTimer", false);
+				  t.schedule(new TimerTask() 
+				  	{
+					  @Override
+					  public void run()
+					  {
+						  OneClick = false;
+					  }
+				  	},500);
+			}
+		}
+		});
 	}
 }
