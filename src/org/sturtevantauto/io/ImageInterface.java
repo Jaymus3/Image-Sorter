@@ -1,8 +1,5 @@
 package org.sturtevantauto.io;
 
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class ImageInterface {
@@ -13,7 +10,7 @@ public class ImageInterface {
 	 * Lists all of the files in the given folder and stores them with CarDefinitions.setImageNames();
 	 * @param file  Filepath to search
 	 */
-	public static void findFile(File file)
+	public static void findFile(File file, boolean skipped)
     {
 		count = 0;
 		foundstock = false;
@@ -23,7 +20,29 @@ public class ImageInterface {
         if(list!=null)
         for (File filer : list)
         {
-        if(imagetime == true)
+        if(skipped)
+        {
+        	if(imagetime)
+        	{
+        		if(filer.getName().contains("__"))
+        			imagetime = false;
+        		else
+        		{
+        			CarDefinitions.setImageNames(filer.getPath(), count);
+        			count++;
+        		}
+        	}
+        	if(filer.getName().contains("__") && !foundstock)
+        	{
+        		CarDefinitions.setStockFile(filer);
+        		CarDefinitions.setStock(filer.getName());
+        		imagetime = true;
+        		foundstock = true;
+        	}
+        }
+        else
+        {
+        if(imagetime)
         	{
         		if (filer.getName().contains("F") || filer.getName().contains("G0") || filer.getName().contains("E") || filer.getName().contains("G1"))
                 {
@@ -35,7 +54,7 @@ public class ImageInterface {
         		count++;
         		}
         	}
-        	if(foundstock == false)
+        	if(!foundstock)
         	{
             if (filer.getName().contains("F")
             		|| filer.getName().contains("G0")
@@ -49,6 +68,7 @@ public class ImageInterface {
                 CarDefinitions.setStockFile(filer);
             }
         	}
+        }
         }
     }
 	/**
@@ -114,25 +134,4 @@ public class ImageInterface {
 			i++;
 		}
 	}
-	/**
-	 * Buffered image scaling for the GUI
-	 * @param sbi
-	 * @param imageType
-	 * @param dWidth
-	 * @param dHeight
-	 * @param fWidth
-	 * @param fHeight
-	 * @return scaled image
-	 */
-	public static BufferedImage scale(BufferedImage sbi, int imageType, int dWidth, int dHeight, double fWidth, double fHeight) {
-	    BufferedImage dbi = null;
-	    if(sbi != null) {
-	        dbi = new BufferedImage(dWidth, dHeight, imageType);
-	        Graphics2D g = dbi.createGraphics();
-	        AffineTransform at = AffineTransform.getScaleInstance(fWidth, fHeight);
-	        g.drawRenderedImage(sbi, at);
-	    }
-	    return dbi;
-	}
-
 }

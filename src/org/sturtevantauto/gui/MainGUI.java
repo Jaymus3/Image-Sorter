@@ -50,13 +50,20 @@ public class MainGUI {
 	 */
 	public MainGUI() {
 		CarDefinitions.setMake(null);
-        ImageInterface.findFile(CarDefinitions.getPictureLocation());
+        ImageInterface.findFile(CarDefinitions.getPictureLocation(), false);
     if(CarDefinitions.getStock() == null)
     {
     	System.err.println("No cars found to sort!");
     }
     else
-    	CarDefinitions.TrimStock();
+    	if(CarDefinitions.getPictureLocation().toString().endsWith("/SORT_ME"))
+    	CarDefinitions.TrimStock(false);
+    	else if (CarDefinitions.getPictureLocation().toString().endsWith("/SKIPPED"))
+    	{
+    	ImageInterface.findFile(CarDefinitions.getPictureLocation(), true);
+    	CarDefinitions.TrimStock(true);
+    	}
+    	
     
     
     if(ImageInterface.countPictures(CarDefinitions.getPictureLocation()) != 0)
@@ -85,7 +92,9 @@ public class MainGUI {
 		outputWindow.setBounds(15, 141, 295, 172);
 		frmImageSorter.getContentPane().add(outputWindow);
 		if(CarDefinitions.getStock() == null)
+		{
 		outputWindow.setText("No cars were found in the sorting directory.  Perhaps you didn't add the stock number to the end of any of the files, or forgot to import the pictures?");
+		}
 
 		makeField = new JTextField();
 		makeField.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
@@ -278,16 +287,12 @@ public class MainGUI {
 						Logger.LogCar(CarDefinitions.getStock());
 						outputWindow.setText(CarDefinitions.getMake() + " " + CarDefinitions.getModel() + " successfully sorted!");
 						CarDefinitions.setMake(null);
-						ImageInterface.findFile(CarDefinitions.getPictureLocation());
-					}
-			        
-			        if(CarDefinitions.getStock() != null)
-			        {
+						ImageInterface.findFile(CarDefinitions.getPictureLocation(), false);
 			        	loadImage(carPicture1, 0);
 			        	loadImage(carPicture2, 1);
 			        	loadImage(carPicture3, 2);
 			        	loadImage(carPicture4, 3);
-						CarDefinitions.TrimStock();
+						CarDefinitions.TrimStock(false);
 						stockField.setText(CarDefinitions.getStock());
 					}
 					else
@@ -312,7 +317,7 @@ public class MainGUI {
 		btnSort.setBounds(877, 536, 117, 36);
 		frmImageSorter.getContentPane().add(btnSort);
 		
-		JButton skipCarButton = new JButton("Skip this car (copies it to skipped car folder)");
+		final JButton skipCarButton = new JButton("Skip this car (copies it to skipped car folder)");
 		skipCarButton.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e)
@@ -329,10 +334,10 @@ public class MainGUI {
 				}
 				outputWindow.setText(CarDefinitions.getStock() + " successfully moved out for later sorting!");
 				CarDefinitions.setMake(null);
-		        ImageInterface.findFile(CarDefinitions.getPictureLocation());
+		        ImageInterface.findFile(CarDefinitions.getPictureLocation(), false);
 		        if(CarDefinitions.getStock() != null)
 				{
-					CarDefinitions.TrimStock();
+					CarDefinitions.TrimStock(false);
 					stockField.setText(CarDefinitions.getStock());
 				}
 					else
@@ -373,15 +378,31 @@ public class MainGUI {
 				fileChooser.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY);
 				int result = fileChooser.showOpenDialog(frmImageSorter);
 				if (result == JFileChooser.APPROVE_OPTION) {
+					String[] options = new String[]{"Cancel", "Continue"};
+					int choice = JOptionPane.showOptionDialog(null, "This will restart the program, resulting in loss of progress beyond the last time you clicked the sort button.  Would you like to proceed?",
+							"Warning", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+					if(choice == 1)
+					{
 					File selectedFile = fileChooser.getSelectedFile();
 					CarDefinitions.setPictureLocation(selectedFile.toString() + "/");
+					restart();
+					skipCarButton.setVisible(false);
+					
+					}
 				}
 			}
 		});
 		menuItem2.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
 		menuFile.add(menuItem2);
 		
-		JMenuItem menuItem3 = new JMenuItem("TSET");
+		JMenuItem menuItem3 = new JMenuItem("Restart");
+		menuItem3.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				restart();
+			}
+		});
 		menuItem3.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
 		menuFile.add(menuItem3);
 		
@@ -457,5 +478,12 @@ public class MainGUI {
 			}
 		}
 		});
+	}
+	private void restart()
+	{
+		frmImageSorter.dispose();
+		new MainGUI();
+		initialize();
+		frmImageSorter.setVisible(true);
 	}
 }

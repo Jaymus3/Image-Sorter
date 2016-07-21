@@ -60,14 +60,25 @@ public class CarDefinitions {
 	{
 		imagenames[i] = imagename;
 	}
+
 	/**
-	 * Trims the stock number file down to just the stock number
+	 * Trims the stock file name down to only contain the stock number.
+	 * @param skipped This determines whether or not the trimmer is trimming the stock number of previously skipped cars or not.
 	 */
-	public static void TrimStock()
+	public static void TrimStock(boolean skipped)
 	{
+		if(skipped)
+		{
+		stock = stock.replace(".JPG", "");
+        stock = stock.replace(".jpg", "");
+        stock = stock.replace("__", "");
+		}
+		else
+		{
 		stock = stock.replace(".JPG", "");
         stock = stock.replace(".jpg", "");
         stock = stock.substring(9);
+		}
 	}
 	/**
 	 * Returns the image paths array

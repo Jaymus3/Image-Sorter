@@ -31,7 +31,7 @@ public class MakeModelInterface {
 	    	if(modelsql.equals(model))
 	    	{
 	    		CarDefinitions.setMake(make);
-	    		System.out.println("It's a " + CarDefinitions.getMake());
+	    		System.out.println("It's a " + CarDefinitions.getMake() + " with stock number " + CarDefinitions.getStock());
 	    		foundmake = true;
 	    	}
 	    }
