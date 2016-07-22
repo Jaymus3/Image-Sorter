@@ -79,7 +79,7 @@ public class MainGUI {
 		frmImageSorter.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
 		frmImageSorter.setResizable(false);
 		frmImageSorter.setTitle("Image Sorter");
-		frmImageSorter.setBounds(100, 100, 1000, 600);
+		frmImageSorter.setBounds(100, 100, 1000, 622);
 		frmImageSorter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmImageSorter.getContentPane().setLayout(null);
 		final JButton btnSort = new JButton("Sort");
@@ -121,7 +121,7 @@ public class MainGUI {
 			}
 		});
 		final JProgressBar progressBar = new JProgressBar();
-		progressBar.setBounds(6, 536, 859, 27);
+		progressBar.setBounds(6, 545, 859, 27);
 		progressBar.setVisible(false);
 		frmImageSorter.getContentPane().add(progressBar);
 		
