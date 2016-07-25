@@ -421,6 +421,7 @@ public class MainGUI {
 		carPicture4.setText("                      No image found!");
 		carPicture4.setIcon(null);
 		stockField.setText("NO CARS");
+		frmImageSorter.setLocationRelativeTo(null);
 		}
 	}
 	private void loadImage(JLabel carPicture, int j)

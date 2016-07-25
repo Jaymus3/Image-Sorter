@@ -1,7 +1,11 @@
 package org.sturtevantauto.io;
 
 import java.io.File;
-
+/**
+ * This class is used to store all of the common variables accessed by any tools in the program.
+ * @author sturtevantauto
+ *
+ */
 public class CarDefinitions {
 	static String make;
 	static String model;
