@@ -124,7 +124,6 @@ public class LoginWindow {
 			public void actionPerformed(ActionEvent e) 
 			{
 				try {
-					foundausername = false;
 					Class.forName("com.mysql.jdbc.Driver");
 					Connection connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
 				    Statement statement = connection.createStatement();
