@@ -30,7 +30,7 @@ import java.awt.event.MouseEvent;
 
 public class LoginWindow {
 
-	private JFrame frmLoginWindow;
+	JFrame frmLoginWindow;
 	private JTextField usernameField;
 	private JPasswordField passwordField;
 	private static String dbUrl = "jdbc:mysql://127.0.0.1:3306?autoReconnect=true&useSSL=false";
@@ -93,8 +93,7 @@ public class LoginWindow {
 		} catch (IOException e) {
 		    e.printStackTrace();
 		}
-		Image dimg = img.getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(),
-		        Image.SCALE_SMOOTH);
+		Image dimg = img.getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), Image.SCALE_SMOOTH);
 		ImageIcon imageIcon = new ImageIcon(dimg);
 		lblLogo.setIcon(imageIcon);
 		frmLoginWindow.getContentPane().add(lblLogo);
@@ -155,16 +154,14 @@ public class LoginWindow {
 		} catch (IOException e) {
 		    e.printStackTrace();
 		}
-		Image dimg2 = img2.getScaledInstance(usernameLabel.getWidth(), usernameLabel.getHeight(),
-		        Image.SCALE_SMOOTH);
+		Image dimg2 = img2.getScaledInstance(usernameLabel.getWidth(), usernameLabel.getHeight(), Image.SCALE_SMOOTH);
 		ImageIcon imageIcon2 = new ImageIcon(dimg2);
 		usernameLabel.setIcon(imageIcon2);
 		frmLoginWindow.getContentPane().add(usernameLabel);
 		
 		JLabel passwordLabel = new JLabel("New label");
 		passwordLabel.setBounds(16, 230, 26, 26);
-		Image dimg3 = img3.getScaledInstance(passwordLabel.getWidth(), passwordLabel.getHeight(),
-		        Image.SCALE_SMOOTH);
+		Image dimg3 = img3.getScaledInstance(passwordLabel.getWidth(), passwordLabel.getHeight(), Image.SCALE_SMOOTH);
 		ImageIcon imageIcon3 = new ImageIcon(dimg3);
 		passwordLabel.setIcon(imageIcon3);
 		frmLoginWindow.getContentPane().add(passwordLabel);
@@ -188,8 +185,8 @@ public class LoginWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
-				System.out.println("Sign up");
-				//TODO: Implement registration
+				RegistrationWindow window = new RegistrationWindow();
+				window.frmRegistration.setVisible(true);
 			}
 		});
 		lblRegister.setForeground(new Color(119, 136, 153));
@@ -234,10 +231,8 @@ public class LoginWindow {
 			statement.close();
 			connection.close();
 		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
