@@ -200,8 +200,9 @@ public class MainGUI {
 		makeField.setEditable(false);
 		makeField.setColumns(10);
 		frmImageSorter.getContentPane().add(makeField);
-		
+		 
 		if(CarDefinitions.getStock() == null)
+		
 		modelField.setEditable(false);
 		
 		JLabel lblOutputWindow = new JLabel("Output window:");
