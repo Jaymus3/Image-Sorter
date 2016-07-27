@@ -24,6 +24,10 @@ public class CarDefinitions {
 	{
 		picloc = new File(folderpath);
 	}
+	/**
+	 * Sets whether the registration window is currently open or not.
+	 * @param register
+	 */
 	public static void setRegisterOpen(boolean register)
 	{
 		registerwindow = register;
@@ -97,6 +101,10 @@ public class CarDefinitions {
 	{
 		return imagenames;
 	}
+	/**
+	 * Gets whether the registration window is open or not.
+	 * @return boolean registerwindowstatus
+	 */
 	public static boolean getRegister()
 	{
 		return registerwindow;

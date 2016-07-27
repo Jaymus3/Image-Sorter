@@ -1,7 +1,6 @@
 package org.sturtevantauto.gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -19,7 +18,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 
 import org.sturtevantauto.io.CarDefinitions;
 
@@ -33,31 +31,13 @@ import java.awt.event.MouseEvent;
 
 public class LoginWindow {
 
-	JFrame frmLoginWindow;
+	public JFrame frmLoginWindow;
 	private JTextField usernameField;
 	private JPasswordField passwordField;
 	private static String dbUrl = "jdbc:mysql://127.0.0.1:3306?autoReconnect=true&useSSL=false";
 	private static String dbUsername = "imagesorter";
 	private static String dbPassword = "4vSmbst4Q#uhL#3%";
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Sturtevant Auto Tools");
-					System.setProperty("apple.laf.useScreenMenuBar", "true");
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					LoginWindow window = new LoginWindow();
-					window.frmLoginWindow.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.

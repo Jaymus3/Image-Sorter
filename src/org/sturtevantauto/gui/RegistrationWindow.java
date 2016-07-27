@@ -1,7 +1,5 @@
 package org.sturtevantauto.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
@@ -33,22 +31,6 @@ public class RegistrationWindow {
 	private static String dbUrl = "jdbc:mysql://127.0.0.1:3306?autoReconnect=true&useSSL=false";
 	private static String dbUsername = "imagesorter";
 	private static String dbPassword = "4vSmbst4Q#uhL#3%";
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RegistrationWindow window = new RegistrationWindow();
-					window.frmRegistration.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -127,12 +109,30 @@ public class RegistrationWindow {
 							if(secretCodeField.getText().equals("snecret"))
 							{
 								try {
+									String user = null;
+									boolean usernametaken = false;
 									Class.forName("com.mysql.jdbc.Driver");
 									Connection connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
 								    Statement statement = connection.createStatement();
 									ResultSet use = statement.executeQuery("USE car_parts");
+									ResultSet rs = statement.executeQuery("SELECT * FROM Account_Index where Username='" + usernameField.getText() + "'");
+									while(rs.next())
+										user = rs.getString("Username");
+									
+									if(user.equals(usernameField.getText()))
+										usernametaken = true;
+									
+									if(!usernametaken)
+									{
 									statement.executeUpdate("INSERT INTO `Account_Index` (`Name`, `Username`, `Password`) VALUES ('" + nameField.getText() + 
 											"', '" + usernameField.getText() + "', '" + new String(passwordField.getPassword()) + "')");
+									JOptionPane.showMessageDialog(frmRegistration, "Registration successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+									frmRegistration.dispose();
+									LoginWindow window = new LoginWindow();
+									window.frmLoginWindow.setVisible(true);
+									}
+									else
+										JOptionPane.showMessageDialog(frmRegistration, "That username is already in use!  Did you forget your password?", "Error", JOptionPane.ERROR_MESSAGE);
 									use.close();
 									statement.close();
 									connection.close();
@@ -141,10 +141,6 @@ public class RegistrationWindow {
 								} catch (SQLException e1) {
 									e1.printStackTrace();
 								}
-								JOptionPane.showMessageDialog(frmRegistration, "Registration successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-								frmRegistration.dispose();
-								LoginWindow window = new LoginWindow();
-								window.frmLoginWindow.setVisible(true);
 							}
 							else
 								JOptionPane.showMessageDialog(frmRegistration, "Secret code incorrect!  Don't know the secret code?  Ask someone else that has an account for it.", "Error", JOptionPane.ERROR_MESSAGE);

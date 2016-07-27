@@ -10,6 +10,7 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+import org.sturtevantauto.gui.LoginWindow;
 import org.sturtevantauto.gui.MainGUI;
 import org.sturtevantauto.io.CarDefinitions;
 import org.sturtevantauto.io.ImageInterface;
@@ -36,8 +37,8 @@ public class Main {
 					System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Image Sorter");
 					System.setProperty("apple.laf.useScreenMenuBar", "true");
 	                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					MainGUI window = new MainGUI();  //GUI Initializer here.
-					window.frmImageSorter.setVisible(true);
+	                LoginWindow window = new LoginWindow();
+					window.frmLoginWindow.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
