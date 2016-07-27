@@ -13,6 +13,7 @@ public class CarDefinitions {
 	static File[] list = picloc.listFiles();
 	static String stock;
 	static File stockfile;
+	static boolean registerwindow;
 	static String[] imagenames = new String[50];
 	
 	/**
@@ -22,6 +23,10 @@ public class CarDefinitions {
 	public static void setPictureLocation(String folderpath)
 	{
 		picloc = new File(folderpath);
+	}
+	public static void setRegisterOpen(boolean register)
+	{
+		registerwindow = register;
 	}
 	/**
 	 * Sets the car model to the given string
@@ -91,6 +96,10 @@ public class CarDefinitions {
 	public static String[] getImageNames()
 	{
 		return imagenames;
+	}
+	public static boolean getRegister()
+	{
+		return registerwindow;
 	}
 	/**
 	 * Returns the make of the active car

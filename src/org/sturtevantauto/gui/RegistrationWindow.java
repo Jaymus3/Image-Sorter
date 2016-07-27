@@ -4,12 +4,17 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+
+import org.sturtevantauto.io.CarDefinitions;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -60,7 +65,6 @@ public class RegistrationWindow {
 		frmRegistration.setTitle("Registration");
 		frmRegistration.setResizable(false);
 		frmRegistration.setBounds(100, 100, 350, 350);
-		frmRegistration.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmRegistration.getContentPane().setLayout(null);
 		
 		nameField = new JTextField();
@@ -157,5 +161,12 @@ public class RegistrationWindow {
 		});
 		btnRegister.setBounds(187, 288, 157, 34);
 		frmRegistration.getContentPane().add(btnRegister);
+		frmRegistration.addWindowListener(new WindowAdapter() 
+		{
+			public void windowClosing(WindowEvent e)
+			{
+				CarDefinitions.setRegisterOpen(false);
+			}
+		});
+		}
 	}
-}

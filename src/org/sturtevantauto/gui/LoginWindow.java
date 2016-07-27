@@ -20,6 +20,9 @@ import java.sql.Statement;
 
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+
+import org.sturtevantauto.io.CarDefinitions;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -185,8 +188,12 @@ public class LoginWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
+				if(!CarDefinitions.getRegister())
+				{
 				RegistrationWindow window = new RegistrationWindow();
 				window.frmRegistration.setVisible(true);
+				CarDefinitions.setRegisterOpen(true);
+				}
 			}
 		});
 		lblRegister.setForeground(new Color(119, 136, 153));
