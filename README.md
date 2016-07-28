@@ -56,6 +56,7 @@ database easily,but you can just use SQL commands if you prefer.
     - Eventually, I'll put an empty sql file up here for easier project setup, but for now I doubt anyone will even be interested
  in setting this up to begin with.
  
+ 
  4. Create an account named imagesorter with any password you choose (modify the password stored in the program appropriately)
 
  5. With any luck, your SQL database is ready, and the program *should* start.  If it has errors, look into changing the 
