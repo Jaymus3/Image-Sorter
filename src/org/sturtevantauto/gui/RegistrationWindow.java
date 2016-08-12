@@ -118,7 +118,7 @@ public class RegistrationWindow {
 									ResultSet rs = statement.executeQuery("SELECT * FROM Account_Index where Username='" + usernameField.getText() + "'");
 									while(rs.next())
 										user = rs.getString("Username");
-									
+									  
 									if(user.equals(usernameField.getText()))
 										usernametaken = true;
 									
@@ -128,8 +128,6 @@ public class RegistrationWindow {
 											"', '" + usernameField.getText() + "', '" + new String(passwordField.getPassword()) + "')");
 									JOptionPane.showMessageDialog(frmRegistration, "Registration successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
 									frmRegistration.dispose();
-									LoginWindow window = new LoginWindow();
-									window.frmLoginWindow.setVisible(true);
 									}
 									else
 										JOptionPane.showMessageDialog(frmRegistration, "That username is already in use!  Did you forget your password?", "Error", JOptionPane.ERROR_MESSAGE);
@@ -157,6 +155,7 @@ public class RegistrationWindow {
 		});
 		btnRegister.setBounds(187, 288, 157, 34);
 		frmRegistration.getContentPane().add(btnRegister);
+		frmRegistration.setLocationRelativeTo(null);
 		frmRegistration.addWindowListener(new WindowAdapter() 
 		{
 			public void windowClosing(WindowEvent e)

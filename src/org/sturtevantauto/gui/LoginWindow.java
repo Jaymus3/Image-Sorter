@@ -6,6 +6,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -154,8 +156,9 @@ public class LoginWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
-				System.out.println("Forgot password");
+				JOptionPane.showMessageDialog(frmLoginWindow, "Forgotten passwords currently have no recovery method.  Ask James for an account password reset.", "Forgot password", JOptionPane.INFORMATION_MESSAGE);
 				//TODO:  Implement forgotten password
+				
 			}
 		});
 		forgotLabel.setForeground(new Color(119, 136, 153));
