@@ -56,7 +56,7 @@ public class LoginWindow {
 		frmLoginWindow.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
 		frmLoginWindow.setTitle("Sturtevant Auto Tools");
 		frmLoginWindow.setResizable(false);
-		frmLoginWindow.setBounds(100, 100, 349, 350);
+		frmLoginWindow.setBounds(100, 100, 290, 350);
 		frmLoginWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLoginWindow.getContentPane().setLayout(null);
 		
@@ -70,7 +70,7 @@ public class LoginWindow {
 		JLabel lblLogo = new JLabel("Logo failed to load for some reason :(");
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogo.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
-		lblLogo.setBounds(6, 6, 337, 170);
+		lblLogo.setBounds(6, 6, 277, 170);
 		BufferedImage img = null;
 		try 
 		{
@@ -78,8 +78,7 @@ public class LoginWindow {
 		} catch (IOException e) {
 		    e.printStackTrace();
 		}
-		Image dimg = img.getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), Image.SCALE_SMOOTH);
-		ImageIcon imageIcon = new ImageIcon(dimg);
+		ImageIcon imageIcon = new ImageIcon(img);
 		lblLogo.setIcon(imageIcon);
 		frmLoginWindow.getContentPane().add(lblLogo);
 		
@@ -90,7 +89,7 @@ public class LoginWindow {
 				passwordField.requestFocus();
 			}
 		});
-		usernameField.setBounds(41, 188, 290, 35);
+		usernameField.setBounds(41, 188, 243, 35);
 		TextPrompt usernamePrompt = new TextPrompt("Username", usernameField);
 		usernamePrompt.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
 		usernamePrompt.setHorizontalAlignment(SwingConstants.LEFT);
@@ -105,7 +104,7 @@ public class LoginWindow {
 				login(usernameField, passwordField, errorLabel);
 			}
 		});
-		passwordField.setBounds(41, 226, 290, 35);
+		passwordField.setBounds(41, 226, 243, 35);
 		TextPrompt passwordPrompt = new TextPrompt("Password", passwordField);
 		passwordPrompt.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
 		passwordPrompt.setHorizontalAlignment(SwingConstants.LEFT);
@@ -128,10 +127,15 @@ public class LoginWindow {
 		BufferedImage img2 = null;
 		try 
 		{
-		    img2 = ImageIO.read(new File("resources/img/username-logo.png"));
+			img2 = ImageIO.read(new File("resources/img/username-logo.png"));
 		} catch (IOException e) {
 		    e.printStackTrace();
 		}
+		
+		ImageIcon imageIcon2 = new ImageIcon(img2);
+		usernameLabel.setIcon(imageIcon2);
+		frmLoginWindow.getContentPane().add(usernameLabel);
+		
 		BufferedImage img3 = null;
 		try 
 		{
@@ -139,15 +143,11 @@ public class LoginWindow {
 		} catch (IOException e) {
 		    e.printStackTrace();
 		}
-		Image dimg2 = img2.getScaledInstance(usernameLabel.getWidth(), usernameLabel.getHeight(), Image.SCALE_SMOOTH);
-		ImageIcon imageIcon2 = new ImageIcon(dimg2);
-		usernameLabel.setIcon(imageIcon2);
-		frmLoginWindow.getContentPane().add(usernameLabel);
 		
 		JLabel passwordLabel = new JLabel("New label");
 		passwordLabel.setBounds(16, 230, 26, 26);
-		Image dimg3 = img3.getScaledInstance(passwordLabel.getWidth(), passwordLabel.getHeight(), Image.SCALE_SMOOTH);
-		ImageIcon imageIcon3 = new ImageIcon(dimg3);
+		
+		ImageIcon imageIcon3 = new ImageIcon(img3);
 		passwordLabel.setIcon(imageIcon3);
 		frmLoginWindow.getContentPane().add(passwordLabel);
 		
@@ -181,10 +181,10 @@ public class LoginWindow {
 		});
 		lblRegister.setForeground(new Color(119, 136, 153));
 		lblRegister.setFont(new Font("Helvetica Neue", Font.PLAIN, 11));
-		lblRegister.setBounds(290, 306, 41, 16);
+		lblRegister.setBounds(243, 306, 41, 16);
 		frmLoginWindow.getContentPane().add(lblRegister);
 		
-		loginButton.setBounds(16, 267, 315, 35);
+		loginButton.setBounds(16, 267, 268, 35);
 		frmLoginWindow.getContentPane().add(loginButton);
 		frmLoginWindow.setLocationRelativeTo(null);
 		
