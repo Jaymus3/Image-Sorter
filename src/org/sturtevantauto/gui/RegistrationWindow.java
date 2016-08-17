@@ -118,22 +118,22 @@ public class RegistrationWindow {
 									ResultSet rs = statement.executeQuery("SELECT * FROM Account_Index where Username='" + usernameField.getText() + "'");
 									while(rs.next())
 										user = rs.getString("Username");
-									  
+
 									if(user.equals(usernameField.getText()))
 										usernametaken = true;
 									
 									if(!usernametaken)
-									{
-									statement.executeUpdate("INSERT INTO `Account_Index` (`Name`, `Username`, `Password`) VALUES ('" + nameField.getText() + 
+										{
+										statement.executeUpdate("INSERT INTO `Account_Index` (`Name`, `Username`, `Password`) VALUES ('" + nameField.getText() + 
 											"', '" + usernameField.getText() + "', '" + new String(passwordField.getPassword()) + "')");
-									JOptionPane.showMessageDialog(frmRegistration, "Registration successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-									frmRegistration.dispose();
-									}
+										JOptionPane.showMessageDialog(frmRegistration, "Registration successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+										frmRegistration.dispose();
+										}
 									else
 										JOptionPane.showMessageDialog(frmRegistration, "That username is already in use!  Did you forget your password?", "Error", JOptionPane.ERROR_MESSAGE);
-									use.close();
-									statement.close();
-									connection.close();
+										use.close();
+										statement.close();
+										connection.close();
 								} catch (ClassNotFoundException e1) {
 									e1.printStackTrace();
 								} catch (SQLException e1) {

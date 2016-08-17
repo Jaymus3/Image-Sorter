@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -63,11 +62,11 @@ public class LoginWindow {
 		final JLabel errorLabel = new JLabel("Invalid username/password");
 		errorLabel.setForeground(new Color(255, 0, 0));
 		errorLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 11));
-		errorLabel.setBounds(44, 174, 287, 16);
+		errorLabel.setBounds(44, 174, 240, 16);
 		errorLabel.setVisible(false);
 		frmLoginWindow.getContentPane().add(errorLabel);
 		
-		JLabel lblLogo = new JLabel("Logo failed to load for some reason :(");
+	 	JLabel lblLogo = new JLabel("Logo failed to load for some reason :(");
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogo.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
 		lblLogo.setBounds(6, 6, 277, 170);
@@ -157,7 +156,6 @@ public class LoginWindow {
 			public void mouseClicked(MouseEvent e) 
 			{
 				JOptionPane.showMessageDialog(frmLoginWindow, "Forgotten passwords currently have no recovery method.  Ask James for an account password reset.", "Forgot password", JOptionPane.INFORMATION_MESSAGE);
-				//TODO:  Implement forgotten password
 				
 			}
 		});
