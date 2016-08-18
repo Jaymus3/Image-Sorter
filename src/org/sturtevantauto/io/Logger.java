@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Logger {
-	private static String dbUrl = "jdbc:mysql://127.0.0.1:3306?autoReconnect=true&useSSL=false";
+	private static String dbUrl = "jdbc:mysql://192.168.1.38:3306?autoReconnect=true&useSSL=false";
 	private static String dbUsername = "imagesorter";
 	private static String dbPassword = "4vSmbst4Q#uhL#3%";
 	

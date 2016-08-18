@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -35,7 +34,7 @@ public class LoginWindow {
 	public JFrame frmLoginWindow;
 	private JTextField usernameField;
 	private JPasswordField passwordField;
-	private static String dbUrl = "jdbc:mysql://127.0.0.1:3306?autoReconnect=true&useSSL=false";
+	private static String dbUrl = "jdbc:mysql://192.168.1.38:3306?autoReconnect=true&useSSL=false";
 	private static String dbUsername = "imagesorter";
 	private static String dbPassword = "4vSmbst4Q#uhL#3%";
 
@@ -60,20 +59,20 @@ public class LoginWindow {
 		frmLoginWindow.getContentPane().setLayout(null);
 		
 		final JLabel errorLabel = new JLabel("Invalid username/password");
+		errorLabel.setVisible(false);
 		errorLabel.setForeground(new Color(255, 0, 0));
 		errorLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 11));
 		errorLabel.setBounds(44, 174, 240, 16);
-		errorLabel.setVisible(false);
 		frmLoginWindow.getContentPane().add(errorLabel);
 		
-	 	JLabel lblLogo = new JLabel("Logo failed to load for some reason :(");
+	 	JLabel lblLogo = new JLabel("");
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogo.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
-		lblLogo.setBounds(6, 6, 277, 170);
+		lblLogo.setBounds(7, 6, 277, 170);
 		BufferedImage img = null;
 		try 
 		{
-		    img = ImageIO.read(new File("resources/img/logo-transparent.png"));
+			img = ImageIO.read(getClass().getResource("/img/logo-transparent.png"));
 		} catch (IOException e) {
 		    e.printStackTrace();
 		}
@@ -121,12 +120,12 @@ public class LoginWindow {
 			}
 		});
 		
-		JLabel usernameLabel = new JLabel("New label");
+		JLabel usernameLabel = new JLabel("");
 		usernameLabel.setBounds(16, 192, 26, 26);
 		BufferedImage img2 = null;
 		try 
 		{
-			img2 = ImageIO.read(new File("resources/img/username-logo.png"));
+			img2 = ImageIO.read(getClass().getResource("/img/username-logo.png"));
 		} catch (IOException e) {
 		    e.printStackTrace();
 		}
@@ -138,12 +137,12 @@ public class LoginWindow {
 		BufferedImage img3 = null;
 		try 
 		{
-		    img3 = ImageIO.read(new File("resources/img/password-logo.png"));
+			img3 = ImageIO.read(getClass().getResource("/img/password-logo.png"));
 		} catch (IOException e) {
 		    e.printStackTrace();
 		}
 		
-		JLabel passwordLabel = new JLabel("New label");
+		JLabel passwordLabel = new JLabel("");
 		passwordLabel.setBounds(16, 230, 26, 26);
 		
 		ImageIcon imageIcon3 = new ImageIcon(img3);
@@ -155,7 +154,12 @@ public class LoginWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
-				JOptionPane.showMessageDialog(frmLoginWindow, "Forgotten passwords currently have no recovery method.  Ask James for an account password reset.", "Forgot password", JOptionPane.INFORMATION_MESSAGE);
+				String messageString = "<html><i>\"You're the only one that's small enough to get up there, so if you get stuck we<br>can't crawl in there to get you.\"</i> <b>*pauses*</b> <i>\"Don't get stuck.\"</i> - Howard<br><br>"
+						+ "If you forgot your password, there's no real way to recover it.  You're gonna have<br>to ask James for it.  Having a recovery method would be a <i>security vulnerability!</i></html>";
+				Font font = new Font("Helvetica Neue", Font.PLAIN, 14);
+				JLabel labelConversionForFontSupport = new JLabel(messageString);
+		        labelConversionForFontSupport.setFont(font);
+				JOptionPane.showMessageDialog(frmLoginWindow, labelConversionForFontSupport, "Forgot password", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
 		});

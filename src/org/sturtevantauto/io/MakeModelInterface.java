@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class MakeModelInterface {
 	public static boolean foundmake = false;
-	private static String dbUrl = "jdbc:mysql://127.0.0.1:3306?autoReconnect=true&useSSL=false";
+	private static String dbUrl = "jdbc:mysql://192.168.1.38:3306?autoReconnect=true&useSSL=false";
 	private static String dbUsername = "imagesorter";
 	private static String dbPassword = "4vSmbst4Q#uhL#3%";
 	
@@ -55,12 +55,6 @@ public class MakeModelInterface {
 	    Statement statement = connection.createStatement();
 		ResultSet use = statement.executeQuery("USE car_parts");
 		statement.executeUpdate("INSERT INTO `Make_Model_Index` (`Make`, `Model`) VALUES ('" + make + "', '" + model + "')");
-		/*
-		File makemodelindex = new File("/Users/sturtevantauto/Documents/workspace/MakeModelIndex.txt");
-		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(makemodelindex, true)));
-	    out.println(make + " " + model);
-		out.close();
-		*/
 		use.close();
 		statement.close();
 		connection.close();
