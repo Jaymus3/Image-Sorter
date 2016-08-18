@@ -8,9 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Logger {
-	private static String dbUrl = "jdbc:mysql://192.168.1.38:3306?autoReconnect=true&useSSL=false";
-	private static String dbUsername = "imagesorter";
-	private static String dbPassword = "4vSmbst4Q#uhL#3%";
 	
 	/**
 	 * Checks if the car is indexed in the SQL database
@@ -24,7 +21,7 @@ public class Logger {
 	{
 		boolean thebool = false;
 		Class.forName("com.mysql.jdbc.Driver");
-	    Connection connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+	    Connection connection = DriverManager.getConnection(CarDefinitions.getDBUrl(), CarDefinitions.getSQLUsername(), CarDefinitions.getSQLPassword());
 	    Statement statement = connection.createStatement();
 		ResultSet use = statement.executeQuery("USE car_parts");
 	    ResultSet rs = statement.executeQuery("SELECT * FROM Indexed_Cars");
@@ -54,19 +51,13 @@ public class Logger {
 	public static void LogCar(String stock) throws IOException, ClassNotFoundException, SQLException
 	{
 		Class.forName("com.mysql.jdbc.Driver");
-	    Connection connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+	    Connection connection = DriverManager.getConnection(CarDefinitions.getDBUrl(), CarDefinitions.getSQLUsername(), CarDefinitions.getSQLPassword());
 	    Statement statement = connection.createStatement();
 		ResultSet use = statement.executeQuery("USE car_parts");
 	    statement.executeUpdate("INSERT INTO `Indexed_Cars` (`StockNumber`) VALUES ('" + stock + "')");
     	use.close();
     	statement.close();
     	connection.close();
-	    /*
-		File makemodelindex = new File("/Users/sturtevantauto/Documents/workspace/IndexedCars.txt");
-		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(makemodelindex, true)));
-		out.println(stock);
-		out.close();
-		*/
 	}
 
 }

@@ -14,6 +14,9 @@ public class CarDefinitions {
 	static String stock;
 	static File stockfile;
 	static boolean registerwindow;
+	private static String dbUrl = "jdbc:mysql://192.168.1.38:3306?autoReconnect=true&useSSL=false";
+	private static String dbUsername = "imagesorter";
+	private static String dbPassword = "4vSmbst4Q#uhL#3%";
 	static String[] imagenames = new String[50];
 	
 	/**
@@ -23,6 +26,11 @@ public class CarDefinitions {
 	public static void setPictureLocation(String folderpath)
 	{
 		picloc = new File(folderpath);
+	}
+	
+	public static void setDBUrl(String DBUrl)
+	{
+		dbUrl = "jdbc:mysql://" + DBUrl + "?autoReconnect=true&useSSL=false";
 	}
 	/**
 	 * Sets whether the registration window is currently open or not.
@@ -100,6 +108,30 @@ public class CarDefinitions {
 	public static String[] getImageNames()
 	{
 		return imagenames;
+	}
+	/**
+	 * Returns the database URL
+	 * @return dbUrl
+	 */
+	public static String getDBUrl()
+	{
+		return dbUrl;
+	}
+	/**
+	 * Returns the database username.
+	 * @return dbUsername
+	 */
+	public static String getSQLUsername()
+	{
+		return dbUsername;
+	}
+	/**
+	 * Returns the database password.
+	 * @return dbPassword
+	 */
+	public static String getSQLPassword()
+	{
+		return dbPassword;
 	}
 	/**
 	 * Gets whether the registration window is open or not.

@@ -28,9 +28,6 @@ public class RegistrationWindow {
 	private JPasswordField passwordField;
 	private JPasswordField confirmPasswordField;
 	private JTextField secretCodeField;
-	private static String dbUrl = "jdbc:mysql://192.168.1.38:3306?autoReconnect=true&useSSL=false";
-	private static String dbUsername = "imagesorter";
-	private static String dbPassword = "4vSmbst4Q#uhL#3%";
 
 	/**
 	 * Create the application.
@@ -108,10 +105,11 @@ public class RegistrationWindow {
 						{
 							if(secretCodeField.getText().equals("snecret"))
 							{
-								try {
+								try 
+								{
 									boolean usernametaken = false;
 									Class.forName("com.mysql.jdbc.Driver");
-									Connection connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+									Connection connection = DriverManager.getConnection(CarDefinitions.getDBUrl(), CarDefinitions.getSQLUsername(), CarDefinitions.getSQLPassword());
 								    Statement statement = connection.createStatement();
 									ResultSet use = statement.executeQuery("USE car_parts");
 									ResultSet rs = statement.executeQuery("SELECT * FROM Account_Index where Username='" + usernameField.getText() + "'");

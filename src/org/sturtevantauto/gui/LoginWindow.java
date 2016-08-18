@@ -1,26 +1,18 @@
 package org.sturtevantauto.gui;
 
 import java.awt.Color;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import javax.swing.SwingConstants;
 
+import org.sturtevantauto.io.AccountHandler;
 import org.sturtevantauto.io.CarDefinitions;
-
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -29,27 +21,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class LoginWindow {
+public class LoginWindow 
+{
 
 	public JFrame frmLoginWindow;
 	private JTextField usernameField;
 	private JPasswordField passwordField;
-	private static String dbUrl = "jdbc:mysql://192.168.1.38:3306?autoReconnect=true&useSSL=false";
-	private static String dbUsername = "imagesorter";
-	private static String dbPassword = "4vSmbst4Q#uhL#3%";
 
 
 	/**
 	 * Create the application.
 	 */
-	public LoginWindow() {
+	public LoginWindow() 
+	{
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize() 
+	{
 		frmLoginWindow = new JFrame();
 		frmLoginWindow.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
 		frmLoginWindow.setTitle("Sturtevant Auto Tools");
@@ -58,7 +50,7 @@ public class LoginWindow {
 		frmLoginWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLoginWindow.getContentPane().setLayout(null);
 		
-		final JLabel errorLabel = new JLabel("Invalid username/password");
+		final JLabel errorLabel = new JLabel("Invalid username/password.");
 		errorLabel.setVisible(false);
 		errorLabel.setForeground(new Color(255, 0, 0));
 		errorLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 11));
@@ -81,7 +73,8 @@ public class LoginWindow {
 		frmLoginWindow.getContentPane().add(lblLogo);
 		
 		usernameField = new JTextField();
-		usernameField.addActionListener(new ActionListener() {
+		usernameField.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e) 
 			{
 				passwordField.requestFocus();
@@ -96,10 +89,11 @@ public class LoginWindow {
 		usernameField.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.addActionListener(new ActionListener() {
+		passwordField.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				login(usernameField, passwordField, errorLabel);
+				AccountHandler.login(usernameField, passwordField, errorLabel, frmLoginWindow);
 			}
 		});
 		passwordField.setBounds(41, 226, 243, 35);
@@ -113,10 +107,11 @@ public class LoginWindow {
 		loginButton.setBackground(new Color(128, 0, 128));
 		loginButton.setOpaque(false);
 		loginButton.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
-		loginButton.addActionListener(new ActionListener() {
+		loginButton.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				login(usernameField, passwordField, errorLabel);
+				AccountHandler.login(usernameField, passwordField, errorLabel, frmLoginWindow);
 			}
 		});
 		
@@ -137,7 +132,7 @@ public class LoginWindow {
 		BufferedImage img3 = null;
 		try 
 		{
-			img3 = ImageIO.read(getClass().getResource("/img/password-logo.png"));
+			img3 = ImageIO.read(getClass().getResource("/img/password-logos.png"));
 		} catch (IOException e) {
 		    e.printStackTrace();
 		}
@@ -150,7 +145,8 @@ public class LoginWindow {
 		frmLoginWindow.getContentPane().add(passwordLabel);
 		
 		JLabel forgotLabel = new JLabel("Forgot your password?");
-		forgotLabel.addMouseListener(new MouseAdapter() {
+		forgotLabel.addMouseListener(new MouseAdapter() 
+		{
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
@@ -169,15 +165,16 @@ public class LoginWindow {
 		frmLoginWindow.getContentPane().add(forgotLabel);
 		
 		JLabel lblRegister = new JLabel("Sign Up");
-		lblRegister.addMouseListener(new MouseAdapter() {
+		lblRegister.addMouseListener(new MouseAdapter() 
+		{
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
 				if(!CarDefinitions.getRegister())
 				{
-				RegistrationWindow window = new RegistrationWindow();
-				window.frmRegistration.setVisible(true);
-				CarDefinitions.setRegisterOpen(true);
+					RegistrationWindow window = new RegistrationWindow();
+					window.frmRegistration.setVisible(true);
+					CarDefinitions.setRegisterOpen(true);
 				}
 			}
 		});
@@ -189,43 +186,6 @@ public class LoginWindow {
 		loginButton.setBounds(16, 267, 268, 35);
 		frmLoginWindow.getContentPane().add(loginButton);
 		frmLoginWindow.setLocationRelativeTo(null);
-		
 	}
-	private void login(JTextField userfield, JPasswordField passwordfield, JLabel error)
-	{
-		try {
-			String user = null;
-			String pass = null;
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-		    Statement statement = connection.createStatement();
-			ResultSet use = statement.executeQuery("USE car_parts");
-			String username = userfield.getText();
-			char[] password = passwordfield.getPassword();
-			ResultSet rs = statement.executeQuery("SELECT * FROM Account_Index where Username='" + username + "' and Password='" + new String(password) + "'");
-			while(rs.next())
-			{
-				user = rs.getString("Username");
-                pass = rs.getString("Password");
-			}
-			if(username.equals(user) && new String(password).equals(pass))
-			{
-				frmLoginWindow.dispose();
-				MainGUI window = new MainGUI();
-				window.frmImageSorter.setVisible(true);
-			}
-			else
-			{
-				error.setVisible(true);
-			}
-			use.close();
-			rs.close();
-			statement.close();
-			connection.close();
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-	}
+	
 }

@@ -1,8 +1,9 @@
 # Sturtevant Auto Tools
-This program in its completed state will have a suite of tools used by the employees of Sturtevant Auto Salvage for various
-different purposes.  As of right now, the program only supports the original concept program, Image Sorter, but there is
-support planned for a pricing tool for purchasing cars as well as a searchable index of all of the images of cars.  New
-features may come up in the future and will be documented here as planned.
+This program in its completed state will have a suite of tools used by the employees of Sturtevant Auto Salvage
+or various different purposes.  As of right now, the program only supports the original concept program, 
+Image Sorter, but the pricing tool database has been constructed and the actual program is in a very early
+state.  Login system is now fully implemented and will either transition directly into the pricing tool, which
+will act as a hub for the other parts, or a specific hub window that leads into the other windows.
 
 ## Features
 
@@ -13,20 +14,25 @@ features may come up in the future and will be documented here as planned.
 
 ### Login Screen
 - Supports registration of new users, verified by a secret code (currently stored in code, will be storing in SQL soon)
-- Will support recovering lost passwords (implementation still unclear)
+- Supports recovering passwords to a limited extent
 - Stores user data in SQL for quick easy access
 - Currently does not use SSL since the program is running on an internal network.  Will update if necessary.
 
-### Car Pricing Tool (planned)
- - Pulls live scrap pricing index from SQL data
+### Car Pricing Tool (In Progress)
+ - Pulls live scrap pricing index from SQL data (SQL data is from Canadian government release)
  - Calculates price based on scrap price and weight of vehicle
  - Allows employees to have an offline pricing utility, rather than using the slow, web-based one
- - Simple UI making it easy for reusability.
+ - Simple UI making it easy for reusability
+ - Search engine used to quickly look up a car based on keywords like year and model
+ - Admin tool for adjusting price to weight ratio
+ - Admin tool also allows you to adjust prices for specific vehicles to allow for flexible pricing
+ - (potential feature) Request a price check from an admin on a vehicle that has questionable pricing
 
 ### Image Viewer (planned)
  - Reads images from local computer
  - Displays them in an easy to use fashion
  - Most likely going to be a web-based implementation due to the poor performance of using Java to scale images
+ - Could also be coded in Swift since Swift has very nice image scaling
 
 ## Installation
 
@@ -44,7 +50,7 @@ Wow, you're actually reading this repository and for some reason interested enou
 small issue of some sort, just make an issue for it and I'll get right to it.  If you decide you'd rather fix it up, feel free
 to fork the repo, although in its current state it will look weird on systems other than a Mac.
 1. Start with setting up an SQL database.  I used the integrated one in OS X and installed [phpmyadmin][phpmy] to manage the
-database easily,but you can just use SQL commands if you prefer.
+database easily, but you can just use SQL commands if you prefer.
 
 2. Create a new database with the name ``` car_parts ```
 

@@ -31,9 +31,12 @@ public class Main {
     {
         @SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
-        EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+        EventQueue.invokeLater(new Runnable() 
+        {
+			public void run() 
+			{
+				try 
+				{
 					System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Image Sorter");
 					System.setProperty("apple.laf.useScreenMenuBar", "true");
 	                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
