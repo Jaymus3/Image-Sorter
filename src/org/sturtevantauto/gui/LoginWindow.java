@@ -30,16 +30,14 @@ public class LoginWindow {
     /**
      * Create the application.
      */
-    public LoginWindow() 
-    {
+    public LoginWindow() {
         initialize();
     }
 
     /**
      * Initialize the contents of the frame.
      */
-    private void initialize() 
-    {
+    private void initialize() {
         frmLoginWindow = new JFrame();
         frmLoginWindow.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
         frmLoginWindow.setTitle("Sturtevant Auto Tools");
