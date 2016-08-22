@@ -75,7 +75,7 @@ public class PricingTool {
         modelBox.setBounds(244, 118, 200, 27);
         pricingFrame.getContentPane().add(modelBox);
 
-        String[] options = { "2DR", "3DR", "4DR", "LX", "EX", "SE", "LE", "XE" };
+        String[] options = { "Select a package" };
         JComboBox<String> optionBox = new JComboBox(options);
         optionBox.setSelectedIndex(0);
         optionBox.setBounds(244, 157, 200, 27);
