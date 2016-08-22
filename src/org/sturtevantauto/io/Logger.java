@@ -23,8 +23,8 @@ public class Logger {
 		Class.forName("com.mysql.jdbc.Driver");
 	    Connection connection = DriverManager.getConnection(CarDefinitions.getDBUrl(), CarDefinitions.getSQLUsername(), CarDefinitions.getSQLPassword());
 	    Statement statement = connection.createStatement();
-		ResultSet use = statement.executeQuery("USE car_parts");
-	    ResultSet rs = statement.executeQuery("SELECT * FROM Indexed_Cars");
+	    ResultSet use = statement.executeQuery("USE car_parts");
+        ResultSet rs = statement.executeQuery("SELECT * FROM Indexed_Cars");
 	    while(rs.next())
 	    {
 	         String stocksql = rs.getString("StockNumber");

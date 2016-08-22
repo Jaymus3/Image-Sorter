@@ -18,8 +18,16 @@ public class CarDefinitions {
 	private static String dbUsername = "imagesorter";
 	private static String dbPassword = "4vSmbst4Q#uhL#3%";
 	static String[] imagenames = new String[50];
+	static boolean yearState;
 	
-	/**
+
+	
+	public static void setYearState(boolean yearState) 
+    {
+        CarDefinitions.yearState = yearState;
+    }
+
+    /**
 	 * Sets the picture location to the given path
 	 * @param folderpath
 	 */
@@ -117,6 +125,11 @@ public class CarDefinitions {
 	{
 		return dbUrl;
 	}
+	
+	public static boolean getYearState() 
+	{
+        return yearState;
+    }
 	/**
 	 * Returns the database username.
 	 * @return dbUsername
