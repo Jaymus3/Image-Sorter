@@ -11,7 +11,7 @@ import javax.swing.JComboBox;
 
 public class PricingTool {
 
-	private JFrame frmSturtevantAutoPricing;
+	private JFrame pricingFrame;
 	private JTextField searchField;
 
 	/**
@@ -22,7 +22,7 @@ public class PricingTool {
 			public void run() {
 				try {
 					PricingTool window = new PricingTool();
-					window.frmSturtevantAutoPricing.setVisible(true);
+					window.pricingFrame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -40,17 +40,19 @@ public class PricingTool {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initialize() {
-		frmSturtevantAutoPricing = new JFrame();
-		frmSturtevantAutoPricing.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
-		frmSturtevantAutoPricing.setTitle("Sturtevant Auto Pricing Tool");
-		frmSturtevantAutoPricing.setBounds(100, 100, 450, 300);
-		frmSturtevantAutoPricing.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmSturtevantAutoPricing.getContentPane().setLayout(null);
+		pricingFrame = new JFrame();
+		pricingFrame.setResizable(false);
+		pricingFrame.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
+		pricingFrame.setTitle("Sturtevant Auto Pricing Tool");
+		pricingFrame.setBounds(100, 100, 450, 300);
+		pricingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		pricingFrame.getContentPane().setLayout(null);
 		
 		searchField = new JTextField();
 		searchField.setBounds(244, 6, 200, 26);
-		frmSturtevantAutoPricing.getContentPane().add(searchField);
+		pricingFrame.getContentPane().add(searchField);
 		searchField.setColumns(10);
 		TextPrompt searchPrompt = new TextPrompt("Search", searchField);
 		searchPrompt.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
@@ -58,21 +60,21 @@ public class PricingTool {
 		searchPrompt.setForeground(Color.GRAY);
 		
 		String[] makes = {"Honda", "Ford", "Dodge", "Toyota", "Chevrolet", "BMW", "Buick"};
-		JComboBox<String> makeBox = new JComboBox<String>(makes);
+		JComboBox<String> makeBox = new JComboBox(makes);
 		makeBox.setSelectedIndex(0);
 		makeBox.setBounds(244, 38, 200, 27);
-		frmSturtevantAutoPricing.getContentPane().add(makeBox);
+		pricingFrame.getContentPane().add(makeBox);
 		
 		String[] models = {"Civic", "Taurus", "Durango", "Camry", "Corvette", "Bavaria", "Riviera"};
-		JComboBox<String> modelBox = new JComboBox<String>(models);
+		JComboBox<String> modelBox = new JComboBox(models);
 		modelBox.setSelectedIndex(0);
-		modelBox.setBounds(244, 104, 200, 27);
-		frmSturtevantAutoPricing.getContentPane().add(modelBox);
+		modelBox.setBounds(244, 77, 200, 27);
+		pricingFrame.getContentPane().add(modelBox);
 		
 		String[] options = {"2DR", "3DR", "4DR", "LX", "EX", "SE", "LE", "XE"};
-		JComboBox<String> optionBox = new JComboBox<String>(options);
+		JComboBox<String> optionBox = new JComboBox(options);
 		optionBox.setSelectedIndex(0);
-		optionBox.setBounds(244, 137, 200, 27);
-		frmSturtevantAutoPricing.getContentPane().add(optionBox);
+		optionBox.setBounds(244, 116, 200, 27);
+		pricingFrame.getContentPane().add(optionBox);
 	}
 }

@@ -430,14 +430,13 @@ public class MainGUI {
 		if(CarDefinitions.getImageNames()[j] != null)
 		{
 			BufferedImage img = null;
-		try 
-		{
-		    img = ImageIO.read(new File(CarDefinitions.getImageNames()[j]));
-		} catch (IOException e) {
+			try 
+			{
+				img = ImageIO.read(new File(CarDefinitions.getImageNames()[j]));
+			} catch (IOException e) {
 		    e.printStackTrace();
-		}
-		Image dimg = img.getScaledInstance(carPicture.getWidth(), carPicture.getHeight(),
-		        Image.SCALE_SMOOTH);
+			}
+		Image dimg = img.getScaledInstance(carPicture.getWidth(), carPicture.getHeight(), Image.SCALE_SMOOTH);
 		ImageIcon imageIcon = new ImageIcon(dimg);
 		carPicture.setIcon(imageIcon);
 		}
