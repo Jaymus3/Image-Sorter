@@ -1,4 +1,4 @@
-package org.sturtevantauto.io;
+package com.sturtevantauto.io;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import org.sturtevantauto.gui.MainGUI;
+
+import com.sturtevantauto.gui.MainGUI;
 
 public class AccountHandler {
     public static void login(JTextField userfield, JPasswordField passwordfield, JLabel error, JFrame frame) {

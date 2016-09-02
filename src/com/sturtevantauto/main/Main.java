@@ -1,4 +1,4 @@
-package org.sturtevantauto.main;
+package com.sturtevantauto.main;
 
 import java.awt.AWTException;
 import java.awt.EventQueue;
@@ -10,12 +10,12 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-import org.sturtevantauto.gui.LoginWindow;
-import org.sturtevantauto.gui.MainGUI;
-import org.sturtevantauto.io.CarDefinitions;
-import org.sturtevantauto.io.ImageInterface;
-import org.sturtevantauto.io.Logger;
-import org.sturtevantauto.io.MakeModelInterface;
+import com.sturtevantauto.gui.LoginWindow;
+import com.sturtevantauto.gui.MainGUI;
+import com.sturtevantauto.io.CarDefinitions;
+import com.sturtevantauto.io.ImageInterface;
+import com.sturtevantauto.io.Logger;
+import com.sturtevantauto.io.MakeModelInterface;
 
 @SuppressWarnings("unused")
 public class Main {

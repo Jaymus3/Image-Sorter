@@ -1,4 +1,4 @@
-package org.sturtevantauto.io;
+package com.sturtevantauto.io;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

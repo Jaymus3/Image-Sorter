@@ -1,4 +1,4 @@
-package org.sturtevantauto.gui;
+package com.sturtevantauto.gui;
 
 import java.awt.*;
 import java.awt.event.*;

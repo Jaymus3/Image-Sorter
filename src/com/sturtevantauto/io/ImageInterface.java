@@ -1,4 +1,4 @@
-package org.sturtevantauto.io;
+package com.sturtevantauto.io;
 
 import java.io.File;
 
@@ -96,12 +96,12 @@ public class ImageInterface {
         File[] imagesend = new File[count];
         int i = 0;
         while (i < count) {
-            if (CarDefinitions.getImageNames()[i] == null || CarDefinitions.getImageNames()[i].contains("F")
-                    || CarDefinitions.getImageNames()[i].contains("G0")
-                    || CarDefinitions.getImageNames()[i].contains("E1")
-                    || CarDefinitions.getImageNames()[i].contains("G1")) {
-                System.err
-                        .println("Image " + (i + 1) + " failed to move because it was a stock number picture somehow.");
+            if (CarDefinitions.getImageNames()[i] == null 
+             || CarDefinitions.getImageNames()[i].contains("F")
+             || CarDefinitions.getImageNames()[i].contains("G0")
+             || CarDefinitions.getImageNames()[i].contains("E1")
+             || CarDefinitions.getImageNames()[i].contains("G1")) {
+                System.err.println("Image " + (i + 1) + " failed to move because it was a stock number picture somehow.");
             } else {
                 images[i] = new File(CarDefinitions.getImageNames()[i]);
                 if (CarDefinitions.getImageNames()[i].endsWith("_W.JPG")) {

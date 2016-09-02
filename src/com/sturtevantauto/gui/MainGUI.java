@@ -1,4 +1,4 @@
-package org.sturtevantauto.gui;
+package com.sturtevantauto.gui;
 
 import java.awt.Desktop;
 import java.awt.HeadlessException;
@@ -14,10 +14,10 @@ import javax.swing.JButton;
 import javax.swing.JProgressBar;
 import javax.swing.JTextPane;
 
-import org.sturtevantauto.io.CarDefinitions;
-import org.sturtevantauto.io.ImageInterface;
-import org.sturtevantauto.io.Logger;
-import org.sturtevantauto.io.MakeModelInterface;
+import com.sturtevantauto.io.CarDefinitions;
+import com.sturtevantauto.io.ImageInterface;
+import com.sturtevantauto.io.Logger;
+import com.sturtevantauto.io.MakeModelInterface;
 
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;

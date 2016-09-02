@@ -1,9 +1,9 @@
-package org.sturtevantauto.gui;
+package com.sturtevantauto.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import org.sturtevantauto.io.CarDefinitions;
+import com.sturtevantauto.io.CarDefinitions;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

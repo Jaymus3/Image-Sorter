@@ -1,11 +1,13 @@
-package org.sturtevantauto.gui;
+package com.sturtevantauto.gui;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import org.sturtevantauto.io.PricingToolHandler;
+
+import com.sturtevantauto.io.PricingToolHandler;
+
 import java.awt.Color;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;

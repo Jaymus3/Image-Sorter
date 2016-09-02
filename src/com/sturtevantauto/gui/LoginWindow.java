@@ -1,4 +1,4 @@
-package org.sturtevantauto.gui;
+package com.sturtevantauto.gui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -11,8 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
-import org.sturtevantauto.io.AccountHandler;
-import org.sturtevantauto.io.CarDefinitions;
+import com.sturtevantauto.io.AccountHandler;
+import com.sturtevantauto.io.CarDefinitions;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
