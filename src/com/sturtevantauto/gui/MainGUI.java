@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JProgressBar;
 import javax.swing.JTextPane;
 
-import com.sturtevantauto.io.CarDefinitions;
+import com.sturtevantauto.io.Car;
 import com.sturtevantauto.io.ImageInterface;
 import com.sturtevantauto.io.Logger;
 import com.sturtevantauto.io.MakeModelInterface;
@@ -44,24 +44,25 @@ public class MainGUI {
     private JTextField makeField;
     private JTextField stockField;
     int increment = 100;
+    static Car car = new Car();
 
     /**
      * Create the application.
      */
     public MainGUI() {
-        CarDefinitions.setMake(null);
-        ImageInterface.findFile(CarDefinitions.getPictureLocation(), false);
-        if (CarDefinitions.getStock() == null) {
+        car.setMake(null);
+        ImageInterface.findFile(car.getPictureLocation(), false);
+        if (car.getStock() == null) {
             System.err.println("No cars found to sort!");
-        } else if (CarDefinitions.getPictureLocation().toString().endsWith("/SORT_ME"))
-            CarDefinitions.TrimStock(false);
-        else if (CarDefinitions.getPictureLocation().toString().endsWith("/SKIPPED")) {
-            ImageInterface.findFile(CarDefinitions.getPictureLocation(), true);
-            CarDefinitions.TrimStock(true);
+        } else if (car.getPictureLocation().toString().endsWith("/SORT_ME"))
+            car.TrimStock(false);
+        else if (car.getPictureLocation().toString().endsWith("/SKIPPED")) {
+            ImageInterface.findFile(car.getPictureLocation(), true);
+            car.TrimStock(true);
         }
 
-        if (ImageInterface.countPictures(CarDefinitions.getPictureLocation()) != 0)
-            increment = 100 / ImageInterface.countPictures(CarDefinitions.getPictureLocation());
+        if (ImageInterface.countPictures(car.getPictureLocation()) != 0)
+            increment = 100 / ImageInterface.countPictures(car.getPictureLocation());
         initialize();
     }
 
@@ -85,7 +86,7 @@ public class MainGUI {
         outputWindow.setEditable(false);
         outputWindow.setBounds(15, 141, 295, 172);
         frmImageSorter.getContentPane().add(outputWindow);
-        if (CarDefinitions.getStock() == null) {
+        if (car.getStock() == null) {
             outputWindow.setText(
                     "No cars were found in the sorting directory.  Perhaps you didn't add the stock number to the end of any of the files, or forgot to import the pictures?");
         }
@@ -96,8 +97,8 @@ public class MainGUI {
             public void actionPerformed(ActionEvent arg0) {
                 if (modelField.getText() != null) {
                     try {
-                        CarDefinitions.setMake(makeField.getText());
-                        MakeModelInterface.WriteMakeModelIndex(CarDefinitions.getModel(), CarDefinitions.getMake());
+                        car.setMake(makeField.getText());
+                        MakeModelInterface.WriteMakeModelIndex(car.getModel(), car.getMake());
                         outputWindow.requestFocus();
                         outputWindow.setText("Make/Model association set!  Click the sort button to sort this car.");
                         btnSort.setEnabled(true);
@@ -135,10 +136,10 @@ public class MainGUI {
         modelField.setToolTipText("Enter the model of the vehicle here");
         modelField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                CarDefinitions.setModel(modelField.getText());
+                car.setModel(modelField.getText());
                 MakeModelInterface.foundmake = false;
                 try {
-                    MakeModelInterface.CheckMakeModelIndex(CarDefinitions.getModel());
+                    MakeModelInterface.CheckMakeModelIndex(car.getModel());
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (ClassNotFoundException e) {
@@ -155,7 +156,7 @@ public class MainGUI {
                     outputWindow.requestFocus();
                     outputWindow.setText("Make found!  Click sort to sort this car!");
                     btnSort.setEnabled(true);
-                    makeField.setText(CarDefinitions.getMake());
+                    makeField.setText(car.getMake());
                     makeField.setEditable(false);
                 }
             }
@@ -181,7 +182,7 @@ public class MainGUI {
         makeField.setColumns(10);
         frmImageSorter.getContentPane().add(makeField);
 
-        if (CarDefinitions.getStock() == null)
+        if (car.getStock() == null)
 
             modelField.setEditable(false);
 
@@ -234,18 +235,18 @@ public class MainGUI {
                 outputWindow.setText("");
                 String[] options = new String[] { "Delete", "Continue" };
                 try {
-                    if (Logger.CheckIfCarIndexed(CarDefinitions.getStock())) {
+                    if (Logger.CheckIfCarIndexed(car.getStock())) {
                         int choice = JOptionPane.showOptionDialog(null,
                                 "Would you like to delete the existing files for this car, or just continue anyways?",
                                 "Car already sorted!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null,
                                 options, options[0]);
                         if (choice == 0) {
-                            CarDefinitions.getStockFile().delete();
+                            car.getStockFile().delete();
                             File[] images = new File[5];
                             int i = 0;
-                            while (i < CarDefinitions.getImageNames().length) {
-                                if (CarDefinitions.getImageNames()[i] != null) {
-                                    images[i] = new File(CarDefinitions.getImageNames()[i]);
+                            while (i < car.getImageNames().length) {
+                                if (car.getImageNames()[i] != null) {
+                                    images[i] = new File(car.getImageNames()[i]);
                                     images[i].delete();
                                 }
                                 i++;
@@ -256,21 +257,21 @@ public class MainGUI {
                             // This is where the continue option is handled
                         }
                     }
-                    if (CarDefinitions.getStock() != null) {
-                        ImageInterface.CopyFiles(CarDefinitions.getStock(), CarDefinitions.getModel(),
-                                CarDefinitions.getMake());
-                        CarDefinitions.getStockFile().delete();
-                        Logger.LogCar(CarDefinitions.getStock());
+                    if (car.getStock() != null) {
+                        ImageInterface.CopyFiles(car.getStock(), car.getModel(),
+                                car.getMake());
+                        car.getStockFile().delete();
+                        Logger.LogCar(car.getStock());
                         outputWindow.setText(
-                                CarDefinitions.getMake() + " " + CarDefinitions.getModel() + " successfully sorted!");
-                        CarDefinitions.setMake(null);
-                        ImageInterface.findFile(CarDefinitions.getPictureLocation(), false);
+                                car.getMake() + " " + car.getModel() + " successfully sorted!");
+                        car.setMake(null);
+                        ImageInterface.findFile(car.getPictureLocation(), false);
                         loadImage(carPicture1, 0);
                         loadImage(carPicture2, 1);
                         loadImage(carPicture3, 2);
                         loadImage(carPicture4, 3);
-                        CarDefinitions.TrimStock(false);
-                        stockField.setText(CarDefinitions.getStock());
+                        car.TrimStock(false);
+                        stockField.setText(car.getStock());
                     } else
                         stockField.setText("NO CARS");
 
@@ -297,21 +298,21 @@ public class MainGUI {
         skipCarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 progressBar.setValue(progressBar.getValue() + increment);
-                CarDefinitions.getStockFile().renameTo(new File(
-                        "/Users/sturtevantauto/Pictures/Car_Pictures/SKIPPED/" + CarDefinitions.getStock() + "__.jpg"));
-                for (int i = 0; CarDefinitions.getImageNames().length > i; i++) {
-                    if (CarDefinitions.getImageNames()[i] != null) {
-                        File carfile = new File(CarDefinitions.getImageNames()[i]);
+                car.getStockFile().renameTo(new File(
+                        "/Users/sturtevantauto/Pictures/Car_Pictures/SKIPPED/" + car.getStock() + "__.jpg"));
+                for (int i = 0; car.getImageNames().length > i; i++) {
+                    if (car.getImageNames()[i] != null) {
+                        File carfile = new File(car.getImageNames()[i]);
                         carfile.renameTo(new File("/Users/sturtevantauto/Pictures/Car_Pictures/SKIPPED/"
-                                + CarDefinitions.getStock() + "_" + i + ".jpg"));
+                                + car.getStock() + "_" + i + ".jpg"));
                     }
                 }
-                outputWindow.setText(CarDefinitions.getStock() + " successfully moved out for later sorting!");
-                CarDefinitions.setMake(null);
-                ImageInterface.findFile(CarDefinitions.getPictureLocation(), false);
-                if (CarDefinitions.getStock() != null) {
-                    CarDefinitions.TrimStock(false);
-                    stockField.setText(CarDefinitions.getStock());
+                outputWindow.setText(car.getStock() + " successfully moved out for later sorting!");
+                car.setMake(null);
+                ImageInterface.findFile(car.getPictureLocation(), false);
+                if (car.getStock() != null) {
+                    car.TrimStock(false);
+                    stockField.setText(car.getStock());
                 } else
                     stockField.setText("NO CARS");
                 makeField.setText("");
@@ -355,7 +356,7 @@ public class MainGUI {
                             options[0]);
                     if (choice == 1) {
                         File selectedFile = fileChooser.getSelectedFile();
-                        CarDefinitions.setPictureLocation(selectedFile.toString() + "/");
+                        car.setPictureLocation(selectedFile.toString() + "/");
                         restart();
                         skipCarButton.setVisible(false);
 
@@ -377,8 +378,8 @@ public class MainGUI {
 
         JCheckBoxMenuItem menuItem4 = new JCheckBoxMenuItem("Check!");
         menuFile.add(menuItem4);
-        if (CarDefinitions.getStock() != null)
-            stockField.setText(CarDefinitions.getStock());
+        if (car.getStock() != null)
+            stockField.setText(car.getStock());
         else {
             carPicture1.setText("                      No image found!");
             carPicture1.setIcon(null);
@@ -394,10 +395,10 @@ public class MainGUI {
     }
 
     private void loadImage(JLabel carPicture, int j) {
-        if (CarDefinitions.getImageNames()[j] != null) {
+        if (car.getImageNames()[j] != null) {
             BufferedImage img = null;
             try {
-                img = ImageIO.read(new File(CarDefinitions.getImageNames()[j]));
+                img = ImageIO.read(new File(car.getImageNames()[j]));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -416,9 +417,9 @@ public class MainGUI {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
                 if (OneClick) {
-                    if (CarDefinitions.getImageNames()[j] != null)
+                    if (car.getImageNames()[j] != null)
                         try {
-                            Desktop.getDesktop().open(new File(CarDefinitions.getImageNames()[j]));
+                            Desktop.getDesktop().open(new File(car.getImageNames()[j]));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -442,5 +443,8 @@ public class MainGUI {
         new MainGUI();
         initialize();
         frmImageSorter.setVisible(true);
+    }
+    public static Car getCar() {
+        return car;
     }
 }

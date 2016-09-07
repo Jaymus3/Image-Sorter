@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import com.sturtevantauto.io.AccountHandler;
-import com.sturtevantauto.io.CarDefinitions;
+import com.sturtevantauto.io.Car;
 
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -27,6 +27,7 @@ public class LoginWindow {
     public JFrame frmLoginWindow;
     private JTextField usernameField;
     private JPasswordField passwordField;
+    static Car car = new Car();
 
     /**
      * Create the application.
@@ -155,10 +156,10 @@ public class LoginWindow {
         lblRegister.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!CarDefinitions.getRegister()) {
+                if (!car.getRegister()) {
                     RegistrationWindow window = new RegistrationWindow();
                     window.frmRegistration.setVisible(true);
-                    CarDefinitions.setRegisterOpen(true);
+                    car.setRegisterOpen(true);
                 }
             }
         });
@@ -170,6 +171,10 @@ public class LoginWindow {
         loginButton.setBounds(16, 267, 268, 35);
         frmLoginWindow.getContentPane().add(loginButton);
         frmLoginWindow.setLocationRelativeTo(null);
+    }
+
+    public static Car getCar() {
+        return car;
     }
 
 }

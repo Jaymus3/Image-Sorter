@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.*;
 
 public class MakeModelInterface {
+    static Car car = new Car();
     public static boolean foundmake = false;
 
     /**
@@ -17,8 +18,8 @@ public class MakeModelInterface {
      */
     public static void CheckMakeModelIndex(String model) throws IOException, ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(CarDefinitions.getDBUrl(), CarDefinitions.getSQLUsername(),
-                CarDefinitions.getSQLPassword());
+        Connection connection = DriverManager.getConnection(car.getDBUrl(), car.getSQLUsername(),
+                car.getSQLPassword());
         Statement statement = connection.createStatement();
         ResultSet use = statement.executeQuery("USE car_parts");
         ResultSet rs = statement.executeQuery("SELECT * FROM Make_Model_Index");
@@ -26,9 +27,9 @@ public class MakeModelInterface {
             String make = rs.getString("Make");
             String modelsql = rs.getString("Model");
             if (modelsql.equals(model)) {
-                CarDefinitions.setMake(make);
+                car.setMake(make);
                 System.out.println(
-                        "It's a " + CarDefinitions.getMake() + " with stock number " + CarDefinitions.getStock());
+                        "It's a " + car.getMake() + " with stock number " + car.getStock());
                 foundmake = true;
             }
         }
@@ -50,8 +51,8 @@ public class MakeModelInterface {
     public static void WriteMakeModelIndex(String model, String make)
             throws IOException, ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(CarDefinitions.getDBUrl(), CarDefinitions.getSQLUsername(),
-                CarDefinitions.getSQLPassword());
+        Connection connection = DriverManager.getConnection(car.getDBUrl(), car.getSQLUsername(),
+                car.getSQLPassword());
         Statement statement = connection.createStatement();
         ResultSet use = statement.executeQuery("USE car_parts");
         statement.executeUpdate(

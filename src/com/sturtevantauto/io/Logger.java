@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Logger {
+    static Car car = new Car();
 
     /**
      * Checks if the car is indexed in the SQL database
@@ -21,8 +22,8 @@ public class Logger {
     public static boolean CheckIfCarIndexed(String stock) throws IOException, ClassNotFoundException, SQLException {
         boolean thebool = false;
         Class.forName("com.mysql.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(CarDefinitions.getDBUrl(), CarDefinitions.getSQLUsername(),
-                CarDefinitions.getSQLPassword());
+        Connection connection = DriverManager.getConnection(car.getDBUrl(), car.getSQLUsername(),
+                car.getSQLPassword());
         Statement statement = connection.createStatement();
         ResultSet use = statement.executeQuery("USE car_parts");
         ResultSet rs = statement.executeQuery("SELECT * FROM Indexed_Cars");
@@ -50,8 +51,8 @@ public class Logger {
      */
     public static void LogCar(String stock) throws IOException, ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(CarDefinitions.getDBUrl(), CarDefinitions.getSQLUsername(),
-                CarDefinitions.getSQLPassword());
+        Connection connection = DriverManager.getConnection(car.getDBUrl(), car.getSQLUsername(),
+                car.getSQLPassword());
         Statement statement = connection.createStatement();
         ResultSet use = statement.executeQuery("USE car_parts");
         statement.executeUpdate("INSERT INTO `Indexed_Cars` (`StockNumber`) VALUES ('" + stock + "')");

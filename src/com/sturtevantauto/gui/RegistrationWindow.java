@@ -3,7 +3,7 @@ package com.sturtevantauto.gui;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import com.sturtevantauto.io.CarDefinitions;
+import com.sturtevantauto.io.Car;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,6 +28,7 @@ public class RegistrationWindow {
     private JPasswordField passwordField;
     private JPasswordField confirmPasswordField;
     private JTextField secretCodeField;
+    Car car = LoginWindow.getCar();
 
     /**
      * Create the application.
@@ -104,8 +105,8 @@ public class RegistrationWindow {
                                 try {
                                     boolean usernametaken = false;
                                     Class.forName("com.mysql.jdbc.Driver");
-                                    Connection connection = DriverManager.getConnection(CarDefinitions.getDBUrl(),
-                                            CarDefinitions.getSQLUsername(), CarDefinitions.getSQLPassword());
+                                    Connection connection = DriverManager.getConnection(car.getDBUrl(),
+                                            car.getSQLUsername(), car.getSQLPassword());
                                     Statement statement = connection.createStatement();
                                     ResultSet use = statement.executeQuery("USE car_parts");
                                     ResultSet rs = statement.executeQuery("SELECT * FROM Account_Index where Username='"
@@ -155,7 +156,7 @@ public class RegistrationWindow {
         frmRegistration.setLocationRelativeTo(null);
         frmRegistration.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                CarDefinitions.setRegisterOpen(false);
+                car.setRegisterOpen(false);
             }
         });
     }

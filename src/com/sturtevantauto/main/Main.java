@@ -12,7 +12,7 @@ import javax.swing.UIManager;
 
 import com.sturtevantauto.gui.LoginWindow;
 import com.sturtevantauto.gui.MainGUI;
-import com.sturtevantauto.io.CarDefinitions;
+import com.sturtevantauto.io.Car;
 import com.sturtevantauto.io.ImageInterface;
 import com.sturtevantauto.io.Logger;
 import com.sturtevantauto.io.MakeModelInterface;

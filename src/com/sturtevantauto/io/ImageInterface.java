@@ -2,10 +2,13 @@ package com.sturtevantauto.io;
 
 import java.io.File;
 
+import com.sturtevantauto.gui.MainGUI;
+
 public class ImageInterface {
     static boolean foundstock;
     static boolean imagetime;
     static int count;
+    static Car car = MainGUI.getCar();
 
     /**
      * Lists all of the files in the given folder and stores them with
@@ -18,7 +21,7 @@ public class ImageInterface {
         count = 0;
         foundstock = false;
         imagetime = false;
-        CarDefinitions.setStock(null);
+        car.setStock(null);
         File[] list = file.listFiles();
         if (list != null)
             for (File filer : list) {
@@ -27,13 +30,13 @@ public class ImageInterface {
                         if (filer.getName().contains("__"))
                             imagetime = false;
                         else {
-                            CarDefinitions.setImageNames(filer.getPath(), count);
+                            car.setImageNames(filer.getPath(), count);
                             count++;
                         }
                     }
                     if (filer.getName().contains("__") && !foundstock) {
-                        CarDefinitions.setStockFile(filer);
-                        CarDefinitions.setStock(filer.getName());
+                        car.setStockFile(filer);
+                        car.setStock(filer.getName());
                         imagetime = true;
                         foundstock = true;
                     }
@@ -43,18 +46,18 @@ public class ImageInterface {
                                 || filer.getName().contains("E") || filer.getName().contains("G1")) {
                             imagetime = false;
                         } else {
-                            CarDefinitions.setImageNames(filer.getPath(), count);
+                            car.setImageNames(filer.getPath(), count);
                             count++;
                         }
                     }
                     if (!foundstock) {
                         if (filer.getName().contains("F") || filer.getName().contains("G0")
                                 || filer.getName().contains("E") || filer.getName().contains("G1")) {
-                            CarDefinitions.setStock(filer.getName());
+                            car.setStock(filer.getName());
                             count = 0;
                             foundstock = true;
                             imagetime = true;
-                            CarDefinitions.setStockFile(filer);
+                            car.setStockFile(filer);
                         }
                     }
                 }
@@ -89,23 +92,23 @@ public class ImageInterface {
      * @param make
      */
     public static void CopyFiles(String stock, String model, String make) {
-        File mainpath = CarDefinitions.getStorageLocation(false, make, model, stock);
+        File mainpath = car.getStorageLocation(false, make, model, stock);
         String carpath = make + "_" + model + "_" + stock + "_";
         mainpath.mkdirs();
         File[] images = new File[count];
         File[] imagesend = new File[count];
         int i = 0;
         while (i < count) {
-            if (CarDefinitions.getImageNames()[i] == null 
-             || CarDefinitions.getImageNames()[i].contains("F")
-             || CarDefinitions.getImageNames()[i].contains("G0")
-             || CarDefinitions.getImageNames()[i].contains("E1")
-             || CarDefinitions.getImageNames()[i].contains("G1")) {
+            if (car.getImageNames()[i] == null 
+             || car.getImageNames()[i].contains("F")
+             || car.getImageNames()[i].contains("G0")
+             || car.getImageNames()[i].contains("E1")
+             || car.getImageNames()[i].contains("G1")) {
                 System.err.println("Image " + (i + 1) + " failed to move because it was a stock number picture somehow.");
             } else {
-                images[i] = new File(CarDefinitions.getImageNames()[i]);
-                if (CarDefinitions.getImageNames()[i].endsWith("_W.JPG")) {
-                    mainpath = CarDefinitions.getStorageLocation(true, make, model, stock);
+                images[i] = new File(car.getImageNames()[i]);
+                if (car.getImageNames()[i].endsWith("_W.JPG")) {
+                    mainpath = car.getStorageLocation(true, make, model, stock);
                     mainpath.mkdirs();
                 }
                 imagesend[i] = new File(mainpath + "/" + carpath + (i + 1) + ".jpg");

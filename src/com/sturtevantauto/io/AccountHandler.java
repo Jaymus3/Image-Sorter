@@ -17,9 +17,10 @@ public class AccountHandler {
         try {
             String user = null;
             String pass = null;
+            Car car = new Car();
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(CarDefinitions.getDBUrl(),
-                    CarDefinitions.getSQLUsername(), CarDefinitions.getSQLPassword());
+            Connection connection = DriverManager.getConnection(car.getDBUrl(),
+                    car.getSQLUsername(), car.getSQLPassword());
             Statement statement = connection.createStatement();
             ResultSet use = statement.executeQuery("USE car_parts");
             String username = userfield.getText();

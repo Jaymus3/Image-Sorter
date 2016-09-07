@@ -5,23 +5,23 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import javax.swing.JComboBox;
 
 public class PricingToolHandler {
+    static Car car = new Car();
     public static void getYears(JComboBox<String> yearBox) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(CarDefinitions.getDBUrl(),
-                    CarDefinitions.getSQLUsername(), CarDefinitions.getSQLPassword());
+            Connection connection = DriverManager.getConnection(car.getDBUrl(),
+                    car.getSQLUsername(), car.getSQLPassword());
             Statement statement = connection.createStatement();
             ResultSet use = statement.executeQuery("USE car_weight");
             ResultSet rs = statement.executeQuery("show tables;");
             while (rs.next()) {
-                if (CarDefinitions.getYearState() == false)
+                if (!car.getYearState())
                     yearBox.addItem(rs.getString("Tables_in_car_weight").replace("cars_", ""));
             }
-            CarDefinitions.setYearState(true);
+            Car.setYearState(true);
             use.close();
             rs.close();
             statement.close();
@@ -37,8 +37,8 @@ public class PricingToolHandler {
         try {
             String previousmake = "A make that no vehicle could possibly ever be so the first make works every time";
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(CarDefinitions.getDBUrl(),
-                    CarDefinitions.getSQLUsername(), CarDefinitions.getSQLPassword());
+            Connection connection = DriverManager.getConnection(car.getDBUrl(),
+                    car.getSQLUsername(), car.getSQLPassword());
             Statement statement = connection.createStatement();
             ResultSet use = statement.executeQuery("USE car_weight");
             ResultSet rs = statement.executeQuery("SELECT * FROM cars_" + year);

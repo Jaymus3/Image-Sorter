@@ -9,7 +9,7 @@ import java.io.File;
  * @author sturtevantauto
  *
  */
-public class CarDefinitions {
+public class Car {
     static String make;
     static String model;
     static File picloc = new File("/Users/sturtevantauto/Pictures/Car_Pictures/SORT_ME/");
@@ -24,7 +24,7 @@ public class CarDefinitions {
     static boolean yearState;
 
     public static void setYearState(boolean yearState) {
-        CarDefinitions.yearState = yearState;
+        Car.yearState = yearState;
     }
 
     /**
@@ -32,11 +32,11 @@ public class CarDefinitions {
      * 
      * @param folderpath
      */
-    public static void setPictureLocation(String folderpath) {
+    public void setPictureLocation(String folderpath) {
         picloc = new File(folderpath);
     }
 
-    public static void setDBUrl(String DBUrl) {
+    public void setDBUrl(String DBUrl) {
         dbUrl = "jdbc:mysql://" + DBUrl + "?autoReconnect=true&useSSL=false";
     }
 
@@ -45,7 +45,7 @@ public class CarDefinitions {
      * 
      * @param register
      */
-    public static void setRegisterOpen(boolean register) {
+    public void setRegisterOpen(boolean register) {
         registerwindow = register;
     }
 
@@ -54,7 +54,7 @@ public class CarDefinitions {
      * 
      * @param models
      */
-    public static void setModel(String models) {
+    public void setModel(String models) {
         model = models;
     }
 
@@ -63,7 +63,7 @@ public class CarDefinitions {
      * 
      * @param makes
      */
-    public static void setMake(String makes) {
+    public void setMake(String makes) {
         make = makes;
     }
 
@@ -72,7 +72,7 @@ public class CarDefinitions {
      * 
      * @param stock
      */
-    public static void setStockFile(File stock) {
+    public void setStockFile(File stock) {
         stockfile = stock;
     }
 
@@ -81,7 +81,7 @@ public class CarDefinitions {
      * 
      * @param thelist
      */
-    public static void setList(File[] thelist) {
+    public void setList(File[] thelist) {
         list = thelist;
     }
 
@@ -92,7 +92,7 @@ public class CarDefinitions {
      * @param imagename
      * @param i
      */
-    public static void setImageNames(String imagename, int i) {
+    public void setImageNames(String imagename, int i) {
         imagenames[i] = imagename;
     }
 
@@ -103,7 +103,7 @@ public class CarDefinitions {
      *            This determines whether or not the trimmer is trimming the
      *            stock number of previously skipped cars or not.
      */
-    public static void TrimStock(boolean skipped) {
+    public void TrimStock(boolean skipped) {
         if (skipped) {
             stock = stock.replace(".JPG", "");
             stock = stock.replace(".jpg", "");
@@ -120,7 +120,7 @@ public class CarDefinitions {
      * 
      * @return imagepaths
      */
-    public static String[] getImageNames() {
+    public String[] getImageNames() {
         return imagenames;
     }
 
@@ -129,11 +129,11 @@ public class CarDefinitions {
      * 
      * @return dbUrl
      */
-    public static String getDBUrl() {
+    public String getDBUrl() {
         return dbUrl;
     }
 
-    public static boolean getYearState() {
+    public boolean getYearState() {
         return yearState;
     }
 
@@ -142,7 +142,7 @@ public class CarDefinitions {
      * 
      * @return dbUsername
      */
-    public static String getSQLUsername() {
+    public String getSQLUsername() {
         return dbUsername;
     }
 
@@ -151,7 +151,7 @@ public class CarDefinitions {
      * 
      * @return dbPassword
      */
-    public static String getSQLPassword() {
+    public String getSQLPassword() {
         return dbPassword;
     }
 
@@ -160,7 +160,7 @@ public class CarDefinitions {
      * 
      * @return boolean registerwindowstatus
      */
-    public static boolean getRegister() {
+    public boolean getRegister() {
         return registerwindow;
     }
 
@@ -169,7 +169,7 @@ public class CarDefinitions {
      * 
      * @return make
      */
-    public static String getMake() {
+    public String getMake() {
         return make;
     }
 
@@ -178,7 +178,7 @@ public class CarDefinitions {
      * 
      * @param string
      */
-    public static void setStock(String string) {
+    public void setStock(String string) {
         stock = string;
     }
 
@@ -187,7 +187,7 @@ public class CarDefinitions {
      * 
      * @return stock
      */
-    public static String getStock() {
+    public String getStock() {
         return stock;
     }
 
@@ -196,7 +196,7 @@ public class CarDefinitions {
      * 
      * @return stockfile
      */
-    public static File getStockFile() {
+    public File getStockFile() {
         return stockfile;
     }
 
@@ -205,7 +205,7 @@ public class CarDefinitions {
      * 
      * @return piclocation
      */
-    public static File getPictureLocation() {
+    public File getPictureLocation() {
         return picloc;
     }
 
@@ -224,15 +224,15 @@ public class CarDefinitions {
      * @return storage path for an image
      */
     // TODO: Make these file paths adjustable
-    public static File getStorageLocation(boolean wheels, String make, String model, String stock) {
+    public File getStorageLocation(boolean wheels, String make, String model, String stock) {
+        File ret;
         if (wheels) {
-            File ret = new File(
+            ret = new File(
                     "/Users/sturtevantauto/Pictures/Car_Pictures/Wheels/" + make + "/" + model + "/" + stock);
-            return ret;
         } else {
-            File ret = new File("/Users/sturtevantauto/Pictures/Car_Pictures/" + make + "/" + model + "/" + stock);
-            return ret;
+            ret = new File("/Users/sturtevantauto/Pictures/Car_Pictures/" + make + "/" + model + "/" + stock);
         }
+        return ret;
     }
 
     /**
@@ -240,7 +240,7 @@ public class CarDefinitions {
      * 
      * @return thelist
      */
-    public static File[] getList() {
+    public File[] getList() {
         return list;
     }
 
@@ -249,7 +249,7 @@ public class CarDefinitions {
      * 
      * @return model
      */
-    public static String getModel() {
+    public String getModel() {
         return model;
     }
 
