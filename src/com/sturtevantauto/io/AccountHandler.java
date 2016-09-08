@@ -1,7 +1,6 @@
 package com.sturtevantauto.io;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,9 +17,7 @@ public class AccountHandler {
             String user = null;
             String pass = null;
             Car car = new Car();
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(car.getDBUrl(),
-                    car.getSQLUsername(), car.getSQLPassword());
+            Connection connection = car.getConnection();
             Statement statement = connection.createStatement();
             ResultSet use = statement.executeQuery("USE car_parts");
             String username = userfield.getText();
@@ -41,7 +38,6 @@ public class AccountHandler {
             use.close();
             rs.close();
             statement.close();
-            connection.close();
         } catch (ClassNotFoundException e1) {
             e1.printStackTrace();
         } catch (SQLException e1) {

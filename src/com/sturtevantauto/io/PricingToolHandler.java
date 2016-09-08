@@ -1,31 +1,37 @@
 package com.sturtevantauto.io;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import javax.swing.JComboBox;
 
 public class PricingToolHandler {
     static Car car = new Car();
     public static void getYears(JComboBox<String> yearBox) {
+        long start = System.currentTimeMillis();
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(car.getDBUrl(),
-                    car.getSQLUsername(), car.getSQLPassword());
+            Connection connection = car.getConnection();
+            long connect = System.currentTimeMillis();
+            System.out.println("Connect time: " + (connect - start));
             Statement statement = connection.createStatement();
-            ResultSet use = statement.executeQuery("USE car_weight");
+            statement.executeQuery("USE car_weight");
             ResultSet rs = statement.executeQuery("show tables;");
+            long statementt = System.currentTimeMillis();
+            System.out.println("Statement time: " + (statementt - connect));
             while (rs.next()) {
                 if (!car.getYearState())
                     yearBox.addItem(rs.getString("Tables_in_car_weight").replace("cars_", ""));
             }
+            long adding = System.currentTimeMillis();
+            System.out.println("Item adding time: " + (adding - statementt));
             Car.setYearState(true);
-            use.close();
             rs.close();
             statement.close();
-            connection.close();
+            long closingtime = System.currentTimeMillis();
+            System.out.println("Closing time: " + (closingtime - adding));
+            System.out.println("Total time: " + (closingtime - start));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -34,14 +40,17 @@ public class PricingToolHandler {
     }
 
     public static void getMakesByYear(String year, JComboBox<String> makeBox) {
+        long start = System.currentTimeMillis();
         try {
             String previousmake = "A make that no vehicle could possibly ever be so the first make works every time";
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(car.getDBUrl(),
-                    car.getSQLUsername(), car.getSQLPassword());
+            Connection connection = car.getConnection();
+            long connect = System.currentTimeMillis();
+            System.out.println("Connect time: " + (connect - start));
             Statement statement = connection.createStatement();
-            ResultSet use = statement.executeQuery("USE car_weight");
+            statement.executeQuery("USE car_weight");
             ResultSet rs = statement.executeQuery("SELECT * FROM cars_" + year);
+            long statementt = System.currentTimeMillis();
+            System.out.println("Statement time: " + (statementt - connect));
             while (rs.next()) {
                 String make = rs.getString("Make");
                 if (!make.equals(previousmake)) {
@@ -51,10 +60,45 @@ public class PricingToolHandler {
                     }
                 }
             }
-            use.close();
+            long adding = System.currentTimeMillis();
+            System.out.println("Item adding time: " + (adding - statementt));
             rs.close();
             statement.close();
-            connection.close();
+            long closingtime = System.currentTimeMillis();
+            System.out.println("Closing time: " + (closingtime - adding));
+            System.out.println("Total time: " + (closingtime - start));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void getModelsByMake(String make, String year, JComboBox<String> modelBox)
+    {
+        long start = System.currentTimeMillis();
+        try {
+            Connection connection = car.getConnection();
+            long connect = System.currentTimeMillis();
+            System.out.println("Connect time: " + (connect - start));
+            Statement statement = connection.createStatement();
+            statement.executeQuery("USE car_weight");
+            ResultSet rs = statement.executeQuery("SELECT * FROM cars_" + year);
+            long statementt = System.currentTimeMillis();
+            System.out.println("Statement time: " + (statementt - connect));
+            while (rs.next()) {
+                String mak = rs.getString("Make");
+                if (mak.equals(make)) {
+                    String model = rs.getString("Model");
+                    modelBox.addItem(model);
+                }
+            }
+            long adding = System.currentTimeMillis();
+            System.out.println("Item adding time: " + (adding - statementt));
+            rs.close();
+            statement.close();
+            long closingtime = System.currentTimeMillis();
+            System.out.println("Closing time: " + (closingtime - adding));
+            System.out.println("Total time: " + (closingtime - start));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {

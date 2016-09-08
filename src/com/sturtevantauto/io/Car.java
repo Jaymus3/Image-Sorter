@@ -1,6 +1,9 @@
 package com.sturtevantauto.io;
 
 import java.io.File;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Connection;
 
 /**
  * This class is used to store all of the common variables accessed by any tools
@@ -22,6 +25,7 @@ public class Car {
     private static String dbPassword = "4vSmbst4Q#uhL#3%";
     static String[] imagenames = new String[50];
     static boolean yearState;
+    Connection connection = null;
 
     public static void setYearState(boolean yearState) {
         Car.yearState = yearState;
@@ -242,6 +246,14 @@ public class Car {
      */
     public File[] getList() {
         return list;
+    }
+    
+    public Connection getConnection() throws SQLException, ClassNotFoundException
+    {
+        Class.forName("com.mysql.jdbc.Driver");
+        if(connection == null)
+            connection = DriverManager.getConnection(getDBUrl(), getSQLUsername(), getSQLPassword());
+        return connection;
     }
 
     /**

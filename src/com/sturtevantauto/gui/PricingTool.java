@@ -18,6 +18,7 @@ public class PricingTool {
     private JFrame pricingFrame;
     private JTextField searchField;
     public JComboBox<String> yearBox;
+    private boolean action;
 
     /**
      * Launch the application.
@@ -64,18 +65,37 @@ public class PricingTool {
         searchPrompt.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
         searchPrompt.setHorizontalAlignment(SwingConstants.LEFT);
         searchPrompt.setForeground(Color.GRAY);
-
-        String[] makes = { "Select a make" };
-        final JComboBox<String> makeBox = new JComboBox(makes);
-        makeBox.setSelectedIndex(0);
-        makeBox.setBounds(244, 83, 200, 27);
-        pricingFrame.getContentPane().add(makeBox);
-
+       
         String[] models = { "Select a model" };
         JComboBox<String> modelBox = new JComboBox(models);
         modelBox.setSelectedIndex(0);
         modelBox.setBounds(244, 118, 200, 27);
         pricingFrame.getContentPane().add(modelBox);
+
+        String[] makes = { "Select a make" };
+        final JComboBox<String> makeBox = new JComboBox(makes);
+        makeBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(action)
+                {
+                modelBox.removeAllItems();
+                modelBox.addItem("Select a model");
+                System.out.println(makeBox.getSelectedItem());
+                PricingToolHandler.getModelsByMake(makeBox.getSelectedItem().toString(), yearBox.getSelectedItem().toString(), modelBox);
+                }
+            }
+        });
+        /*
+        makeBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                modelBox.removeAllItems();
+                System.out.println(makeBox.getSelectedItem());
+                PricingToolHandler.getModelsByMake(makeBox.getSelectedItem().toString(), yearBox.getSelectedItem().toString(), modelBox);
+            }
+        });
+        */
+        makeBox.setBounds(244, 83, 200, 27);
+        pricingFrame.getContentPane().add(makeBox);
 
         String[] options = { "Select a package" };
         JComboBox<String> optionBox = new JComboBox(options);
@@ -86,8 +106,14 @@ public class PricingTool {
         yearBox = new JComboBox(new Object[] { "Select a year" });
         yearBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                action = false;
+                makeBox.removeAllItems();
+                makeBox.addItem("Select a make");
+                modelBox.removeAllItems();
+                modelBox.addItem("Select a model");
                 System.out.println(yearBox.getSelectedItem());
                 PricingToolHandler.getMakesByYear(yearBox.getSelectedItem().toString(), makeBox);
+                action = true;
             }
         });
         yearBox.setBounds(244, 44, 200, 27);

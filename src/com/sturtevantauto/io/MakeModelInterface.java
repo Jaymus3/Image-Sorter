@@ -17,9 +17,7 @@ public class MakeModelInterface {
      * @throws SQLException
      */
     public static void CheckMakeModelIndex(String model) throws IOException, ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(car.getDBUrl(), car.getSQLUsername(),
-                car.getSQLPassword());
+        Connection connection = car.getConnection();
         Statement statement = connection.createStatement();
         ResultSet use = statement.executeQuery("USE car_parts");
         ResultSet rs = statement.executeQuery("SELECT * FROM Make_Model_Index");
@@ -36,7 +34,6 @@ public class MakeModelInterface {
         use.close();
         rs.close();
         statement.close();
-        connection.close();
     }
 
     /**
@@ -50,16 +47,13 @@ public class MakeModelInterface {
      */
     public static void WriteMakeModelIndex(String model, String make)
             throws IOException, ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(car.getDBUrl(), car.getSQLUsername(),
-                car.getSQLPassword());
+        Connection connection = car.getConnection();
         Statement statement = connection.createStatement();
         ResultSet use = statement.executeQuery("USE car_parts");
         statement.executeUpdate(
                 "INSERT INTO `Make_Model_Index` (`Make`, `Model`) VALUES ('" + make + "', '" + model + "')");
         use.close();
         statement.close();
-        connection.close();
     }
 
 }

@@ -2,9 +2,7 @@ package com.sturtevantauto.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-
 import com.sturtevantauto.io.Car;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -14,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -104,9 +101,7 @@ public class RegistrationWindow {
                             if (secretCodeField.getText().equals("snecret")) {
                                 try {
                                     boolean usernametaken = false;
-                                    Class.forName("com.mysql.jdbc.Driver");
-                                    Connection connection = DriverManager.getConnection(car.getDBUrl(),
-                                            car.getSQLUsername(), car.getSQLPassword());
+                                    Connection connection = car.getConnection();
                                     Statement statement = connection.createStatement();
                                     ResultSet use = statement.executeQuery("USE car_parts");
                                     ResultSet rs = statement.executeQuery("SELECT * FROM Account_Index where Username='"
@@ -128,7 +123,6 @@ public class RegistrationWindow {
                                                 "Error", JOptionPane.ERROR_MESSAGE);
                                     use.close();
                                     statement.close();
-                                    connection.close();
                                 } catch (ClassNotFoundException e1) {
                                     e1.printStackTrace();
                                 } catch (SQLException e1) {

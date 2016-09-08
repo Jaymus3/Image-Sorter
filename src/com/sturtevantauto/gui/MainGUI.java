@@ -3,7 +3,6 @@ package com.sturtevantauto.gui;
 import java.awt.Desktop;
 import java.awt.HeadlessException;
 import java.awt.Image;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -13,12 +12,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JProgressBar;
 import javax.swing.JTextPane;
-
 import com.sturtevantauto.io.Car;
 import com.sturtevantauto.io.ImageInterface;
 import com.sturtevantauto.io.Logger;
 import com.sturtevantauto.io.MakeModelInterface;
-
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
@@ -27,7 +24,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javax.swing.JMenuBar;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -400,7 +396,7 @@ public class MainGUI {
             try {
                 img = ImageIO.read(new File(car.getImageNames()[j]));
             } catch (IOException e) {
-                e.printStackTrace();
+                carPicture.setVisible(false);
             }
             Image dimg = img.getScaledInstance(carPicture.getWidth(), carPicture.getHeight(), Image.SCALE_SMOOTH);
             ImageIcon imageIcon = new ImageIcon(dimg);
@@ -444,6 +440,7 @@ public class MainGUI {
         initialize();
         frmImageSorter.setVisible(true);
     }
+    
     public static Car getCar() {
         return car;
     }
