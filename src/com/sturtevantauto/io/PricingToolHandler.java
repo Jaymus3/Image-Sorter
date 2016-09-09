@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import javax.swing.JComboBox;
 
 public class PricingToolHandler {
     static Car car = new Car();
+
     public static void getYears(JComboBox<String> yearBox) {
         long start = System.currentTimeMillis();
         try {
@@ -73,8 +73,8 @@ public class PricingToolHandler {
             e.printStackTrace();
         }
     }
-    public static void getModelsByMake(String make, String year, JComboBox<String> modelBox)
-    {
+
+    public static void getModelsByMake(String make, String year, JComboBox<String> modelBox) {
         long start = System.currentTimeMillis();
         try {
             Connection connection = car.getConnection();
@@ -90,7 +90,7 @@ public class PricingToolHandler {
                 if (mak.equals(make)) {
                     String model = rs.getString("Model");
                     modelBox.addItem(model);
-                } //TODO: $100 per 2000
+                }
             }
             long adding = System.currentTimeMillis();
             System.out.println("Item adding time: " + (adding - statementt));
@@ -105,9 +105,8 @@ public class PricingToolHandler {
             e.printStackTrace();
         }
     }
-    
-    public static int getWeightByCar(String make, String model, String year)
-    {
+
+    public static int getWeightByCar(String make, String model, String year) {
         int weight = 0;
         long start = System.currentTimeMillis();
         try {
@@ -123,9 +122,9 @@ public class PricingToolHandler {
                 String maka = rs.getString("Make");
                 if (maka.equals(make)) {
                     String modele = rs.getString("Model");
-                    if(modele.equals(model))
+                    if (modele.equals(model))
                         weight = Integer.parseInt(rs.getString("Weight"));
-                } //TODO: $100 per 2000
+                }
             }
             long adding = System.currentTimeMillis();
             System.out.println("Weight lookup time: " + (adding - statementt));
@@ -141,16 +140,14 @@ public class PricingToolHandler {
         }
         return weight;
     }
-    
-    public static double convertToStandard(int metricweight)
-    {
+
+    public static double convertToStandard(int metricweight) {
         double standard = 0;
         standard = metricweight / 0.45359237;
         return standard;
     }
-    
-    public static double getPrice(double standardweight)
-    {
+
+    public static double getPrice(double standardweight) {
         double price = 0;
         price = standardweight * 0.05;
         return price;

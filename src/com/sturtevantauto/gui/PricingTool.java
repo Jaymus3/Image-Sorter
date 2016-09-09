@@ -101,13 +101,6 @@ public class PricingTool {
                 }
             }
         });
-        /*
-         * makeBox.addActionListener(new ActionListener() { public void
-         * actionPerformed(ActionEvent e) { modelBox.removeAllItems();
-         * System.out.println(makeBox.getSelectedItem());
-         * PricingToolHandler.getModelsByMake(makeBox.getSelectedItem().toString
-         * (), yearBox.getSelectedItem().toString(), modelBox); } });
-         */
         makeBox.setBounds(244, 83, 200, 27);
         pricingFrame.getContentPane().add(makeBox);
 
@@ -132,5 +125,6 @@ public class PricingTool {
         });
         yearBox.setBounds(244, 44, 200, 27);
         pricingFrame.getContentPane().add(yearBox);
+        pricingFrame.setLocationRelativeTo(null);
     }
 }
