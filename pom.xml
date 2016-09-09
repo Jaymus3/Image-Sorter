@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.sturtevantauto</groupId>
 	<artifactId>Sturtevant-Auto-Tools</artifactId>
-	<version>0.6.5-SNAPSHOT</version>
+	<version>0.6.6-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Sturtevant Auto Tools</name>
 	<build>
@@ -77,6 +77,11 @@
 					<check />
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+			</plugin>
 		</plugins>
 	</build>
 	<description>Tools used by the employees of Sturtevant Auto Salvage.</description>
@@ -88,4 +93,9 @@
 		</dependency>
 
 	</dependencies>
+	<organization>
+		<name>Jaytek</name>
+		<url>http://www.jaytek.org</url>
+	</organization>
+	<url>https://github.com/Jaymus3/Sturtevant-Auto-Tools</url>
 </project>
