@@ -44,7 +44,7 @@ public class MainGUI {
     private JLabel carPicture2;
     private JLabel carPicture3;
     private JLabel carPicture4;
-    private boolean quicksort = true;
+    private boolean quicksort = false;
     int increment = 100;
     static Car car = new Car();
 

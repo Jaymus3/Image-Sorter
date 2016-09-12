@@ -12,6 +12,7 @@ import java.awt.Color;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class PricingTool {
 
@@ -44,6 +45,26 @@ public class PricingTool {
     public PricingTool() {
         initialize();
         PricingToolHandler.getYears(yearBox);
+        
+        JLabel pricePickupLabel = new JLabel("$0000");
+        pricePickupLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 34));
+        pricePickupLabel.setBounds(6, 227, 100, 45);
+        pricingFrame.getContentPane().add(pricePickupLabel);
+        
+        JLabel priceDropoffLabel = new JLabel("$0000");
+        priceDropoffLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 34));
+        priceDropoffLabel.setBounds(142, 227, 100, 45);
+        pricingFrame.getContentPane().add(priceDropoffLabel);
+        
+        JLabel pickupLabel = new JLabel("We pick it up:");
+        pickupLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        pickupLabel.setBounds(6, 205, 100, 16);
+        pricingFrame.getContentPane().add(pickupLabel);
+        
+        JLabel lblTheyBringIt = new JLabel("They bring it here:");
+        lblTheyBringIt.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        lblTheyBringIt.setBounds(130, 205, 115, 16);
+        pricingFrame.getContentPane().add(lblTheyBringIt);
     }
 
     /**
@@ -52,6 +73,7 @@ public class PricingTool {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     private void initialize() {
         pricingFrame = new JFrame();
+        pricingFrame.getContentPane().setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
         pricingFrame.setResizable(false);
         pricingFrame.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
         pricingFrame.setTitle("Sturtevant Auto Pricing Tool");
@@ -60,16 +82,18 @@ public class PricingTool {
         pricingFrame.getContentPane().setLayout(null);
 
         searchField = new JTextField();
+        searchField.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
         searchField.setBounds(244, 6, 200, 26);
         pricingFrame.getContentPane().add(searchField);
         searchField.setColumns(10);
         TextPrompt searchPrompt = new TextPrompt("Search", searchField);
-        searchPrompt.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        searchPrompt.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
         searchPrompt.setHorizontalAlignment(SwingConstants.LEFT);
         searchPrompt.setForeground(Color.GRAY);
 
         String[] models = { "Select a model" };
         JComboBox<String> modelBox = new JComboBox(models);
+        modelBox.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
         modelBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (action2 && action)
@@ -88,6 +112,7 @@ public class PricingTool {
 
         String[] makes = { "Select a make" };
         makeBox = new JComboBox(makes);
+        makeBox.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
         makeBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (action) {
@@ -106,11 +131,13 @@ public class PricingTool {
 
         String[] options = { "Select a package" };
         JComboBox<String> optionBox = new JComboBox(options);
+        optionBox.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
         optionBox.setSelectedIndex(0);
         optionBox.setBounds(244, 157, 200, 27);
         pricingFrame.getContentPane().add(optionBox);
 
         yearBox = new JComboBox(new Object[] { "Select a year" });
+        yearBox.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
         yearBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 action = false;
