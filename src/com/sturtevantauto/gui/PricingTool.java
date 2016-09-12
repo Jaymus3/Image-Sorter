@@ -5,9 +5,7 @@ import javax.swing.JFrame;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
 import com.sturtevantauto.io.PricingToolHandler;
-
 import java.awt.Color;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
@@ -20,6 +18,10 @@ public class PricingTool {
     private JTextField searchField;
     public JComboBox<String> yearBox;
     private JComboBox<String> makeBox;
+    private JLabel priceDropoffLabel;
+    private JLabel pricePickupLabel;
+    private JLabel pickupLabel;
+    private JLabel bringLabel;
     private boolean action;
     private boolean action2;
 
@@ -45,26 +47,28 @@ public class PricingTool {
     public PricingTool() {
         initialize();
         PricingToolHandler.getYears(yearBox);
-        
-        JLabel pricePickupLabel = new JLabel("$0000");
+
+        pricePickupLabel = new JLabel("");
         pricePickupLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 34));
         pricePickupLabel.setBounds(6, 227, 100, 45);
         pricingFrame.getContentPane().add(pricePickupLabel);
-        
-        JLabel priceDropoffLabel = new JLabel("$0000");
+
+        priceDropoffLabel = new JLabel("");
         priceDropoffLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 34));
         priceDropoffLabel.setBounds(142, 227, 100, 45);
         pricingFrame.getContentPane().add(priceDropoffLabel);
-        
-        JLabel pickupLabel = new JLabel("We pick it up:");
+
+        pickupLabel = new JLabel("We pick it up:");
         pickupLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
         pickupLabel.setBounds(6, 205, 100, 16);
+        pickupLabel.setVisible(false);
         pricingFrame.getContentPane().add(pickupLabel);
-        
-        JLabel lblTheyBringIt = new JLabel("They bring it here:");
-        lblTheyBringIt.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
-        lblTheyBringIt.setBounds(130, 205, 115, 16);
-        pricingFrame.getContentPane().add(lblTheyBringIt);
+
+        bringLabel = new JLabel("They bring it here:");
+        bringLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        bringLabel.setBounds(130, 205, 115, 16);
+        bringLabel.setVisible(false);
+        pricingFrame.getContentPane().add(bringLabel);
     }
 
     /**
@@ -96,13 +100,15 @@ public class PricingTool {
         modelBox.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
         modelBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (action2 && action)
-                {
+                if (action2 && action) {
                     int weight = PricingToolHandler.getWeightByCar(makeBox.getSelectedItem().toString(),
                             modelBox.getSelectedItem().toString(), yearBox.getSelectedItem().toString());
                     double stdweight = PricingToolHandler.convertToStandard(weight);
                     double stdprice = PricingToolHandler.getPrice(stdweight);
-                    System.out.println("Price: " + stdprice);
+                    priceDropoffLabel.setText("$" + Math.round(stdprice));
+                    pricePickupLabel.setText("$" + (Math.round(stdprice) - 70));
+                    pickupLabel.setVisible(true);
+                    bringLabel.setVisible(true);
                 }
             }
         });
@@ -112,13 +118,15 @@ public class PricingTool {
 
         String[] makes = { "Select a make" };
         makeBox = new JComboBox(makes);
-        makeBox.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
+        makeBox.setFont(new Font("Helvetica Neue." + "", Font.PLAIN, 12));
         makeBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (action) {
                     action2 = false;
                     modelBox.removeAllItems();
                     modelBox.addItem("Select a model");
+                    pickupLabel.setVisible(false);
+                    bringLabel.setVisible(false);
                     System.out.println(makeBox.getSelectedItem());
                     PricingToolHandler.getModelsByMake(makeBox.getSelectedItem().toString(),
                             yearBox.getSelectedItem().toString(), modelBox);
@@ -145,6 +153,8 @@ public class PricingTool {
                 makeBox.addItem("Select a make");
                 modelBox.removeAllItems();
                 modelBox.addItem("Select a model");
+                pickupLabel.setVisible(false);
+                bringLabel.setVisible(false);
                 System.out.println(yearBox.getSelectedItem());
                 PricingToolHandler.getMakesByYear(yearBox.getSelectedItem().toString(), makeBox);
                 action = true;
