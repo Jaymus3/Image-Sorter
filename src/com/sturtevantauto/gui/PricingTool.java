@@ -86,6 +86,36 @@ public class PricingTool {
         pricingFrame.getContentPane().setLayout(null);
 
         searchField = new JTextField();
+        searchField.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String text = searchField.getText();
+                if (text.equals("") || text.equals(" "))
+                    System.out.println("No valid text entered.");
+                else {
+                    System.out.println("Searching...");
+                    int year;
+                    if (text.matches(".*\\d\\d.*") && !text.matches(".*\\d\\d\\d.*")) {
+                        System.out.println("2 digit year found.");
+                        if (text.indexOf('0') == -1)
+                            year = Integer.parseInt("19" + text.substring(text.indexOf('9'), (text.indexOf('9') + 2)));
+
+                        else
+                            year = Integer.parseInt("20" + text.substring(text.indexOf('0'), (text.indexOf('0') + 2)));
+                        if (year > 1970 && year < 2006) //Only prices cars as old as 1971 and as new as 2005.
+                            System.out.println("Year is: " + year);
+                        else
+                            System.out.println("Invalid year! Year read is: " + year);
+                    }
+                    if (text.matches(".*\\d\\d\\d\\d.*")) {
+                        if (text.indexOf('2') == -1)
+                            System.out.println(text.indexOf('1'));
+                        else
+                            System.out.println(text.indexOf('2'));
+                        System.out.println("4 digit year found.");
+                    }
+                }
+            }
+        });
         searchField.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
         searchField.setBounds(244, 6, 200, 26);
         pricingFrame.getContentPane().add(searchField);
