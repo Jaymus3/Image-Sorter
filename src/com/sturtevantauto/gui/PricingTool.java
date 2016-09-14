@@ -112,9 +112,10 @@ public class PricingTool {
                             for (int i = 0; textspl.length > i; i++)
                                 if (textspl[i].length() > 0)
                                     if (PricingToolHandler.getCarMakeResults(year, textspl[i]))
-                                        System.out.println("As it turns out, " + textspl[i] + " is a make! Yay!");
-                                    else
-                                        System.out.println("That's not how you sit on a toilet!");
+                                        for (int j = 0; textspl.length > j; j++)
+                                            if (textspl[j].length() > 0)
+                                                if(PricingToolHandler.getCarModelResults(year, textspl[i], textspl[j]) != 0)
+                                                    System.out.println("Weight found! " + PricingToolHandler.getCarModelResults(year, textspl[i], textspl[j]));
                         } else if (year >= 2006)
                             System.out.println("Year is 2006 or newer.  The year is: " + year);
                         else if (year != 0)
@@ -130,7 +131,7 @@ public class PricingTool {
                         System.out.println("4 digit year found.");
                     }
                 }
-            } 
+            }
         });
         searchField.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
         searchField.setBounds(244, 6, 200, 26);

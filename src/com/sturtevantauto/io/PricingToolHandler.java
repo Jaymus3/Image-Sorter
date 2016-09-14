@@ -40,17 +40,12 @@ public class PricingToolHandler {
     }
 
     public static void getMakesByYear(String year, JComboBox<String> makeBox) {
-        long start = System.currentTimeMillis();
         try {
             String previousmake = "A make that no vehicle could possibly ever be so the first make works every time";
             Connection connection = car.getConnection();
-            long connect = System.currentTimeMillis();
-            System.out.println("Connect time: " + (connect - start));
             Statement statement = connection.createStatement();
             statement.executeQuery("USE car_weight");
             ResultSet rs = statement.executeQuery("SELECT * FROM cars_" + year);
-            long statementt = System.currentTimeMillis();
-            System.out.println("Statement time: " + (statementt - connect));
             while (rs.next()) {
                 String make = rs.getString("Make");
                 if (!make.equals(previousmake)) {
@@ -60,13 +55,8 @@ public class PricingToolHandler {
                     }
                 }
             }
-            long adding = System.currentTimeMillis();
-            System.out.println("Item adding time: " + (adding - statementt));
             rs.close();
             statement.close();
-            long closingtime = System.currentTimeMillis();
-            System.out.println("Closing time: " + (closingtime - adding));
-            System.out.println("Total time: " + (closingtime - start));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -75,16 +65,11 @@ public class PricingToolHandler {
     }
 
     public static void getModelsByMake(String make, String year, JComboBox<String> modelBox) {
-        long start = System.currentTimeMillis();
         try {
             Connection connection = car.getConnection();
-            long connect = System.currentTimeMillis();
-            System.out.println("Connect time: " + (connect - start));
             Statement statement = connection.createStatement();
             statement.executeQuery("USE car_weight");
             ResultSet rs = statement.executeQuery("SELECT * FROM cars_" + year);
-            long statementt = System.currentTimeMillis();
-            System.out.println("Statement time: " + (statementt - connect));
             while (rs.next()) {
                 String mak = rs.getString("Make");
                 if (mak.equals(make)) {
@@ -92,13 +77,8 @@ public class PricingToolHandler {
                     modelBox.addItem(model);
                 }
             }
-            long adding = System.currentTimeMillis();
-            System.out.println("Item adding time: " + (adding - statementt));
             rs.close();
             statement.close();
-            long closingtime = System.currentTimeMillis();
-            System.out.println("Closing time: " + (closingtime - adding));
-            System.out.println("Total time: " + (closingtime - start));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -108,16 +88,11 @@ public class PricingToolHandler {
 
     public static int getWeightByCar(String make, String model, String year) {
         int weight = 0;
-        long start = System.currentTimeMillis();
         try {
             Connection connection = car.getConnection();
-            long connect = System.currentTimeMillis();
-            System.out.println("Connect time: " + (connect - start));
             Statement statement = connection.createStatement();
             statement.executeQuery("USE car_weight");
             ResultSet rs = statement.executeQuery("SELECT * FROM cars_" + year);
-            long statementt = System.currentTimeMillis();
-            System.out.println("Statement time: " + (statementt - connect));
             while (rs.next()) {
                 String maka = rs.getString("Make");
                 if (maka.equals(make)) {
@@ -126,13 +101,8 @@ public class PricingToolHandler {
                         weight = Integer.parseInt(rs.getString("Weight"));
                 }
             }
-            long adding = System.currentTimeMillis();
-            System.out.println("Weight lookup time: " + (adding - statementt));
             rs.close();
             statement.close();
-            long closingtime = System.currentTimeMillis();
-            System.out.println("Closing time: " + (closingtime - adding));
-            System.out.println("Total time: " + (closingtime - start));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -142,29 +112,19 @@ public class PricingToolHandler {
     }
     
     public static boolean getCarMakeResults(int year, String make) {
-        long start = System.currentTimeMillis();
         boolean foundmake = false;
         try {
             Connection connection = car.getConnection();
-            long connect = System.currentTimeMillis();
-            System.out.println("Connect time: " + (connect - start));
             Statement statement = connection.createStatement();
             statement.executeQuery("USE car_weight");
             ResultSet rs = statement.executeQuery("SELECT * FROM cars_" + year + " WHERE Make LIKE '" + make + "'");
-            long statementt = System.currentTimeMillis();
-            System.out.println("Statement time: " + (statementt - connect));
             while (rs.next()) {
                 if(rs.getString("Make").equalsIgnoreCase(make))
                     foundmake = true;
                     
             }
-            long adding = System.currentTimeMillis();
-            System.out.println("Weight lookup time: " + (adding - statementt));
             rs.close();
             statement.close();
-            long closingtime = System.currentTimeMillis();
-            System.out.println("Closing time: " + (closingtime - adding));
-            System.out.println("Total time: " + (closingtime - start));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -175,29 +135,18 @@ public class PricingToolHandler {
     }
     
     public static int getCarModelResults(int year, String make, String model) {
-        long start = System.currentTimeMillis();
         int weight = 0;
         try {
             Connection connection = car.getConnection();
-            long connect = System.currentTimeMillis();
-            System.out.println("Connect time: " + (connect - start));
             Statement statement = connection.createStatement();
             statement.executeQuery("USE car_weight");
             ResultSet rs = statement.executeQuery("SELECT * FROM cars_" + year + " WHERE Make LIKE '" + make + "'");
-            long statementt = System.currentTimeMillis();
-            System.out.println("Statement time: " + (statementt - connect));
             while (rs.next()) {
-                if(rs.getString("Model").equalsIgnoreCase(model))
-                    weight = Integer.parseInt(rs.getString("Weight"));
-                    
+                if(rs.getString("Model").contains(model.toUpperCase()))
+                    weight = Integer.parseInt(rs.getString("Weight"));         
             }
-            long adding = System.currentTimeMillis();
-            System.out.println("Weight lookup time: " + (adding - statementt));
             rs.close();
             statement.close();
-            long closingtime = System.currentTimeMillis();
-            System.out.println("Closing time: " + (closingtime - adding));
-            System.out.println("Total time: " + (closingtime - start));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
