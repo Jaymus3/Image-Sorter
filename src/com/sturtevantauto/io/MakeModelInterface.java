@@ -26,8 +26,7 @@ public class MakeModelInterface {
             String modelsql = rs.getString("Model");
             if (modelsql.equals(model)) {
                 car.setMake(make);
-                System.out.println(
-                        "It's a " + car.getMake() + " with stock number " + car.getStock());
+                System.out.println("It's a " + car.getMake() + " with stock number " + car.getStock());
                 foundmake = true;
             }
         }
@@ -45,13 +44,11 @@ public class MakeModelInterface {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public static void WriteMakeModelIndex(String model, String make)
-            throws IOException, ClassNotFoundException, SQLException {
+    public static void WriteMakeModelIndex(String model, String make) throws IOException, ClassNotFoundException, SQLException {
         Connection connection = car.getConnection();
         Statement statement = connection.createStatement();
         ResultSet use = statement.executeQuery("USE car_parts");
-        statement.executeUpdate(
-                "INSERT INTO `Make_Model_Index` (`Make`, `Model`) VALUES ('" + make + "', '" + model + "')");
+        statement.executeUpdate("INSERT INTO `Make_Model_Index` (`Make`, `Model`) VALUES ('" + make + "', '" + model + "')");
         use.close();
         statement.close();
     }

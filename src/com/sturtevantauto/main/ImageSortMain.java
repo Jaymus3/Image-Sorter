@@ -16,8 +16,8 @@ import com.sturtevantauto.gui.MainGUI;
 /**
  *
  * @author Aevum Kairos
- * @Note
- * Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
+ * @Note Javadoc authored by me doesn't necessarily indicate that I wrote it. It
+ *       just means I documented the purpose of something.
  */
 public class ImageSortMain {
     public static void main(String[] args) throws IOException, AWTException, ClassNotFoundException, SQLException {

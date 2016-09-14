@@ -231,8 +231,7 @@ public class Car {
     public File getStorageLocation(boolean wheels, String make, String model, String stock) {
         File ret;
         if (wheels) {
-            ret = new File(
-                    "/Users/sturtevantauto/Pictures/Car_Pictures/Wheels/" + make + "/" + model + "/" + stock);
+            ret = new File("/Users/sturtevantauto/Pictures/Car_Pictures/Wheels/" + make + "/" + model + "/" + stock);
         } else {
             ret = new File("/Users/sturtevantauto/Pictures/Car_Pictures/" + make + "/" + model + "/" + stock);
         }
@@ -247,11 +246,10 @@ public class Car {
     public File[] getList() {
         return list;
     }
-    
-    public Connection getConnection() throws SQLException, ClassNotFoundException
-    {
+
+    public Connection getConnection() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
-        if(connection == null)
+        if (connection == null)
             connection = DriverManager.getConnection(getDBUrl(), getSQLUsername(), getSQLPassword());
         return connection;
     }

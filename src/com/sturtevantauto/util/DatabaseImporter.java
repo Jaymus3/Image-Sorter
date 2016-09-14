@@ -32,8 +32,7 @@ public class DatabaseImporter {
             String[] lines = line.split(" ");
             String make = lines[0];
             String model = lines[1];
-            statement.executeUpdate(
-                    "INSERT INTO `Make_Model_Index` (`Make`, `Model`) VALUES ('" + make + "', '" + model + "')");
+            statement.executeUpdate("INSERT INTO `Make_Model_Index` (`Make`, `Model`) VALUES ('" + make + "', '" + model + "')");
         }
         reader.close();
         use.close();

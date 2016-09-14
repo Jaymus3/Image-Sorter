@@ -22,8 +22,7 @@ public class AccountHandler {
             ResultSet use = statement.executeQuery("USE car_parts");
             String username = userfield.getText();
             char[] password = passwordfield.getPassword();
-            ResultSet rs = statement.executeQuery("SELECT * FROM Account_Index where Username='" + username
-                    + "' and Password='" + new String(password) + "'");
+            ResultSet rs = statement.executeQuery("SELECT * FROM Account_Index where Username='" + username + "' and Password='" + new String(password) + "'");
             while (rs.next()) {
                 user = rs.getString("Username");
                 pass = rs.getString("Password");

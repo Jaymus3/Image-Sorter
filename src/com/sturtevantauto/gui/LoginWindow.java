@@ -142,8 +142,7 @@ public class LoginWindow {
                 Font font = new Font("Helvetica Neue", Font.PLAIN, 14);
                 JLabel labelConversionForFontSupport = new JLabel(messageString);
                 labelConversionForFontSupport.setFont(font);
-                JOptionPane.showMessageDialog(frmLoginWindow, labelConversionForFontSupport, "Forgot password",
-                        JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(frmLoginWindow, labelConversionForFontSupport, "Forgot password", JOptionPane.INFORMATION_MESSAGE);
 
             }
         });

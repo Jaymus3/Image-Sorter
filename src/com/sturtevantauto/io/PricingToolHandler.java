@@ -140,6 +140,72 @@ public class PricingToolHandler {
         }
         return weight;
     }
+    
+    public static boolean getCarMakeResults(int year, String make) {
+        long start = System.currentTimeMillis();
+        boolean foundmake = false;
+        try {
+            Connection connection = car.getConnection();
+            long connect = System.currentTimeMillis();
+            System.out.println("Connect time: " + (connect - start));
+            Statement statement = connection.createStatement();
+            statement.executeQuery("USE car_weight");
+            ResultSet rs = statement.executeQuery("SELECT * FROM cars_" + year + " WHERE Make LIKE '" + make + "'");
+            long statementt = System.currentTimeMillis();
+            System.out.println("Statement time: " + (statementt - connect));
+            while (rs.next()) {
+                if(rs.getString("Make").equalsIgnoreCase(make))
+                    foundmake = true;
+                    
+            }
+            long adding = System.currentTimeMillis();
+            System.out.println("Weight lookup time: " + (adding - statementt));
+            rs.close();
+            statement.close();
+            long closingtime = System.currentTimeMillis();
+            System.out.println("Closing time: " + (closingtime - adding));
+            System.out.println("Total time: " + (closingtime - start));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return foundmake;
+        
+    }
+    
+    public static int getCarModelResults(int year, String make, String model) {
+        long start = System.currentTimeMillis();
+        int weight = 0;
+        try {
+            Connection connection = car.getConnection();
+            long connect = System.currentTimeMillis();
+            System.out.println("Connect time: " + (connect - start));
+            Statement statement = connection.createStatement();
+            statement.executeQuery("USE car_weight");
+            ResultSet rs = statement.executeQuery("SELECT * FROM cars_" + year + " WHERE Make LIKE '" + make + "'");
+            long statementt = System.currentTimeMillis();
+            System.out.println("Statement time: " + (statementt - connect));
+            while (rs.next()) {
+                if(rs.getString("Model").equalsIgnoreCase(model))
+                    weight = Integer.parseInt(rs.getString("Weight"));
+                    
+            }
+            long adding = System.currentTimeMillis();
+            System.out.println("Weight lookup time: " + (adding - statementt));
+            rs.close();
+            statement.close();
+            long closingtime = System.currentTimeMillis();
+            System.out.println("Closing time: " + (closingtime - adding));
+            System.out.println("Total time: " + (closingtime - start));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return weight;
+        
+    }
 
     public static double convertToStandard(int metricweight) {
         double standard = 0;

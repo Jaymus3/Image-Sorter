@@ -84,8 +84,8 @@ public class MainGUI {
         frmImageSorter.getContentPane().setLayout(null);
         final JButton btnSort = new JButton("Sort");
         btnSort.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
-        if(!quicksort)
-        btnSort.setEnabled(false);
+        if (!quicksort)
+            btnSort.setEnabled(false);
         final JTextPane outputWindow = new JTextPane();
         outputWindow.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
         outputWindow.setToolTipText("Displays output such as error or success messages");
@@ -96,8 +96,7 @@ public class MainGUI {
             outputWindow.setBounds(15, 141, 295, 172);
         frmImageSorter.getContentPane().add(outputWindow);
         if (car.getStock() == null) {
-            outputWindow.setText(
-                    "No cars were found in the sorting directory.  Perhaps you didn't add the stock number to the end of any of the files, or forgot to import the pictures?");
+            outputWindow.setText("No cars were found in the sorting directory.  Perhaps you didn't add the stock number to the end of any of the files, or forgot to import the pictures?");
         }
         if (!quicksort) {
             makeField = new JTextField();
@@ -109,8 +108,7 @@ public class MainGUI {
                             car.setMake(makeField.getText());
                             MakeModelInterface.WriteMakeModelIndex(car.getModel(), car.getMake());
                             outputWindow.requestFocus();
-                            outputWindow
-                                    .setText("Make/Model association set!  Click the sort button to sort this car.");
+                            outputWindow.setText("Make/Model association set!  Click the sort button to sort this car.");
                             btnSort.setEnabled(true);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -245,10 +243,8 @@ public class MainGUI {
                     String[] options = new String[] { "Delete", "Continue" };
                     try {
                         if (Logger.CheckIfCarIndexed(car.getStock())) {
-                            int choice = JOptionPane.showOptionDialog(null,
-                                    "Would you like to delete the existing files for this car, or just continue anyways?",
-                                    "Car already sorted!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null,
-                                    options, options[0]);
+                            int choice = JOptionPane.showOptionDialog(null, "Would you like to delete the existing files for this car, or just continue anyways?", "Car already sorted!",
+                                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
                             if (choice == 0) {
                                 car.getStockFile().delete();
                                 File[] images = new File[5];
@@ -306,13 +302,11 @@ public class MainGUI {
             skipCarButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     progressBar.setValue(progressBar.getValue() + increment);
-                    car.getStockFile().renameTo(new File(
-                            "/Users/sturtevantauto/Pictures/Car_Pictures/SKIPPED/" + car.getStock() + "__.jpg"));
+                    car.getStockFile().renameTo(new File("/Users/sturtevantauto/Pictures/Car_Pictures/SKIPPED/" + car.getStock() + "__.jpg"));
                     for (int i = 0; car.getImageNames().length > i; i++) {
                         if (car.getImageNames()[i] != null) {
                             File carfile = new File(car.getImageNames()[i]);
-                            carfile.renameTo(new File("/Users/sturtevantauto/Pictures/Car_Pictures/SKIPPED/"
-                                    + car.getStock() + "_" + i + ".jpg"));
+                            carfile.renameTo(new File("/Users/sturtevantauto/Pictures/Car_Pictures/SKIPPED/" + car.getStock() + "_" + i + ".jpg"));
                         }
                     }
                     outputWindow.setText(car.getStock() + " successfully moved out for later sorting!");
@@ -359,9 +353,8 @@ public class MainGUI {
                     if (result == JFileChooser.APPROVE_OPTION) {
                         String[] options = new String[] { "Cancel", "Continue" };
                         int choice = JOptionPane.showOptionDialog(null,
-                                "This will restart the program, resulting in loss of progress beyond the last time you clicked the sort button.  Would you like to proceed?",
-                                "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options,
-                                options[0]);
+                                "This will restart the program, resulting in loss of progress beyond the last time you clicked the sort button.  Would you like to proceed?", "Warning",
+                                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
                         if (choice == 1) {
                             File selectedFile = fileChooser.getSelectedFile();
                             car.setPictureLocation(selectedFile.toString() + "/");

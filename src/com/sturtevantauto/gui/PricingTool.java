@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 
 public class PricingTool {
 
+    // MARK: Variables
     private JFrame pricingFrame;
     private JTextField searchField;
     public JComboBox<String> yearBox;
@@ -41,9 +42,7 @@ public class PricingTool {
         });
     }
 
-    /**
-     * Create the application.
-     */
+    // MARK: Application creation
     public PricingTool() {
         initialize();
         PricingToolHandler.getYears(yearBox);
@@ -71,9 +70,7 @@ public class PricingTool {
         pricingFrame.getContentPane().add(bringLabel);
     }
 
-    /**
-     * Initialize the contents of the frame.
-     */
+    // MARK: Initialization
     @SuppressWarnings({ "rawtypes", "unchecked" })
     private void initialize() {
         pricingFrame = new JFrame();
@@ -86,6 +83,7 @@ public class PricingTool {
         pricingFrame.getContentPane().setLayout(null);
 
         searchField = new JTextField();
+        // MARK: Search handler
         searchField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String text = searchField.getText();
@@ -93,18 +91,36 @@ public class PricingTool {
                     System.out.println("No valid text entered.");
                 else {
                     System.out.println("Searching...");
-                    int year;
+                    int year = 0;
                     if (text.matches(".*\\d\\d.*") && !text.matches(".*\\d\\d\\d.*")) {
                         System.out.println("2 digit year found.");
-                        if (text.indexOf('0') == -1)
-                            year = Integer.parseInt("19" + text.substring(text.indexOf('9'), (text.indexOf('9') + 2)));
+                        if (text.indexOf('0') == -1) {
+                            if (text.indexOf('9') != -1)
+                                year = Integer.parseInt("19" + text.substring(text.indexOf('9'), (text.indexOf('9') + 2)));
+                            if (text.indexOf('8') != -1)
+                                year = Integer.parseInt("19" + text.substring(text.indexOf('8'), (text.indexOf('8') + 2)));
+                            if (text.indexOf('7') != -1)
+                                year = Integer.parseInt("19" + text.substring(text.indexOf('7'), (text.indexOf('7') + 2)));
+                        }
 
-                        else
+                        else if (text.indexOf('0') != -1)
                             year = Integer.parseInt("20" + text.substring(text.indexOf('0'), (text.indexOf('0') + 2)));
-                        if (year > 1970 && year < 2006) //Only prices cars as old as 1971 and as new as 2005.
+                        if (year > 1970 && year < 2006) // Only specific year region permitted. TODO: Make this adjustable in admin panel
+                        {
                             System.out.println("Year is: " + year);
+                            String[] textspl = text.split(" ");
+                            for (int i = 0; textspl.length > i; i++)
+                                if (textspl[i].length() > 0)
+                                    if (PricingToolHandler.getCarMakeResults(year, textspl[i]))
+                                        System.out.println("As it turns out, " + textspl[i] + " is a make! Yay!");
+                                    else
+                                        System.out.println("That's not how you sit on a toilet!");
+                        } else if (year >= 2006)
+                            System.out.println("Year is 2006 or newer.  The year is: " + year);
+                        else if (year != 0)
+                            System.out.println("Invalid year!  Year read was: " + year);
                         else
-                            System.out.println("Invalid year! Year read is: " + year);
+                            System.out.println("No year successfully parsed.");
                     }
                     if (text.matches(".*\\d\\d\\d\\d.*")) {
                         if (text.indexOf('2') == -1)
@@ -114,7 +130,7 @@ public class PricingTool {
                         System.out.println("4 digit year found.");
                     }
                 }
-            }
+            } 
         });
         searchField.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
         searchField.setBounds(244, 6, 200, 26);
@@ -131,13 +147,14 @@ public class PricingTool {
         modelBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (action2 && action) {
-                    int weight = PricingToolHandler.getWeightByCar(makeBox.getSelectedItem().toString(),
-                            modelBox.getSelectedItem().toString(), yearBox.getSelectedItem().toString());
+                    int weight = PricingToolHandler.getWeightByCar(makeBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(), yearBox.getSelectedItem().toString());
                     double stdweight = PricingToolHandler.convertToStandard(weight);
                     double stdprice = PricingToolHandler.getPrice(stdweight);
                     priceDropoffLabel.setText("$" + Math.round(stdprice));
                     pricePickupLabel.setText("$" + (Math.round(stdprice) - 70));
                     pickupLabel.setVisible(true);
+                    pricePickupLabel.setVisible(true);
+                    priceDropoffLabel.setVisible(true);
                     bringLabel.setVisible(true);
                 }
             }
@@ -156,10 +173,11 @@ public class PricingTool {
                     modelBox.removeAllItems();
                     modelBox.addItem("Select a model");
                     pickupLabel.setVisible(false);
+                    pricePickupLabel.setVisible(false);
+                    priceDropoffLabel.setVisible(false);
                     bringLabel.setVisible(false);
                     System.out.println(makeBox.getSelectedItem());
-                    PricingToolHandler.getModelsByMake(makeBox.getSelectedItem().toString(),
-                            yearBox.getSelectedItem().toString(), modelBox);
+                    PricingToolHandler.getModelsByMake(makeBox.getSelectedItem().toString(), yearBox.getSelectedItem().toString(), modelBox);
                     action2 = true;
                 }
             }
@@ -184,6 +202,8 @@ public class PricingTool {
                 modelBox.removeAllItems();
                 modelBox.addItem("Select a model");
                 pickupLabel.setVisible(false);
+                pricePickupLabel.setVisible(false);
+                priceDropoffLabel.setVisible(false);
                 bringLabel.setVisible(false);
                 System.out.println(yearBox.getSelectedItem());
                 PricingToolHandler.getMakesByYear(yearBox.getSelectedItem().toString(), makeBox);

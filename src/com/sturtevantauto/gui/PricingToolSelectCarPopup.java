@@ -19,8 +19,8 @@ import java.awt.Font;
 /**
  *
  * @author Aevum Kairos
- * @Note
- * Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
+ * @Note Javadoc authored by me doesn't necessarily indicate that I wrote it. It
+ *       just means I documented the purpose of something.
  */
 @SuppressWarnings("serial")
 public class PricingToolSelectCarPopup extends JFrame {
@@ -55,8 +55,9 @@ public class PricingToolSelectCarPopup extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
-        
-        String[] lists = {"Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", };
+
+        String[] lists = { "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog", "Cat",
+                "Dog", "Cat", "Dog", "Cat", };
         @SuppressWarnings({ "rawtypes", "unchecked" })
         JList list = new JList(lists);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -64,7 +65,7 @@ public class PricingToolSelectCarPopup extends JFrame {
         list.setVisibleRowCount(-1);
         JScrollPane listScroll = new JScrollPane(list);
         contentPane.add(listScroll);
-        //listScroll.setPreferredSize(new Dimension(250, 80));
+        // listScroll.setPreferredSize(new Dimension(250, 80));
     }
 
 }
