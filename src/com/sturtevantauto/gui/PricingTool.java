@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 public class PricingTool {
 
     // MARK: Variables
-    private JFrame pricingFrame;
+    private static JFrame pricingFrame;
     private JTextField searchField;
     public JComboBox<String> yearBox;
     private JComboBox<String> makeBox;
@@ -31,6 +31,7 @@ public class PricingTool {
      */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
+            @SuppressWarnings("static-access")
             public void run() {
                 try {
                     PricingTool window = new PricingTool();
@@ -112,10 +113,10 @@ public class PricingTool {
                             for (int i = 0; textspl.length > i; i++)
                                 if (textspl[i].length() > 0)
                                     if (PricingToolHandler.getCarMakeResults(year, textspl[i])) {
-                                       // for (int j = 0; textspl.length > j; j++)
-                                            //if (textspl[j].length() > 0)
-                                                //if (PricingToolHandler.getCarModelResults(year, textspl[i], textspl[j]))
-                                                   // System.out.println("Even found a make.");
+                                        for (int j = 0; textspl.length > j; j++)
+                                            if (textspl[j].length() > 0)
+                                                if (PricingToolHandler.getCarModelResults(year, textspl[i], textspl[j]))
+                                                    System.out.println("Even found a make.");
 
                                         PricingToolSelectCarPopup.run();
                                     }
@@ -217,5 +218,9 @@ public class PricingTool {
         yearBox.setBounds(244, 44, 200, 27);
         pricingFrame.getContentPane().add(yearBox);
         pricingFrame.setLocationRelativeTo(null);
+    }
+    
+    public static JFrame getFrame() {
+        return pricingFrame;
     }
 }

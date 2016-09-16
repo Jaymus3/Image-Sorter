@@ -6,8 +6,10 @@
  */
 package com.sturtevantauto.gui;
 
+import java.awt.Dialog.ModalityType;
 import java.awt.Font;
 import javax.swing.BoxLayout;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,8 +24,8 @@ import com.sturtevantauto.io.PricingToolHandler;
  */
 public class PricingToolSelectCarPopup {
 
-    private JFrame frame;
     private JPanel contentPane;
+    private JDialog dialogue;
 
     /**
      * Launch the application.
@@ -31,7 +33,7 @@ public class PricingToolSelectCarPopup {
     public static void run() {
         try {
             PricingToolSelectCarPopup window = new PricingToolSelectCarPopup();
-            window.frame.setVisible(true);
+            window.dialogue.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,22 +50,24 @@ public class PricingToolSelectCarPopup {
      * Initialize the contents of the frame.
      */
     private void initialize() {
-        frame = new JFrame();
-        frame.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
-        frame.setTitle("Select a car:");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(100, 100, 800, 426);
+        dialogue = new JDialog(PricingTool.getFrame());
+        dialogue.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
+        dialogue.setTitle("Select a car:");
+        dialogue.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        dialogue.setBounds(100, 100, 800, 426);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        frame.setContentPane(contentPane);
+        dialogue.setContentPane(contentPane);
         String[] columnnames = { "Make", "Model", "Weight", "Price" };
         JTable table = new JTable(PricingToolHandler.getModelArray(), columnnames);
         table.getColumnModel().getColumn(1).setPreferredWidth(150);
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
         JScrollPane listScroll = new JScrollPane(table);
         contentPane.add(listScroll);
-        frame.setLocationRelativeTo(null);
-        frame.setAlwaysOnTop(true);
+        dialogue.setLocationRelativeTo(null);
+        dialogue.setModal(true);
+        dialogue.setAlwaysOnTop(true);
+        dialogue.setModalityType(ModalityType.APPLICATION_MODAL);
     }
 
 }

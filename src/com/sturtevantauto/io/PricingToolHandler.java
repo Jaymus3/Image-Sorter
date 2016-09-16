@@ -5,12 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JComboBox;
-import org.apache.commons.lang3.ArrayUtils;
 
 public class PricingToolHandler {
     static Car car = new Car();
     static String[][] makemodels = new String[200][200];
-    static String[][] makemodelstrimmed = {{"asdf", "ghjk", ";'", ",."},{"asdf", "ghjk", ";'", ",."}};
+    static String[][] makemodelstrimmed = {{"asdf", "ghjk", ";'", ",."},{"asdf", "ghjk", ";'", ",."}};  //This is just so WindowBuilder doesn't crash when parsing PricingToolSelectCarPopup
 
     public static void getYears(JComboBox<String> yearBox) {
         long start = System.currentTimeMillis();
@@ -157,7 +156,8 @@ public class PricingToolHandler {
 
     public static boolean getCarModelResults(int year, String make, String model) {
         boolean foundmodel = false;
-        boolean first = false;
+        boolean first = true;
+        int i = 0;
         try {
             Connection connection = car.getConnection();
             Statement statement = connection.createStatement();
@@ -165,11 +165,14 @@ public class PricingToolHandler {
             ResultSet rs = statement.executeQuery("SELECT * FROM cars_" + year + " WHERE Make LIKE '" + make + "'");
             while (rs.next()) {
                 if (rs.getString("Model").contains(model.toUpperCase())) {
-                    if(!first) {
-                    first = true;
+                    if(first)
+                    {
+                        makemodels = new String[200][200];
+                        first = false;
                     }
-                    String[] add = {rs.getString("Make"), rs.getString("Model")};
-                    ArrayUtils.add(makemodels, add);
+                    String[] add = {rs.getString("Make"), rs.getString("Model"), rs.getString("Weight"), rs.getString("Weight")};
+                    makemodels[i] = add;
+                    i++;
                     foundmodel = true;
                 }
             }
@@ -179,6 +182,19 @@ public class PricingToolHandler {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        int count = 0;
+        for (String[] s : makemodels) {
+            if (s[0] != null) {
+                count++;
+            }
+        }
+        makemodelstrimmed = new String[count][3];
+        int index = 0;
+        for (String[] s : makemodels) {
+            if (s[0] != null) {
+                makemodelstrimmed[index++] = s;
+            }
         }
         return foundmodel;
 

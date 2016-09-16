@@ -31,6 +31,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException, AWTException, ClassNotFoundException, SQLException {
         EventQueue.invokeLater(new Runnable() {
+            @SuppressWarnings("static-access")
             public void run() {
                 try {
                     System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Image Sorter");
