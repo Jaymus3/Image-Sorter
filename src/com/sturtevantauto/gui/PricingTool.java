@@ -111,11 +111,14 @@ public class PricingTool {
                             String[] textspl = text.split(" ");
                             for (int i = 0; textspl.length > i; i++)
                                 if (textspl[i].length() > 0)
-                                    if (PricingToolHandler.getCarMakeResults(year, textspl[i]))
-                                        for (int j = 0; textspl.length > j; j++)
-                                            if (textspl[j].length() > 0)
-                                                if(PricingToolHandler.getCarModelResults(year, textspl[i], textspl[j]) != 0)
-                                                    System.out.println("Weight found! " + PricingToolHandler.getCarModelResults(year, textspl[i], textspl[j]));
+                                    if (PricingToolHandler.getCarMakeResults(year, textspl[i])) {
+                                       // for (int j = 0; textspl.length > j; j++)
+                                            //if (textspl[j].length() > 0)
+                                                //if (PricingToolHandler.getCarModelResults(year, textspl[i], textspl[j]))
+                                                   // System.out.println("Even found a make.");
+
+                                        PricingToolSelectCarPopup.run();
+                                    }
                         } else if (year >= 2006)
                             System.out.println("Year is 2006 or newer.  The year is: " + year);
                         else if (year != 0)

@@ -5,9 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JComboBox;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class PricingToolHandler {
     static Car car = new Car();
+    static String[][] makemodels = new String[200][200];
+    static String[][] makemodelstrimmed = {{"asdf", "ghjk", ";'", ",."},{"asdf", "ghjk", ";'", ",."}};
 
     public static void getYears(JComboBox<String> yearBox) {
         long start = System.currentTimeMillis();
@@ -110,18 +113,23 @@ public class PricingToolHandler {
         }
         return weight;
     }
-    
+
     public static boolean getCarMakeResults(int year, String make) {
         boolean foundmake = false;
+        int i = 0;
         try {
             Connection connection = car.getConnection();
             Statement statement = connection.createStatement();
             statement.executeQuery("USE car_weight");
             ResultSet rs = statement.executeQuery("SELECT * FROM cars_" + year + " WHERE Make LIKE '" + make + "'");
             while (rs.next()) {
-                if(rs.getString("Make").equalsIgnoreCase(make))
+                if (rs.getString("Make").equalsIgnoreCase(make)) {
                     foundmake = true;
-                    
+                    String[] add = { rs.getString("Make"), rs.getString("Model"), rs.getString("Weight"), rs.getString("Weight") };
+                    makemodels[i] = add;
+                    i++;
+                }
+
             }
             rs.close();
             statement.close();
@@ -129,21 +137,41 @@ public class PricingToolHandler {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        int count = 0;
+        for (String[] s : makemodels) {
+            if (s[0] != null) {
+                count++;
+            }
+        }
+        makemodelstrimmed = new String[count][3];
+        int index = 0;
+        for (String[] s : makemodels) {
+            if (s[0] != null) {
+                makemodelstrimmed[index++] = s;
+            }
         }
         return foundmake;
-        
+
     }
-    
-    public static int getCarModelResults(int year, String make, String model) {
-        int weight = 0;
+
+    public static boolean getCarModelResults(int year, String make, String model) {
+        boolean foundmodel = false;
+        boolean first = false;
         try {
             Connection connection = car.getConnection();
             Statement statement = connection.createStatement();
             statement.executeQuery("USE car_weight");
             ResultSet rs = statement.executeQuery("SELECT * FROM cars_" + year + " WHERE Make LIKE '" + make + "'");
             while (rs.next()) {
-                if(rs.getString("Model").contains(model.toUpperCase()))
-                    weight = Integer.parseInt(rs.getString("Weight"));         
+                if (rs.getString("Model").contains(model.toUpperCase())) {
+                    if(!first) {
+                    first = true;
+                    }
+                    String[] add = {rs.getString("Make"), rs.getString("Model")};
+                    ArrayUtils.add(makemodels, add);
+                    foundmodel = true;
+                }
             }
             rs.close();
             statement.close();
@@ -152,8 +180,8 @@ public class PricingToolHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return weight;
-        
+        return foundmodel;
+
     }
 
     public static double convertToStandard(int metricweight) {
@@ -166,5 +194,9 @@ public class PricingToolHandler {
         double price = 0;
         price = standardweight * 0.05;
         return price;
+    }
+
+    public static String[][] getModelArray() {
+        return makemodelstrimmed;
     }
 }
