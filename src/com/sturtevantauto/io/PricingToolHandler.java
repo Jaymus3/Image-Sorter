@@ -9,7 +9,7 @@ import javax.swing.JComboBox;
 public class PricingToolHandler {
     static Car car = new Car();
     static String[][] makemodels = new String[200][200];
-    static String[][] makemodelstrimmed = {{"asdf", "ghjk", ";'", ",."},{"asdf", "ghjk", ";'", ",."}};  //This is just so WindowBuilder doesn't crash when parsing PricingToolSelectCarPopup
+    static String[][] makemodelstrimmed = { { "asdf", "ghjk", ";'", ",." }, { "asdf", "ghjk", ";'", ",." } }; // This is just so WindowBuilder doesn't crash when parsing PricingToolSelectCarPopup
 
     public static void getYears(JComboBox<String> yearBox) {
         long start = System.currentTimeMillis();
@@ -124,7 +124,10 @@ public class PricingToolHandler {
             while (rs.next()) {
                 if (rs.getString("Make").equalsIgnoreCase(make)) {
                     foundmake = true;
-                    String[] add = { rs.getString("Make"), rs.getString("Model"), rs.getString("Weight"), rs.getString("Weight") };
+                    double std = convertToStandard(Integer.parseInt((rs.getString("Weight"))));
+                    double price = getPrice(std);
+                    String prices = "$" + Math.round(price);
+                    String[] add = { rs.getString("Make"), rs.getString("Model"), rs.getString("Weight"), prices };
                     makemodels[i] = add;
                     i++;
                 }
@@ -165,12 +168,14 @@ public class PricingToolHandler {
             ResultSet rs = statement.executeQuery("SELECT * FROM cars_" + year + " WHERE Make LIKE '" + make + "'");
             while (rs.next()) {
                 if (rs.getString("Model").contains(model.toUpperCase())) {
-                    if(first)
-                    {
+                    if (first) {
                         makemodels = new String[200][200];
                         first = false;
                     }
-                    String[] add = {rs.getString("Make"), rs.getString("Model"), rs.getString("Weight"), rs.getString("Weight")};
+                    double std = convertToStandard(Integer.parseInt((rs.getString("Weight"))));
+                    double price = getPrice(std);
+                    String prices = "$" + Math.round(price);
+                    String[] add = { rs.getString("Make"), rs.getString("Model"), rs.getString("Weight"), prices };
                     makemodels[i] = add;
                     i++;
                     foundmodel = true;

@@ -177,5 +177,4 @@ public class LoginWindow {
     public static JFrame getFrame() {
         return frmLoginWindow;
     }
-
 }

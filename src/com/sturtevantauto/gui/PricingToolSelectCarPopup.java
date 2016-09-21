@@ -20,7 +20,8 @@ import com.sturtevantauto.io.PricingToolHandler;
 /**
  *
  * @author Aevum Kairos
- * @Note Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
+ * @Note 
+ * Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
  */
 public class PricingToolSelectCarPopup {
 
@@ -60,7 +61,10 @@ public class PricingToolSelectCarPopup {
         dialogue.setContentPane(contentPane);
         String[] columnnames = { "Make", "Model", "Weight", "Price" };
         JTable table = new JTable(PricingToolHandler.getModelArray(), columnnames);
-        table.getColumnModel().getColumn(1).setPreferredWidth(150);
+        table.getColumnModel().getColumn(0).setPreferredWidth(50);
+        table.getColumnModel().getColumn(1).setPreferredWidth(300);
+        table.getColumnModel().getColumn(2).setPreferredWidth(15);
+        table.getColumnModel().getColumn(3).setPreferredWidth(15);
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
         JScrollPane listScroll = new JScrollPane(table);
         contentPane.add(listScroll);

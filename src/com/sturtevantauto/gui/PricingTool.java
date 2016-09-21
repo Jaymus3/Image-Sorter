@@ -93,18 +93,22 @@ public class PricingTool {
                 else {
                     System.out.println("Searching...");
                     int year = 0;
-                    if (text.matches(".*\\d\\d.*") && !text.matches(".*\\d\\d\\d.*")) {
+                    if (text.matches(".*\\d\\d.*")) {
                         System.out.println("2 digit year found.");
                         if (text.indexOf('0') == -1) {
                             if (text.indexOf('9') != -1)
+                                if(!text.matches(".*\\d\\d\\d.*"))
                                 year = Integer.parseInt("19" + text.substring(text.indexOf('9'), (text.indexOf('9') + 2)));
                             if (text.indexOf('8') != -1)
+                                if(!text.matches(".*\\d\\d\\d.*"))
                                 year = Integer.parseInt("19" + text.substring(text.indexOf('8'), (text.indexOf('8') + 2)));
                             if (text.indexOf('7') != -1)
+                                if(!text.matches(".*\\d\\d\\d.*"))
                                 year = Integer.parseInt("19" + text.substring(text.indexOf('7'), (text.indexOf('7') + 2)));
                         }
 
                         else if (text.indexOf('0') != -1)
+                            if(!text.matches(".*\\d\\d\\d.*"))
                             year = Integer.parseInt("20" + text.substring(text.indexOf('0'), (text.indexOf('0') + 2)));
                         if (year > 1970 && year < 2006) // Only specific year region permitted. TODO: Make this adjustable in admin panel
                         {
