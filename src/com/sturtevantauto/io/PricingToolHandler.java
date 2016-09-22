@@ -9,7 +9,7 @@ import javax.swing.JComboBox;
 public class PricingToolHandler {
     static Car car = new Car();
     static String[][] makemodels = new String[200][200];
-    static String[][] makemodelstrimmed = { { "asdf", "ghjk", ";'", ",." }, { "asdf", "ghjk", ";'", ",." } }; // This is just so WindowBuilder doesn't crash when parsing PricingToolSelectCarPopup
+    static String[][] makemodelstrimmed = { { "#MAKE", "#MODEL", "#WEIGHT'", "#PRICE" }, { "#MAKE2", "#MODEL2", "#WEIGHT2'", "#PRICE2" } }; // This is just so WindowBuilder doesn't crash when parsing PricingToolSelectCarPopup
 
     public static void getYears(JComboBox<String> yearBox) {
         long start = System.currentTimeMillis();
