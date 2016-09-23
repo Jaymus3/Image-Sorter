@@ -25,6 +25,7 @@ public class PricingTool {
     private JLabel bringLabel;
     private boolean action;
     private boolean action2;
+    private boolean foundamake;
 
     /**
      * Launch the application.
@@ -97,21 +98,21 @@ public class PricingTool {
                         System.out.println("2 digit year found.");
                         if (text.indexOf('0') == -1) {
                             if (text.indexOf('9') != -1)
-                                if(!text.matches(".*\\d\\d\\d.*"))
-                                year = Integer.parseInt("19" + text.substring(text.indexOf('9'), (text.indexOf('9') + 2)));
+                                if (!text.matches(".*\\d\\d\\d.*"))
+                                    year = Integer.parseInt("19" + text.substring(text.indexOf('9'), (text.indexOf('9') + 2)));
                             if (text.indexOf('8') != -1)
-                                if(!text.matches(".*\\d\\d\\d.*"))
-                                year = Integer.parseInt("19" + text.substring(text.indexOf('8'), (text.indexOf('8') + 2)));
+                                if (!text.matches(".*\\d\\d\\d.*"))
+                                    year = Integer.parseInt("19" + text.substring(text.indexOf('8'), (text.indexOf('8') + 2)));
                             if (text.indexOf('7') != -1)
-                                if(!text.matches(".*\\d\\d\\d.*"))
-                                year = Integer.parseInt("19" + text.substring(text.indexOf('7'), (text.indexOf('7') + 2)));
+                                if (!text.matches(".*\\d\\d\\d.*"))
+                                    year = Integer.parseInt("19" + text.substring(text.indexOf('7'), (text.indexOf('7') + 2)));
                         }
 
                         else if (text.indexOf('0') != -1)
-                            if(!text.matches(".*\\d\\d\\d.*"))
-                            year = Integer.parseInt("20" + text.substring(text.indexOf('0'), (text.indexOf('0') + 2)));
-                        if (year > 1970 && year < 2006) // Only specific year region permitted. TODO: Make this adjustable in admin panel
-                        {
+                            if (!text.matches(".*\\d\\d\\d.*"))
+                                year = Integer.parseInt("20" + text.substring(text.indexOf('0'), (text.indexOf('0') + 2)));
+                        if (year > 1970 && year < 2006) { // Only specific year region permitted. TODO: Make this adjustable in admin panel
+                            foundamake = false;
                             System.out.println("Year is: " + year);
                             String[] textspl = text.split(" ");
                             for (int i = 0; textspl.length > i; i++)
@@ -121,14 +122,31 @@ public class PricingTool {
                                             if (textspl[j].length() > 0)
                                                 if (PricingToolHandler.getCarModelResults(year, textspl[i], textspl[j]))
                                                     System.out.println("Even found a make.");
-
+                                        foundamake = true;
                                         PricingToolSelectCarPopup.run();
                                     }
                         } else if (year >= 2006)
                             System.out.println("Year is 2006 or newer.  The year is: " + year);
                         else if (year != 0)
                             System.out.println("Invalid year!  Year read was: " + year);
-                        else
+                        else if (!foundamake) {
+                            String[] textspl = text.split(" ");
+                            int j = 1;
+                            for (int i = 0; textspl.length > i; i++) {
+                                if (textspl[i].length() > 0 && textspl[j].length() > 0) {
+                                    String textcomb = textspl[i] + " " + textspl[j];
+                                    if (PricingToolHandler.getCarMakeResults(year, textcomb)) {
+                                        for (int k = 0; textspl.length > k; k++)
+                                            if (textspl[k].length() > 0)
+                                                if (PricingToolHandler.getCarModelResults(year, textcomb, textspl[k]))
+                                                    System.out.println("Even found a make with 2 space model");
+                                        PricingToolSelectCarPopup.run();
+                                    }
+                                }
+                                j++;
+                            }
+
+                        } else
                             System.out.println("No year successfully parsed.");
                     }
                     if (text.matches(".*\\d\\d\\d\\d.*")) {
@@ -141,6 +159,7 @@ public class PricingTool {
                 }
             }
         });
+        // MARK: Search Handler End
         searchField.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
         searchField.setBounds(244, 6, 200, 26);
         pricingFrame.getContentPane().add(searchField);
@@ -223,7 +242,7 @@ public class PricingTool {
         pricingFrame.getContentPane().add(yearBox);
         pricingFrame.setLocationRelativeTo(null);
     }
-    
+
     public static JFrame getFrame() {
         return pricingFrame;
     }
