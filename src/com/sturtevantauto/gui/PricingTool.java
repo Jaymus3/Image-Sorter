@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 
 public class PricingTool {
 
-    // MARK: Variables
     private static JFrame pricingFrame;
     private JTextField searchField;
     public JComboBox<String> yearBox;
@@ -44,7 +43,7 @@ public class PricingTool {
         });
     }
 
-    // MARK: Application creation
+
     public PricingTool() {
         initialize();
         PricingToolHandler.getYears(yearBox);
@@ -72,7 +71,6 @@ public class PricingTool {
         pricingFrame.getContentPane().add(bringLabel);
     }
 
-    // MARK: Initialization
     @SuppressWarnings({ "rawtypes", "unchecked" })
     private void initialize() {
         pricingFrame = new JFrame();
@@ -85,7 +83,6 @@ public class PricingTool {
         pricingFrame.getContentPane().setLayout(null);
 
         searchField = new JTextField();
-        // MARK: Search handler
         searchField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String text = searchField.getText();
@@ -159,7 +156,6 @@ public class PricingTool {
                 }
             }
         });
-        // MARK: Search Handler End
         searchField.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
         searchField.setBounds(244, 6, 200, 26);
         pricingFrame.getContentPane().add(searchField);
