@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import com.sturtevantauto.gui.MainGUI;
+import com.sturtevantauto.gui.ImageSorter;
 
 public class AccountHandler {
     public static void login(JTextField userfield, JPasswordField passwordfield, JLabel error, JFrame frame) {
@@ -29,7 +29,7 @@ public class AccountHandler {
             }
             if (username.equals(user) && new String(password).equals(pass)) {
                 frame.dispose();
-                MainGUI window = new MainGUI();
+                ImageSorter window = new ImageSorter();
                 window.frmImageSorter.setVisible(true);
             } else {
                 error.setVisible(true);

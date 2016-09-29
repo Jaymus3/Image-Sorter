@@ -11,7 +11,7 @@ import java.awt.EventQueue;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.swing.UIManager;
-import com.sturtevantauto.gui.MainGUI;
+import com.sturtevantauto.gui.ImageSorter;
 
 /**
  *
@@ -27,7 +27,7 @@ public class ImageSortMain {
                     System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Image Sorter");
                     System.setProperty("apple.laf.useScreenMenuBar", "true");
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                    MainGUI imagesort = new MainGUI();
+                    ImageSorter imagesort = new ImageSorter();
                     imagesort.frmImageSorter.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();

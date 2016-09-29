@@ -33,7 +33,7 @@ import javax.swing.JMenu;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 
-public class MainGUI {
+public class ImageSorter {
 
     public JFrame frmImageSorter;
     private JTextField modelField;
@@ -44,6 +44,7 @@ public class MainGUI {
     private JLabel carPicture2;
     private JLabel carPicture3;
     private JLabel carPicture4;
+    private boolean buttonpushed = false;
     private boolean quicksort = false;
     int increment = 100;
     static Car car = new Car();
@@ -51,7 +52,7 @@ public class MainGUI {
     /**
      * Create the application.
      */
-    public MainGUI() {
+    public ImageSorter() {
         car.setMake(null);
         ImageInterface.findFile(car.getPictureLocation(), false);
         if (car.getStock() == null) {
@@ -256,6 +257,22 @@ public class MainGUI {
                                     }
                                     i++;
                                 }
+                                if (car.getStock() != null) {
+                                    outputWindow.setText(car.getStock() + " successfully deleted!");
+                                    car.setMake(null);
+                                    ImageInterface.findFile(car.getPictureLocation(), false);
+                                    loadImage(carPicture1, 0);
+                                    loadImage(carPicture2, 1);
+                                    loadImage(carPicture3, 2);
+                                    loadImage(carPicture4, 3);
+                                    car.TrimStock(false);
+                                    stockField.setText(car.getStock());
+                                } else
+                                    stockField.setText("NO CARS");
+
+                                makeField.setText("");
+                                makeField.setEditable(false);
+                                modelField.setText("");
                                 return;
                             }
                             if (choice == 1) {
@@ -266,7 +283,7 @@ public class MainGUI {
                             ImageInterface.CopyFiles(car.getStock(), car.getModel(), car.getMake());
                             car.getStockFile().delete();
                             Logger.LogCar(car.getStock());
-                            outputWindow.setText(car.getMake() + " " + car.getModel() + " successfully sorted!");
+                            outputWindow.setText(car.getStock() + " " + car.getMake() + " " + car.getModel() + " successfully sorted!");
                             car.setMake(null);
                             ImageInterface.findFile(car.getPictureLocation(), false);
                             loadImage(carPicture1, 0);
@@ -290,6 +307,18 @@ public class MainGUI {
                         e.printStackTrace();
                     } catch (SQLException e) {
                         e.printStackTrace();
+                    }
+                }
+            });
+        } else {
+            btnSort.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent arg0) {
+                    if (!buttonpushed) {
+                        System.out.println("Found " + ImageInterface.countPictures(car.getPictureLocation()) + " cars in the sorting directory.  Click the button again to sort them all!");
+                        buttonpushed = true;
+                    }
+                    if (buttonpushed) {
+                        
                     }
                 }
             });
@@ -340,6 +369,23 @@ public class MainGUI {
         menuBar.add(menuFile);
 
         JMenuItem menuItem1 = new JMenuItem("About");
+        String[] opt = { "OK" };
+        menuItem1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ImageIcon imageIcon = null;
+                try {
+                    Image img = ImageIO.read(getClass().getResource("/img/jaytek.jpg"));
+                    imageIcon = new ImageIcon(img);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                JOptionPane
+                        .showOptionDialog(null,
+                                "<html>Made by Jaytek (2016)<br>Version 1.1.27<br>Registered under LGPL-3.0<br>Authorized for use by anyone.  You just can't <br>modify the program in a way that"
+                                        + "would intentionally <br>break it, and you can't claim it's yours.</html>",
+                                "About", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, imageIcon, opt, opt[0]);
+            }
+        });
         menuItem1.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
         menuFile.add(menuItem1);
         if (!quicksort) {
@@ -359,7 +405,10 @@ public class MainGUI {
                             File selectedFile = fileChooser.getSelectedFile();
                             car.setPictureLocation(selectedFile.toString() + "/");
                             restart();
-                            skipCarButton.setVisible(false);
+                            if (selectedFile.toString().contains("SKIP"))
+                                skipCarButton.setVisible(false);
+                            else if (selectedFile.toString().contains("SORT"))
+                                skipCarButton.setVisible(true);
 
                         }
                     }
@@ -443,7 +492,7 @@ public class MainGUI {
 
     private void restart() {
         frmImageSorter.dispose();
-        new MainGUI();
+        new ImageSorter();
         initialize();
         frmImageSorter.setVisible(true);
     }

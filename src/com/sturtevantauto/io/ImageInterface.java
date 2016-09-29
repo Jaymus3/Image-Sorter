@@ -2,13 +2,13 @@ package com.sturtevantauto.io;
 
 import java.io.File;
 
-import com.sturtevantauto.gui.MainGUI;
+import com.sturtevantauto.gui.ImageSorter;
 
 public class ImageInterface {
     static boolean foundstock;
     static boolean imagetime;
     static int count;
-    static Car car = MainGUI.getCar();
+    static Car car = ImageSorter.getCar();
 
     /**
      * Lists all of the files in the given folder and stores them with
