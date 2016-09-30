@@ -45,7 +45,7 @@ public class ImageSorter {
     private JLabel carPicture3;
     private JLabel carPicture4;
     private boolean buttonpushed = false;
-    private boolean quicksort = true;
+    public static boolean quicksort;
     int increment = 100;
     static Car car = new Car();
 

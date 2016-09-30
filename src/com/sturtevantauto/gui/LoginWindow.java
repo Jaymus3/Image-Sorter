@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JCheckBox;
 
 public class LoginWindow {
 
@@ -50,7 +51,7 @@ public class LoginWindow {
         errorLabel.setVisible(false);
         errorLabel.setForeground(new Color(255, 0, 0));
         errorLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 11));
-        errorLabel.setBounds(44, 174, 240, 16);
+        errorLabel.setBounds(44, 174, 148, 16);
         frmLoginWindow.getContentPane().add(errorLabel);
 
         JLabel lblLogo = new JLabel("");
@@ -167,6 +168,15 @@ public class LoginWindow {
 
         loginButton.setBounds(16, 267, 268, 35);
         frmLoginWindow.getContentPane().add(loginButton);
+        
+        JCheckBox checkQuicksort = new JCheckBox("Quicksort?");
+        checkQuicksort.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ImageSorter.quicksort = checkQuicksort.isSelected();
+            }
+        });
+        checkQuicksort.setBounds(191, 169, 99, 23);
+        frmLoginWindow.getContentPane().add(checkQuicksort);
         frmLoginWindow.setLocationRelativeTo(null);
     }
 
