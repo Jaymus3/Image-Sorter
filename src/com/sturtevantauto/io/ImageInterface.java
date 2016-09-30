@@ -113,4 +113,21 @@ public class ImageInterface {
             i++;
         }
     }
+    
+    public static void CopyQuicksort(String stock) {
+        File mainpath = new File("/Users/sturtevantauto/Pictures/Quicksort/" + stock);
+        mainpath.mkdirs();
+        File[] images = new File[count];
+        File[] imagesend = new File[count];
+        int i = 0;
+        while (i < count) {
+            images[i] = new File(car.getImageNames()[i]);
+            imagesend[i] = new File(mainpath + "/" + stock + "_" + (i + 1) + ".jpg");
+            if (!images[i].renameTo(imagesend[i])) {
+                System.out.println("Image " + (i + 1) + "failed to move. Missing?");
+            }
+            i++;
+        }
+        
+    }
 }

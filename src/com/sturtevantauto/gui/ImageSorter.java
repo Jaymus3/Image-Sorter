@@ -45,7 +45,7 @@ public class ImageSorter {
     private JLabel carPicture3;
     private JLabel carPicture4;
     private boolean buttonpushed = false;
-    private boolean quicksort = false;
+    private boolean quicksort = true;
     int increment = 100;
     static Car car = new Car();
 
@@ -314,11 +314,29 @@ public class ImageSorter {
             btnSort.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
                     if (!buttonpushed) {
+                        progressBar.setVisible(true);
                         System.out.println("Found " + ImageInterface.countPictures(car.getPictureLocation()) + " cars in the sorting directory.  Click the button again to sort them all!");
                         buttonpushed = true;
+                        outputWindow.setText("Found " + ImageInterface.countPictures(car.getPictureLocation()) + " cars in the sorting directory.  Click the button again to sort them all!");
+                        progressBar.setValue(progressBar.getValue() + increment);
+                        return;
                     }
                     if (buttonpushed) {
-                        
+                        btnSort.setEnabled(false);
+                        int i = 0;
+                        int count = ImageInterface.countPictures(car.getPictureLocation());
+                        outputWindow.setText("");
+                        while (count > i) {
+                            progressBar.setValue(progressBar.getValue() + increment);
+                            ImageInterface.CopyQuicksort(car.getStock());
+                            outputWindow.setText(outputWindow.getText() + car.getStock() + " successfully sorted to /Users/sturtevantauto/Pictures/Quicksort/" + car.getStock() + System.getProperty("line.separator"));
+                            car.getStockFile().delete();
+                            ImageInterface.findFile(car.getPictureLocation(), false);
+                            i++;
+                            if(count > i)
+                                car.TrimStock(false);
+                        }
+                        outputWindow.setText(outputWindow.getText() + "Done sorting!  Sorted " + count + " cars.  You can now safely close the program.");
                     }
                 }
             });
@@ -381,7 +399,7 @@ public class ImageSorter {
                 }
                 JOptionPane
                         .showOptionDialog(null,
-                                "<html>Made by Jaytek (2016)<br>Version 1.1.27<br>Registered under LGPL-3.0<br>Authorized for use by anyone.  You just can't <br>modify the program in a way that"
+                                "<html>Made by Jaytek (2016)<br>Version 1.1.3-SNAPSHOT<br>Registered under LGPL-3.0<br>Authorized for use by anyone.  You just can't <br>modify the program in a way that"
                                         + "would intentionally <br>break it, and you can't claim it's yours.</html>",
                                 "About", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, imageIcon, opt, opt[0]);
             }
