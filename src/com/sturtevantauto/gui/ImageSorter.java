@@ -478,7 +478,12 @@ public class ImageSorter {
         }
         frmImageSorter.setLocationRelativeTo(null);
     }
-
+/**
+ * Loads pictures into a given JLabel.  Needs to be passed the position in the array of image locations as well.
+ * @param carPicture
+ * @param j
+ * @author Aevum Kairos
+ */
     private void loadImage(JLabel carPicture, int j) {
         if (car.getImageNames()[j] != null) {
             BufferedImage img = null;
@@ -496,7 +501,12 @@ public class ImageSorter {
             carPicture.setText("No image found!");
         }
     }
-
+/**
+ * Loads a mouse adapter on the passed JLabel and an integer for the array position
+ * @param carPicture
+ * @param j
+ * @author Aevum Kairos
+ */
     private void loadMouseAdapter(JLabel carPicture, final int j) {
         carPicture.addMouseListener(new MouseAdapter() {
             boolean OneClick;
@@ -524,14 +534,22 @@ public class ImageSorter {
             }
         });
     }
-
+/**
+ * Reloads the GUI.
+ * 
+ * @author Aevum Kairos
+ */
     private void restart() {
         frmImageSorter.dispose();
         new ImageSorter();
         initialize();
         frmImageSorter.setVisible(true);
     }
-
+/**
+ * Returns the car object this class is using.
+ * @return
+ * @author Aevum Kairos
+ */
     public static Car getCar() {
         return car;
     }
