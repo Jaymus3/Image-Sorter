@@ -12,6 +12,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JProgressBar;
 import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
+
 import com.sturtevantauto.io.Car;
 import com.sturtevantauto.io.ImageInterface;
 import com.sturtevantauto.io.Logger;
@@ -399,8 +401,13 @@ public class ImageSorter {
                 }
                 JOptionPane
                         .showOptionDialog(null,
-                                "<html>Made by Jaytek (2016)<br>Version 1.1.3-SNAPSHOT<br>Registered under LGPL-3.0<br>Authorized for use by anyone.  You just can't <br>modify the program in a way that"
-                                        + "would intentionally <br>break it, and you can't claim it's yours.</html>",
+                                "<html>Made by Jaytek (2016)<br>"
+                                + "Version 1.1.3-SNAPSHOT<br>"
+                                + "<url>http://jaytek.org/</url><br>"
+                                + "Registered under LGPL-3.0<br>"
+                                + "Authorized for use by anyone.  You just can't <br>"
+                                + "modify the program in a way that would intentionally <br>"
+                                + "break it, and you can't claim it's yours.</html>",
                                 "About", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, imageIcon, opt, opt[0]);
             }
         });
@@ -450,13 +457,21 @@ public class ImageSorter {
             if (car.getStock() != null)
                 stockField.setText(car.getStock());
             else {
-                carPicture1.setText("                      No image found!");
+                carPicture1.setText("No image found!");
+                carPicture1.setHorizontalAlignment(SwingConstants.CENTER);
+                carPicture1.setVerticalAlignment(SwingConstants.CENTER);
                 carPicture1.setIcon(null);
-                carPicture2.setText("                      No image found!");
+                carPicture2.setText("No image found!");
+                carPicture2.setHorizontalAlignment(SwingConstants.CENTER);
+                carPicture2.setVerticalAlignment(SwingConstants.CENTER);
                 carPicture2.setIcon(null);
-                carPicture3.setText("                      No image found!");
+                carPicture3.setText("No image found!");
+                carPicture3.setHorizontalAlignment(SwingConstants.CENTER);
+                carPicture3.setVerticalAlignment(SwingConstants.CENTER);
                 carPicture3.setIcon(null);
-                carPicture4.setText("                      No image found!");
+                carPicture4.setText("No image found!");
+                carPicture4.setHorizontalAlignment(SwingConstants.CENTER);
+                carPicture4.setVerticalAlignment(SwingConstants.CENTER);
                 carPicture4.setIcon(null);
                 stockField.setText("NO CARS");
             }
@@ -476,7 +491,9 @@ public class ImageSorter {
             ImageIcon imageIcon = new ImageIcon(dimg);
             carPicture.setIcon(imageIcon);
         } else {
-            carPicture.setText("                      No image found!");
+            carPicture.setHorizontalAlignment(SwingConstants.CENTER);
+            carPicture.setVerticalAlignment(SwingConstants.CENTER);
+            carPicture.setText("No image found!");
         }
     }
 

@@ -69,6 +69,7 @@ public class LoginWindow {
         frmLoginWindow.getContentPane().add(lblLogo);
 
         usernameField = new JTextField();
+        usernameField.requestFocus();
         usernameField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 passwordField.requestFocus();

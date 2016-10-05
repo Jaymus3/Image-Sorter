@@ -2,22 +2,12 @@ package com.sturtevantauto.main;
 
 import java.awt.AWTException;
 import java.awt.EventQueue;
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Scanner;
-
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-
 import com.sturtevantauto.gui.LoginWindow;
-import com.sturtevantauto.gui.ImageSorter;
-import com.sturtevantauto.io.Car;
-import com.sturtevantauto.io.ImageInterface;
-import com.sturtevantauto.io.Logger;
-import com.sturtevantauto.io.MakeModelInterface;
 
-@SuppressWarnings("unused")
+
 public class Main {
     /**
      * Runs at the start of the program and sets properties as well as
@@ -34,7 +24,7 @@ public class Main {
             @SuppressWarnings("static-access")
             public void run() {
                 try {
-                    System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Image Sorter");
+                    System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Sturtevant Auto Tools");
                     System.setProperty("apple.laf.useScreenMenuBar", "true");
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                     LoginWindow window = new LoginWindow();

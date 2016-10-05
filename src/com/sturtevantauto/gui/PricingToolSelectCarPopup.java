@@ -1,8 +1,6 @@
 /**
  * 
  * @author Aevum Kairos
- * @Note
- * Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
  */
 package com.sturtevantauto.gui;
 
@@ -25,8 +23,6 @@ import com.sturtevantauto.io.PricingToolHandler;
 /**
  *
  * @author Aevum Kairos
- * @Note 
- * Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
  */
 public class PricingToolSelectCarPopup {
 

@@ -149,7 +149,6 @@ public class RegistrationWindow {
     /**
      * @return the dialogue
      * @author Aevum Kairos
-     * @Note Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
      */
     public JDialog getDialogue() {
         return dialogue;
@@ -159,7 +158,6 @@ public class RegistrationWindow {
      * @param dialogue
      *            the dialogue to set
      * @author Aevum Kairos
-     * @Note Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
      */
     public void setDialogue(JDialog dialogue) {
         this.dialogue = dialogue;

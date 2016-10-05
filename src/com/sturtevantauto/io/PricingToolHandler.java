@@ -15,8 +15,6 @@ public class PricingToolHandler {
      * Adds a list of all of the parsed years to the supplied JComboBox
      * @param yearBox
      * @author Aevum Kairos
-     * @Note
-     * Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
      */
     public static void getYears(JComboBox<String> yearBox) {
         long start = System.currentTimeMillis();
@@ -52,8 +50,6 @@ public class PricingToolHandler {
  * @param year
  * @param makeBox
  * @author Aevum Kairos
- * @Note
- * Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
  */
     public static void getMakesByYear(String year, JComboBox<String> makeBox) {
         try {
@@ -85,8 +81,6 @@ public class PricingToolHandler {
  * @param year
  * @param modelBox
  * @author Aevum Kairos
- * @Note
- * Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
  */
     public static void getModelsByMake(String make, String year, JComboBox<String> modelBox) {
         try {
@@ -116,8 +110,6 @@ public class PricingToolHandler {
  * @param year
  * @return
  * @author Aevum Kairos
- * @Note
- * Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
  */
     public static int getWeightByCar(String make, String model, String year) {
         int weight = 0;
@@ -149,8 +141,6 @@ public class PricingToolHandler {
  * @param make
  * @return
  * @author Aevum Kairos
- * @Note
- * Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
  */
     public static boolean getCarMakeResults(int year, String make) {
         boolean foundmake = false;
@@ -202,8 +192,6 @@ public class PricingToolHandler {
  * @param model
  * @return
  * @author Aevum Kairos
- * @Note
- * Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
  */
     public static boolean getCarModelResults(int year, String make, String model) {
         boolean foundmodel = false;
@@ -257,8 +245,6 @@ public class PricingToolHandler {
  * @param metricweight
  * @return
  * @author Aevum Kairos
- * @Note
- * Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
  */
     public static double convertToStandard(int metricweight) {
         double standard = 0;
@@ -270,8 +256,6 @@ public class PricingToolHandler {
  * @param standardweight
  * @return
  * @author Aevum Kairos
- * @Note
- * Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
  */
     public static double getPrice(double standardweight) {
         double price = 0;
@@ -282,8 +266,6 @@ public class PricingToolHandler {
  * Returns the array of makes, models, weights, and prices assembled from other methods that must be executed first.
  * @return
  * @author Aevum Kairos
- * @Note
- * Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
  */
     public static String[][] getModelArray() {
         return makemodelstrimmed;

@@ -1,8 +1,6 @@
 /**
  * 
  * @author Aevum Kairos
- * @Note
- * Javadoc authored by me doesn't necessarily indicate that I wrote it. It just means I documented the purpose of something.
  */
 package com.sturtevantauto.main;
 
@@ -16,8 +14,6 @@ import com.sturtevantauto.gui.ImageSorter;
 /**
  *
  * @author Aevum Kairos
- * @Note Javadoc authored by me doesn't necessarily indicate that I wrote it. It
- *       just means I documented the purpose of something.
  */
 public class ImageSortMain {
     public static void main(String[] args) throws IOException, AWTException, ClassNotFoundException, SQLException {
