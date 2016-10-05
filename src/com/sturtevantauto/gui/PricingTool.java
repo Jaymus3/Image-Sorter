@@ -18,13 +18,14 @@ public class PricingTool {
     private JTextField searchField;
     public JComboBox<String> yearBox;
     private JComboBox<String> makeBox;
-    private JLabel priceDropoffLabel;
-    private JLabel pricePickupLabel;
-    private JLabel pickupLabel;
-    private JLabel bringLabel;
+    private static JLabel priceDropoffLabel;
+    private static JLabel pricePickupLabel;
+    private static JLabel pickupLabel;
+    private static JLabel bringLabel;
     private boolean action;
     private boolean action2;
     private boolean foundamake;
+    private static int yearr;
 
     /**
      * Launch the application.
@@ -55,7 +56,7 @@ public class PricingTool {
 
         priceDropoffLabel = new JLabel("");
         priceDropoffLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 34));
-        priceDropoffLabel.setBounds(142, 227, 100, 45);
+        priceDropoffLabel.setBounds(329, 227, 100, 45);
         pricingFrame.getContentPane().add(priceDropoffLabel);
 
         pickupLabel = new JLabel("We pick it up:");
@@ -66,7 +67,7 @@ public class PricingTool {
 
         bringLabel = new JLabel("They bring it here:");
         bringLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
-        bringLabel.setBounds(130, 205, 115, 16);
+        bringLabel.setBounds(329, 205, 115, 16);
         bringLabel.setVisible(false);
         pricingFrame.getContentPane().add(bringLabel);
     }
@@ -111,6 +112,7 @@ public class PricingTool {
                         if (year > 1970 && year < 2006) { // Only specific year region permitted. TODO: Make this adjustable in admin panel
                             foundamake = false;
                             System.out.println("Year is: " + year);
+                            setYear(year);
                             String[] textspl = text.split(" ");
                             for (int i = 0; textspl.length > i; i++)
                                 if (textspl[i].length() > 0)
@@ -155,6 +157,7 @@ public class PricingTool {
                     }
                 }
             }
+
         });
         searchField.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
         searchField.setBounds(244, 6, 200, 26);
@@ -174,8 +177,8 @@ public class PricingTool {
                     int weight = PricingToolHandler.getWeightByCar(makeBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(), yearBox.getSelectedItem().toString());
                     double stdweight = PricingToolHandler.convertToStandard(weight);
                     double stdprice = PricingToolHandler.getPrice(stdweight);
-                    priceDropoffLabel.setText("$" + Math.round(stdprice));
-                    pricePickupLabel.setText("$" + (Math.round(stdprice) - 70));
+                    priceDropoffLabel.setText("<html><font color='green'>$" + Math.round(stdprice) + "</font></html>");
+                    pricePickupLabel.setText("<html><font color='green'>$" + (Math.round(stdprice) - 75) + "</font></html>");
                     pickupLabel.setVisible(true);
                     pricePickupLabel.setVisible(true);
                     priceDropoffLabel.setVisible(true);
@@ -208,14 +211,14 @@ public class PricingTool {
         });
         makeBox.setBounds(244, 83, 200, 27);
         pricingFrame.getContentPane().add(makeBox);
-
+/*
         String[] options = { "Select a package" };
         JComboBox<String> optionBox = new JComboBox(options);
         optionBox.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
         optionBox.setSelectedIndex(0);
         optionBox.setBounds(244, 157, 200, 27);
         pricingFrame.getContentPane().add(optionBox);
-
+*/
         yearBox = new JComboBox(new Object[] { "Select a year" });
         yearBox.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
         yearBox.addActionListener(new ActionListener() {
@@ -237,6 +240,20 @@ public class PricingTool {
         yearBox.setBounds(244, 44, 200, 27);
         pricingFrame.getContentPane().add(yearBox);
         pricingFrame.setLocationRelativeTo(null);
+    }
+    
+    private void setYear(int year) {
+        yearr = year;
+    }
+    public static int getYear() {
+        return yearr;
+    }
+    
+    public static void setPriceDisplay(int price) {
+        pickupLabel.setVisible(true);
+        bringLabel.setVisible(true);
+        priceDropoffLabel.setText("<html><font color='green'>$" + Math.round(price) + "</font></html>");
+        pricePickupLabel.setText("<html><font color='green'>$" + (Math.round(price) - 75) + "</font></html>");
     }
 
     public static JFrame getFrame() {

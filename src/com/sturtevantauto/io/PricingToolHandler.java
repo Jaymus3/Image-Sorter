@@ -252,14 +252,15 @@ public class PricingToolHandler {
         return standard;
     }
 /**
- * Caclulates the price of a standard weight.  TODO: Make this adjustable in admin panel.
+ * Calculates the price of a standard weight.  TODO: Make this adjustable in admin panel.
  * @param standardweight
  * @return
  * @author Aevum Kairos
  */
-    public static double getPrice(double standardweight) {
-        double price = 0;
-        price = standardweight * 0.05;
+    public static int getPrice(double standardweight) {
+        int price = 0;
+        price = (int) (standardweight * 0.05);
+        price = (int) (5 * (Math.floor(price / 5)));
         return price;
     }
 /**

@@ -6,10 +6,8 @@ package com.sturtevantauto.gui;
 
 import java.awt.Dialog.ModalityType;
 import java.awt.Font;
-import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -28,6 +26,9 @@ public class PricingToolSelectCarPopup {
 
     private JPanel contentPane;
     private JDialog dialogue;
+    private int weight;
+    private double weightstd;
+    private int price;
 
     /**
      * Launch the application.
@@ -47,7 +48,6 @@ public class PricingToolSelectCarPopup {
     public PricingToolSelectCarPopup() {
         initialize();
     }
-    
 
     /**
      * Initialize the contents of the frame.
@@ -71,12 +71,14 @@ public class PricingToolSelectCarPopup {
         table.getColumnModel().getColumn(3).setPreferredWidth(15);
         table.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent m) {
-                JTable table =(JTable) m.getSource();
-                Point p = m.getPoint();
-                int row = table.rowAtPoint(p);
+                JTable table = (JTable) m.getSource();
                 if (m.getClickCount() == 2) {
-                    System.out.println(table.getSelectedRow());
-                    System.out.println(row);
+                    weight = PricingToolHandler.getWeightByCar(PricingToolHandler.getModelArray()[table.getSelectedRow()][0], PricingToolHandler.getModelArray()[table.getSelectedRow()][1],
+                            PricingTool.getYear() + "");
+                    weightstd = PricingToolHandler.convertToStandard(weight);
+                    price = PricingToolHandler.getPrice(weightstd);
+                    PricingTool.setPriceDisplay(price);
+                    dialogue.dispose();
                 }
             }
         });
