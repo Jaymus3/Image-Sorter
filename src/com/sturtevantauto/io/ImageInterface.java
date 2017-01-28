@@ -42,7 +42,8 @@ public class ImageInterface {
                     }
                 } else {
                     if (imagetime) {
-                        if (filer.getName().contains("F") || filer.getName().contains("G0") || filer.getName().contains("E") || filer.getName().contains("G1")) {
+                        if (filer.getName().contains("F") || filer.getName().contains("G0") || filer.getName().contains("E") || filer.getName().contains("G1") 
+                                || filer.getName().contains("H0") || filer.getName().contains("H1")) {
                             imagetime = false;
                         } else {
                             car.setImageNames(filer.getPath(), count);
@@ -50,7 +51,8 @@ public class ImageInterface {
                         }
                     }
                     if (!foundstock) {
-                        if (filer.getName().contains("F") || filer.getName().contains("G0") || filer.getName().contains("E") || filer.getName().contains("G1")) {
+                        if (filer.getName().contains("F") || filer.getName().contains("G0") || filer.getName().contains("E") || filer.getName().contains("G1") 
+                                || filer.getName().contains("H0") || filer.getName().contains("H1")) {
                             car.setStock(filer.getName());
                             count = 0;
                             foundstock = true;
@@ -73,7 +75,8 @@ public class ImageInterface {
         int pictures = 0;
         if (list != null)
             for (File filer : list) {
-                if (filer.getName().contains("F") || filer.getName().contains("G0") || filer.getName().contains("E") || filer.getName().contains("G1")) {
+                if (filer.getName().contains("F") || filer.getName().contains("G0") || filer.getName().contains("E") || filer.getName().contains("G1")
+                        || filer.getName().contains("H0") || filer.getName().contains("H1")) {
                     pictures++;
                 }
             }
@@ -96,8 +99,8 @@ public class ImageInterface {
         File[] imagesend = new File[count];
         int i = 0;
         while (i < count) {
-            if (car.getImageNames()[i] == null || car.getImageNames()[i].contains("F") || car.getImageNames()[i].contains("G0") || car.getImageNames()[i].contains("E1")
-                    || car.getImageNames()[i].contains("G1")) {
+            if (car.getImageNames()[i] == null || car.getImageNames()[i].contains("F") || car.getImageNames()[i].contains("G0") || car.getImageNames()[i].contains("E1") ||
+                    car.getImageNames()[i].contains("H0") || car.getImageNames()[i].contains("H1") || car.getImageNames()[i].contains("G1")) {
                 System.err.println("Image " + (i + 1) + " failed to move because it was a stock number picture somehow.");
             } else {
                 images[i] = new File(car.getImageNames()[i]);
