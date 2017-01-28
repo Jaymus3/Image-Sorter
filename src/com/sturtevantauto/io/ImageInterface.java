@@ -43,7 +43,15 @@ public class ImageInterface {
                 } else {
                     if (imagetime) {
                         if (filer.getName().contains("F") || filer.getName().contains("G0") || filer.getName().contains("E") || filer.getName().contains("G1") 
-                                || filer.getName().contains("H0") || filer.getName().contains("H1")) {
+                                || filer.getName().contains("H0") || filer.getName().contains("H1") || filer.getName().contains("J0") || filer.getName().contains("J1")
+                                || filer.getName().contains("K0") || filer.getName().contains("K1") || filer.getName().contains("L0") || filer.getName().contains("L1")
+                                || filer.getName().contains("M0") || filer.getName().contains("M1") || filer.getName().contains("N0") || filer.getName().contains("N1")
+                                || filer.getName().contains("P0") || filer.getName().contains("P1") || filer.getName().contains("Q0") || filer.getName().contains("Q1")
+                                || filer.getName().contains("R0") || filer.getName().contains("R1") || filer.getName().contains("S0") || filer.getName().contains("S1")
+                                || filer.getName().contains("T0") || filer.getName().contains("T1") || filer.getName().contains("U0") || filer.getName().contains("U1")
+                                || filer.getName().contains("V0") || filer.getName().contains("V1") || filer.getName().contains("W0") || filer.getName().contains("W1")
+                                || filer.getName().contains("X0") || filer.getName().contains("X1") || filer.getName().contains("Y0") || filer.getName().contains("Y1")
+                                || filer.getName().contains("Z0") || filer.getName().contains("Z1")) {
                             imagetime = false;
                         } else {
                             car.setImageNames(filer.getPath(), count);
@@ -52,7 +60,15 @@ public class ImageInterface {
                     }
                     if (!foundstock) {
                         if (filer.getName().contains("F") || filer.getName().contains("G0") || filer.getName().contains("E") || filer.getName().contains("G1") 
-                                || filer.getName().contains("H0") || filer.getName().contains("H1")) {
+                                || filer.getName().contains("H0") || filer.getName().contains("H1") || filer.getName().contains("J0") || filer.getName().contains("J1")
+                                || filer.getName().contains("K0") || filer.getName().contains("K1") || filer.getName().contains("L0") || filer.getName().contains("L1")
+                                || filer.getName().contains("M0") || filer.getName().contains("M1") || filer.getName().contains("N0") || filer.getName().contains("N1")
+                                || filer.getName().contains("P0") || filer.getName().contains("P1") || filer.getName().contains("Q0") || filer.getName().contains("Q1")
+                                || filer.getName().contains("R0") || filer.getName().contains("R1") || filer.getName().contains("S0") || filer.getName().contains("S1")
+                                || filer.getName().contains("T0") || filer.getName().contains("T1") || filer.getName().contains("U0") || filer.getName().contains("U1")
+                                || filer.getName().contains("V0") || filer.getName().contains("V1") || filer.getName().contains("W0") || filer.getName().contains("W1")
+                                || filer.getName().contains("X0") || filer.getName().contains("X1") || filer.getName().contains("Y0") || filer.getName().contains("Y1")
+                                || filer.getName().contains("Z0") || filer.getName().contains("Z1")) {
                             car.setStock(filer.getName());
                             count = 0;
                             foundstock = true;
@@ -75,8 +91,16 @@ public class ImageInterface {
         int pictures = 0;
         if (list != null)
             for (File filer : list) {
-                if (filer.getName().contains("F") || filer.getName().contains("G0") || filer.getName().contains("E") || filer.getName().contains("G1")
-                        || filer.getName().contains("H0") || filer.getName().contains("H1")) {
+                if (filer.getName().contains("F") || filer.getName().contains("G0") || filer.getName().contains("E") || filer.getName().contains("G1") 
+                        || filer.getName().contains("H0") || filer.getName().contains("H1") || filer.getName().contains("J0") || filer.getName().contains("J1")
+                        || filer.getName().contains("K0") || filer.getName().contains("K1") || filer.getName().contains("L0") || filer.getName().contains("L1")
+                        || filer.getName().contains("M0") || filer.getName().contains("M1") || filer.getName().contains("N0") || filer.getName().contains("N1")
+                        || filer.getName().contains("P0") || filer.getName().contains("P1") || filer.getName().contains("Q0") || filer.getName().contains("Q1")
+                        || filer.getName().contains("R0") || filer.getName().contains("R1") || filer.getName().contains("S0") || filer.getName().contains("S1")
+                        || filer.getName().contains("T0") || filer.getName().contains("T1") || filer.getName().contains("U0") || filer.getName().contains("U1")
+                        || filer.getName().contains("V0") || filer.getName().contains("V1") || filer.getName().contains("W0") || filer.getName().contains("W1")
+                        || filer.getName().contains("X0") || filer.getName().contains("X1") || filer.getName().contains("Y0") || filer.getName().contains("Y1")
+                        || filer.getName().contains("Z0") || filer.getName().contains("Z1")) {
                     pictures++;
                 }
             }
